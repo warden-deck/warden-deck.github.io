@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Warden is a dark, security-conscious web console for Linux servers.">
+  <meta name="theme-color" content="#111213">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <title>Documentation · Warden</title>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="./"><span>W</span><strong>Warden</strong></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="./docs.html">Docs</a>
+    <a href="https://github.com/warden-deck/warden">GitHub</a>
+  </nav>
+</header>
+<main><div class="docs-layout shell">
+      <aside class="docs-nav">
+        <p>Warden docs</p>
+        <a href="#status">Current status</a>
+        <a href="#build">Build & run</a>
+        <a href="#security">Security model</a>
+        <a href="#monitor">Monitor</a>
+        <a href="#explorer">Explorer</a>
+        <a href="#editor">Editor</a>
+        <a href="#terminal">Terminal</a>
+        <a href="#system">System administration</a>
+        <a href="#configuration">Configuration</a>
+        <a href="#deployment">Deployment boundary</a>
+      </aside>
+      <article class="docs-content">
+      <p class="eyebrow">Documentation</p>
+      <h1>Warden</h1>
+      <p class="docs-lede">Warden is a security-conscious web console for Linux servers. Nift builds the frontend; a dependency-light Go service owns authentication, monitoring, filesystem operations, structured administration and the interactive PTY terminal.</p>
+      
+      <section id="status"><h2>Current status</h2>
+      <div class="callout warning"><strong>Development build.</strong><p>The current v1 slice is intended for local/private dogfooding. Do not expose it directly to the public Internet yet. The application has meaningful security controls, but the planned adversarial security campaign, proxy-trust hardening, session-management work and broader deployment testing are not complete.</p></div>
+      <p>Warden is deliberately more than a read-only dashboard. An authenticated user can edit files, operate a terminal and invoke structured administrative actions. That makes the authority boundary important: Warden can only be as constrained as the operating-system identity and configuration under which it runs.</p>
+      </section>
+      
+      <section id="build"><h2>Build and run</h2>
+      <h3>Build the Nift frontend</h3>
+      <pre><code>nift build</code></pre>
+      <p>The generated frontend lives in <code>public/</code>. Nift remains the build-time composition/dependency layer; runtime behavior stays ordinary browser JavaScript talking to the Go API.</p>
+      <h3>Build the Go service</h3>
+      <pre><code>go build -o warden ./cmd/warden</code></pre>
+      <h3>Create a password hash</h3>
+      <pre><code>./warden hash-password 'choose-a-strong-password'</code></pre>
+      <p>Warden does not store a default cleartext password. <code>hash-password</code> emits a PBKDF2-HMAC-SHA256 hash using a random salt and 310,000 iterations.</p>
+      <h3>Start locally</h3>
+      <pre><code>export WARDEN_PASSWORD_HASH='pbkdf2-sha256$...'
+./warden</code></pre>
+      <p>The default listener is <code>127.0.0.1:8080</code>. Open that address in a browser. Loopback development permits a non-Secure session cookie so local HTTP works; non-loopback listeners default to Secure cookies.</p>
+      </section>
+      
+      <section id="security"><h2>Security model</h2>
+      <p>Warden's current controls are implemented in the server, not only in the UI:</p>
+      <ul>
+      <li>server-side 12-hour sessions with an HttpOnly, SameSite=Strict cookie;</li>
+      <li>per-session CSRF tokens required for state-changing API requests;</li>
+      <li>login rate limiting per direct client address;</li>
+      <li>WebSocket terminal upgrades require authentication, CSRF and matching Origin/Host;</li>
+      <li>restrictive CSP, frame, referrer and content-type response headers;</li>
+      <li>filesystem paths are resolved against one configured file-management root, including symlink resolution;</li>
+      <li>editor writes use temporary-file + fsync + atomic rename and preserve existing permission bits;</li>
+      <li>privileged activity is appended to <code>warden-audit.log</code>, created with mode <code>0600</code>.</li>
+      </ul>
+      <div class="callout"><strong>The terminal is a separate authority boundary.</strong><p><code>--root</code> / <code>WARDEN_FILE_ROOT</code> confines Explorer and Editor file APIs. It does <em>not</em> sandbox the PTY. The terminal starts in the configured user's home directory and executes with the Warden process user's normal OS authority.</p></div>
+      <p><code>WARDEN_TRUST_PROXY</code> exists in configuration but the current client-address helper still uses the direct peer address. Do not assume generic forwarded headers are trusted client identity. A precise trusted-proxy model remains future hardening work.</p>
+      </section>
+      
+      <section id="monitor"><h2>Monitor</h2>
+      <p>The Overview page reads Linux system information through the Go backend and renders it as structured cards and browser-side graphs. The current surface includes CPU usage/load, memory, root-filesystem storage, hostname, uptime, process count and runtime information.</p>
+      <p>The monitor is intended to answer common “what is this machine doing?” questions quickly without turning the page into a terminal transcript. It is a convenience/observability surface, not a replacement for a full metrics stack such as Prometheus.</p>
+      </section>
+      
+      <section id="explorer"><h2>Explorer</h2>
+      <p>Explorer starts in the server user's home directory by default while allowing navigation up to the configured file root. It is intentionally separate from the Editor so bulk file management can have a file-manager interaction model.</p>
+      <ul>
+      <li>size and modified-time columns;</li>
+      <li>multi-select with upload, create, rename, copy, move and delete operations;</li>
+      <li>download of files and archive download for selections;</li>
+      <li>ZIP compression and extraction with path-confinement checks;</li>
+      <li>inline image, video and audio preview;</li>
+      <li>home jump plus root-aware breadcrumbs.</li>
+      </ul>
+      <p>Set <code>--root /some/subtree</code> or <code>WARDEN_FILE_ROOT</code> when you intentionally want a narrower Explorer/Editor view. Warden resolves candidate paths and symlinks inside that root rather than trusting string prefixes.</p>
+      </section>
+      
+      <section id="editor"><h2>Workspace editor</h2>
+      <p>The Editor is workspace-oriented rather than a textarea bolted onto the Explorer. Its own tree can open directories in-place, keep multiple files in tabs and search across the active workspace.</p>
+      <ul>
+      <li>syntax-highlighted text editing with word wrap;</li>
+      <li>multiple open tabs and VS Code-style workspace tree;</li>
+      <li>native undo/redo behavior including <code>Ctrl+Z</code>;</li>
+      <li>workspace search and replace, case-sensitive mode and regular expressions;</li>
+      <li>atomic saves with permission preservation;</li>
+      <li>download of the currently open file.</li>
+      </ul>
+      <p>Search/replace is intentionally a filesystem operation performed through the authenticated backend, so its confinement follows the same configured root as other file APIs.</p>
+      </section>
+      
+      <section id="terminal"><h2>Interactive terminal</h2>
+      <p>The Terminal is a real Linux PTY exposed over an authenticated WebSocket. Common ANSI/SGR colours are preserved in the browser. Terminal access is therefore not a cosmetic dashboard feature—it gives the session the practical authority of the account running Warden.</p>
+      <div class="callout warning"><strong>Design roles around the PTY, not around the buttons.</strong><p>Future viewer/operator/admin roles must treat terminal entitlement as an explicit capability. Hiding a dangerous structured action while leaving unrestricted terminal access would not create a meaningful security boundary.</p></div>
+      </section>
+      
+      <section id="system"><h2>Structured system administration</h2>
+      <p>The System menu presents typed state and explicit actions rather than dumping raw command output into textareas. Availability depends on the host and Warden process permissions.</p>
+      <div class="admin-grid">
+      <article><h3>Certificates</h3><p>Reads common TLS certificate locations, including Let's Encrypt paths, and reports subject, issuer, names and expiry. Managed certificate actions are constrained to validated inputs.</p></article>
+      <article><h3>Cron</h3><p>Displays system cron files and the current user's crontab as structured schedules/commands. User-crontab changes validate schedule/action input before invoking the system tool.</p></article>
+      <article><h3>Docker</h3><p>Talks directly to the local Docker Unix socket for version/container state and supports bounded container actions when the socket is available.</p></article>
+      <article><h3>Fail2ban</h3><p>Lists jails and status through <code>fail2ban-client</code>, with validated jail/IP inputs for supported actions.</p></article>
+      <article><h3>Firewall</h3><p>Reads UFW status/rules and applies validated allow/delete operations rather than accepting arbitrary shell fragments.</p></article>
+      <article><h3>Services</h3><p>Lists systemd services at system or user scope and exposes structured service actions. Unit names and action values are validated.</p></article>
+      <article><h3>SSH</h3><p>Surfaces selected <code>sshd_config</code> settings and service state, with bounded configuration actions.</p></article>
+      <article><h3>Users</h3><p>Reads account information from <code>/etc/passwd</code>, distinguishes system versus login users, and validates usernames/actions for supported administration.</p></article>
+      </div>
+      </section>
+      
+      <section id="configuration"><h2>Configuration</h2>
+      <div class="table-wrap"><table><thead><tr><th>Option / variable</th><th>Default</th><th>Purpose</th></tr></thead><tbody>
+      <tr><td><code>--listen</code> / <code>WARDEN_LISTEN</code></td><td><code>127.0.0.1:8080</code></td><td>HTTP listen address.</td></tr>
+      <tr><td><code>--root</code> / <code>WARDEN_FILE_ROOT</code></td><td><code>/</code></td><td>Explorer/Editor filesystem root. Does not sandbox terminal.</td></tr>
+      <tr><td><code>--static</code> / <code>WARDEN_STATIC_DIR</code></td><td><code>public</code></td><td>Nift-built frontend directory.</td></tr>
+      <tr><td><code>WARDEN_PASSWORD_HASH</code></td><td>required</td><td>PBKDF2 password verifier generated by <code>hash-password</code>.</td></tr>
+      <tr><td><code>WARDEN_SECURE_COOKIES</code></td><td>auto</td><td>Defaults false for loopback listeners and true otherwise.</td></tr>
+      <tr><td><code>WARDEN_TRUST_PROXY</code></td><td>false</td><td>Reserved proxy-trust setting; do not infer forwarded-address trust from it yet.</td></tr>
+      </tbody></table></div>
+      </section>
+      
+      <section id="deployment"><h2>Deployment boundary</h2>
+      <p>For current dogfooding, prefer loopback access, a private network or a private tunnel. If you place Warden behind HTTPS, set Secure cookies appropriately and keep the reverse proxy's origin/host behavior compatible with the WebSocket same-origin check.</p>
+      <p>Before recommending Internet-facing deployment, Warden still needs the planned adversarial security corpus, explicit trusted-proxy semantics, stronger session revocation/management, optional 2FA, audit rotation/structure, deployment hardening and broader hostile-input testing.</p>
+      <div class="callout"><strong>Current rule of thumb.</strong><p>If you would not give an authenticated visitor shell access as the Warden process user, do not give them Warden access either.</p></div>
+      </section>
+      </article></div></main>
+<footer class="site-footer">
+  <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
+  <div><a href="./docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>
+</footer>
+<script src="assets/js/script.js"></script>
+</body>
+</html>
