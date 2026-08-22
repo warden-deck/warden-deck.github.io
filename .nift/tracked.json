@@ -1,0 +1,26 @@
+{
+  "tracked": [
+    {
+      "name": "/",
+      "title": "Linux server console",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs",
+      "title": "Documentation",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "assets/css/style",
+      "title": "style",
+      "content-ext": ".css",
+      "output-ext": ".css"
+    },
+    {
+      "name": "assets/js/script",
+      "title": "script",
+      "content-ext": ".js",
+      "output-ext": ".js"
+    }
+  ]
+}

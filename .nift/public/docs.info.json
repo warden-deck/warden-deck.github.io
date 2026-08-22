@@ -1,0 +1,25 @@
+{
+  "name": "docs",
+  "title": "Documentation",
+  "template": "templates/template.html",
+  "content": "content/docs.html",
+  "output": "public/docs.html",
+  "minify": false,
+  "minify-version": 0,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
+  "dependencies": [
+    "content/docs.html",
+    "templates/head.html",
+    "templates/template.html"
+  ],
+  "reqs": [
+    "public/assets/css/style.css",
+    "public/assets/js/script.js",
+    "public/docs.html",
+    "public/index.html"
+  ]
+}
