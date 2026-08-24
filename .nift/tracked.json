@@ -21,6 +21,46 @@
       "title": "script",
       "content-ext": ".js",
       "output-ext": ".js"
+    },
+    {
+      "name": "docs/editor",
+      "title": "Editor",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/source-control",
+      "title": "Source control",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/terminal",
+      "title": "Terminal",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/explorer",
+      "title": "Explorer",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/monitor",
+      "title": "Monitor",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/system",
+      "title": "System",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/security",
+      "title": "Security",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/configuration",
+      "title": "Configuration",
+      "template": "templates/template.html"
     }
   ]
 }

@@ -1,9 +1,9 @@
 {
-  "name": "docs",
-  "title": "Documentation",
+  "name": "docs/source-control",
+  "title": "Source control",
   "template": "templates/template.html",
-  "content": "content/docs.html",
-  "output": "public/docs.html",
+  "content": "content/docs/source-control.html",
+  "output": "public/docs/source-control.html",
   "minify": false,
   "minify-version": 0,
   "pagination": false,
@@ -12,7 +12,7 @@
   "pagination-separator": "",
   "pagination-pages": 0,
   "dependencies": [
-    "content/docs.html",
+    "content/docs/source-control.html",
     "templates/docs-nav.html",
     "templates/head.html",
     "templates/template.html"
