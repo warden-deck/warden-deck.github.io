@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Warden is a dark, security-conscious web console for Linux servers.">
+  <meta name="theme-color" content="#111213">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <title>Editor · Warden</title>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="../docs.html">Docs</a>
+    <a href="https://github.com/warden-deck/warden">GitHub</a>
+  </nav>
+</header>
+<main><div class="docs-layout shell"><aside class="docs-nav">
+                                       <p>Warden docs</p>
+                                       <a href="../docs.html">Overview</a>
+                                       <a href="./editor.html">Editor</a>
+                                       <a href="./source-control.html">Source control</a>
+                                       <a href="./terminal.html">Terminal</a>
+                                       <a href="./explorer.html">Explorer</a>
+                                       <a href="./monitor.html">Monitor</a>
+                                       <a href="./system.html">System</a>
+                                       <a href="./security.html">Security</a>
+                                       <a href="./configuration.html">Configuration</a>
+                                     </aside><article class="docs-content">
+      <p class="eyebrow">Documentation · Editor</p><h1>Editor</h1><p class="docs-lede">A lightweight workspace editor built into Warden for real server-side project work without pretending to be a complete desktop IDE.</p>
+      <section><h2>Workspaces and files</h2><p>Open one directory as the active workspace. The file pane keeps its own browsed directory, supports nested folders and multiple open tabs, and can be resized horizontally. Closing a workspace clears the project scope and returns browsing to the server user's home directory.</p><p>The Editor intentionally supports one workspace today. A future multi-workspace model can build on the same boundary without making the current UI ambiguous.</p></section>
+      <section><h2>Editing</h2><ul><li>syntax-highlighted text with wrapping;</li><li><code>Ctrl+S</code> saves the active file and <code>Ctrl+Shift+S</code> saves every dirty tab;</li><li>occurrence highlighting follows the current word or selection;</li><li><code>Ctrl+D</code> adds the next occurrence and supports multi-occurrence typing/deletion;</li><li>multi-edit changes have explicit undo/redo support;</li><li>writes use temporary-file + fsync + atomic rename while preserving existing permission bits.</li></ul></section>
+      <section><h2>Workspace search and replace</h2><p>Search remains useful while simply browsing a folder. Replace All is intentionally available only after a workspace is explicitly opened, making the bulk-write boundary visible.</p><p>Replace All is recorded as one short-lived undo transaction. <code>Ctrl+Z</code> restores the affected files together, but Warden refuses the undo if a file was changed again after replacement. Changed files are surfaced as editor tabs, with a cap to avoid opening hundreds at once.</p></section>
+      <section><h2>Integrated terminal</h2><p><code>Ctrl+`</code> toggles a resizable terminal panel beneath the editor. It is the same live PTY as the full Terminal view, so expanding or collapsing it does not create a new shell. Opening a workspace also moves the shell cwd to that workspace when it is safe to do so.</p><p>See <a class="inline-link" href="./terminal.html">Terminal</a> for the authority and PTY details.</p></section>
+      </article></div></main>
+<footer class="site-footer">
+  <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
+  <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>
+</footer>
+<script src="../assets/js/script.js"></script>
+</body>
+</html>

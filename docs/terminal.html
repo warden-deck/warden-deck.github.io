@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Warden is a dark, security-conscious web console for Linux servers.">
+  <meta name="theme-color" content="#111213">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <title>Terminal · Warden</title>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="../docs.html">Docs</a>
+    <a href="https://github.com/warden-deck/warden">GitHub</a>
+  </nav>
+</header>
+<main><div class="docs-layout shell"><aside class="docs-nav">
+                                       <p>Warden docs</p>
+                                       <a href="../docs.html">Overview</a>
+                                       <a href="./editor.html">Editor</a>
+                                       <a href="./source-control.html">Source control</a>
+                                       <a href="./terminal.html">Terminal</a>
+                                       <a href="./explorer.html">Explorer</a>
+                                       <a href="./monitor.html">Monitor</a>
+                                       <a href="./system.html">System</a>
+                                       <a href="./security.html">Security</a>
+                                       <a href="./configuration.html">Configuration</a>
+                                     </aside><article class="docs-content">
+      <p class="eyebrow">Documentation · Terminal</p><h1>Terminal</h1><p class="docs-lede">A real Linux PTY over an authenticated WebSocket, shared between the full Terminal page and the Editor's integrated panel.</p>
+      <section><h2>One live shell</h2><p>The integrated and expanded terminal views reparent the same terminal DOM/session. Switching views does not reconnect the shell or discard its process state. PTY rows and columns are updated as the panel or browser changes size.</p><p>The Editor can request that the shell move to an opened workspace. Warden waits until Bash owns the controlling terminal again before changing directory so it does not inject a <code>cd</code> into an interactive child process.</p></section>
+      <section><h2>Authentication and origin checks</h2><p>The WebSocket upgrade requires an authenticated session, the per-session CSRF token and a matching Origin/Host relationship. ANSI/SGR colour is rendered in the browser without weakening the page CSP with arbitrary inline styles.</p></section>
+      <section><h2>Authority</h2><div class="callout warning"><strong>The file root is not a shell sandbox.</strong><p><code>--root</code> / <code>WARDEN_FILE_ROOT</code> confines Explorer, Editor and related file APIs. The terminal executes with the Warden process user's ordinary operating-system authority.</p></div><p>Any future roles/capabilities must therefore treat terminal entitlement explicitly. Hiding an administrative button while leaving unrestricted shell access is not a security boundary.</p></section>
+      </article></div></main>
+<footer class="site-footer">
+  <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
+  <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>
+</footer>
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
