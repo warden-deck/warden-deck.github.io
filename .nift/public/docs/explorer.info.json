@@ -21,6 +21,7 @@
     "public/assets/css/style.css",
     "public/assets/js/script.js",
     "public/docs.html",
+    "public/docs/access-control.html",
     "public/docs/accounts.html",
     "public/docs/configuration.html",
     "public/docs/editor.html",

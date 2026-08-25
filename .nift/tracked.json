@@ -66,6 +66,11 @@
       "name": "docs/accounts",
       "title": "Accounts",
       "template": "templates/template.html"
+    },
+    {
+      "name": "docs/access-control",
+      "title": "Access control",
+      "template": "templates/template.html"
     }
   ]
 }
