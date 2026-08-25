@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Warden is a dark, security-conscious web console for Linux servers.">
+  <meta name="theme-color" content="#111213">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <title>Authentication · Warden</title>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="../docs.html">Docs</a>
+    <a href="https://github.com/warden-deck/warden">GitHub</a>
+  </nav>
+</header>
+<main><div class="docs-layout shell"><aside class="docs-nav">
+                                       <p>Warden docs</p>
+                                       <a href="../docs.html">Overview</a>
+                                       <a href="./editor.html">Editor</a>
+                                       <a href="./source-control.html">Source control</a>
+                                       <a href="./terminal.html">Terminal</a>
+                                       <a href="./explorer.html">Explorer</a>
+                                       <a href="./monitor.html">Monitor</a>
+                                       <a href="./system.html">System</a>
+                                       <a href="./security.html">Security</a>
+                                       <a href="./authentication.html">Authentication</a>
+                                       <a href="./accounts.html">Accounts</a>
+                                       <a href="./access-control.html">Access control</a>
+                                       <a href="./configuration.html">Configuration</a>
+                                     </aside><article class="docs-content">
+      <p class="eyebrow">Documentation · Authentication</p><h1>Authentication</h1><p class="docs-lede">Each Warden account can have more than one login identity. Password identities can optionally protect themselves with self-hosted TOTP two-factor authentication.</p>
+      <section><h2>Password login</h2><p>Passwords are stored as salted PBKDF2-SHA256 hashes. A login session records both the Warden account and the identity used to enter it, which preserves useful audit information when several people intentionally share one account.</p></section>
+      <section><h2>Self-hosted TOTP</h2><p>Open <strong>System → Security</strong> while signed in with a password identity. Warden generates the TOTP secret locally and shows both the secret and its <code>otpauth://</code> URI so it can be added to any standard authenticator. A valid six-digit code must be supplied before TOTP is enabled.</p><p>The TOTP secret is encrypted at rest by Warden. It is not stored in <code>users.json</code>. Recovery codes are generated with high entropy, shown once, and only one-way hashes are stored. Using a recovery code consumes it.</p></section>
+      <section><h2>Secrets at rest</h2><p>Warden creates a mode-0600 <code>master.key</code> in the instance configuration directory and uses AES-GCM authenticated encryption for values in <code>secrets.json</code>. This same secrets layer is intended for optional Google OAuth client secrets and future per-account or shared AI provider credentials.</p><div class="callout warning"><strong>Protect the configuration directory.</strong><p>Encryption protects <code>secrets.json</code> from casual disclosure and configuration exports, but anyone who can read both <code>master.key</code> and <code>secrets.json</code> has the same secret-reading authority as the Warden OS account.</p></div></section>
+      <section><h2>Second factor belongs to the identity</h2><p>TOTP is attached to a password identity rather than the whole Warden account. If two people intentionally share one Warden account through separate login identities, each password identity can have its own authenticator and recovery codes.</p></section>
+      </article></div></main>
+<footer class="site-footer">
+  <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
+  <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>
+</footer>
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
