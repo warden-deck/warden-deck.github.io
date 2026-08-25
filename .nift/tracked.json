@@ -86,6 +86,11 @@
       "name": "docs/ai",
       "title": "AI providers",
       "template": "templates/template.html"
+    },
+    {
+      "name": "docs/agent",
+      "title": "Coding agent",
+      "template": "templates/template.html"
     }
   ]
 }

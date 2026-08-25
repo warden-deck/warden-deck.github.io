@@ -1,9 +1,9 @@
 {
-  "name": "docs/authentication",
-  "title": "Authentication",
+  "name": "docs/agent",
+  "title": "Coding agent",
   "template": "templates/template.html",
-  "content": "content/docs/authentication.html",
-  "output": "public/docs/authentication.html",
+  "content": "content/docs/agent.html",
+  "output": "public/docs/agent.html",
   "minify": false,
   "minify-version": 0,
   "pagination": false,
@@ -12,7 +12,7 @@
   "pagination-separator": "",
   "pagination-pages": 0,
   "dependencies": [
-    "content/docs/authentication.html",
+    "content/docs/agent.html",
     "templates/docs-nav.html",
     "templates/head.html",
     "templates/template.html"

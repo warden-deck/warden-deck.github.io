@@ -1,0 +1,12 @@
+<div class="docs-layout shell">@input("templates/docs-nav.html")<article class="docs-content">
+<p class="eyebrow">Documentation · Development</p><h1>Coding agent</h1><p class="docs-lede">Warden Agent runs a real coding agent inside the Editor workspace while Warden retains control of identity, credentials, workspace confinement, audit and usage attribution.</p>
+<section><h2>First implementation</h2><p>The first dogfood implementation uses <strong>DeepSeek V4 Flash through OpenCode and OpenRouter</strong>. OpenCode runs non-interactively with its JSON event stream; Warden renders progress and model/tool output in the Agent view and refreshes the workspace and Source Control when the run finishes.</p><pre><code>Warden account
+  → agent.run capability
+  → open Editor workspace
+  → resolved OpenRouter credential
+  → isolated OpenCode process
+  → DeepSeek V4 Flash</code></pre></section>
+<section><h2>Credential and process isolation</h2><p>Warden resolves the OpenRouter credential using the normal personal-override/shared-company policy. The key is supplied only to the child process environment and is never returned to the browser. Each run receives temporary OpenCode config/data directories so OpenCode's normal user-level credential/session storage does not become a cross-account credential store.</p></section>
+<section><h2>Authority</h2><p>The agent works only inside a workspace path accepted by Warden's configured filesystem root. OpenCode can read/edit files and run commands within that development environment, so <code>agent.run</code> is a high-authority capability. Like Terminal access, commands ultimately execute with the operating-system authority of the account running this Warden instance.</p></section>
+<section><h2>Dogfooding scope</h2><p>This checkpoint deliberately starts with one model path and foreground task execution. Stop cancels the running request. Agent runs are audited and provider usage is attributed to the Warden account that launched the task. Durable multi-turn sessions, background jobs and broader provider/model selection can be added after the execution loop has survived real development work.</p></section>
+</article></div>
