@@ -34,6 +34,9 @@
         <a href="docs/ai.html">AI providers</a>
         <a href="docs/agent.html">Coding agent</a>
         <a href="docs/configuration.html">Configuration</a>
+        <a href="docs/installing.html">Installing</a>
+        <a href="docs/https-caddy.html">HTTPS with Caddy</a>
+        <a href="docs/https-nginx.html">HTTPS with nginx</a>
       </aside>
       <article class="docs-content">
       <p class="eyebrow">Documentation</p>
@@ -48,7 +51,7 @@
 go test ./...
 go build -o warden ./cmd/warden
 ./warden</code></pre>
-      <p>Nift builds the frontend into <code>public/</code>. Runtime behavior remains ordinary browser JavaScript talking to the Go API. The default listener is <code>127.0.0.1:8080</code>. On a fresh instance, open Warden in the browser and create the first administrator there; terminal-based password bootstrapping is no longer required for normal setup.</p>
+      <p>Nift builds the frontend into <code>public/</code>, and Go embeds that generated frontend into the Warden binary. Runtime behavior remains ordinary browser JavaScript talking to the Go API. The default listener is <code>127.0.0.1:8080</code>. On a fresh instance, open Warden in the browser and create the first administrator there; terminal-based password bootstrapping is no longer required for normal setup.</p>
       </section>
       <section><h2>Choose a surface</h2>
       <div class="docs-card-grid">
@@ -60,6 +63,9 @@ go build -o warden ./cmd/warden
       <a href="docs/monitor.html"><strong>Monitor</strong><span>CPU, memory, storage, load, uptime and process information at a glance.</span></a>
       <a href="docs/system.html"><strong>System</strong><span>Structured controls for services, users, SSH, firewall, Docker and more.</span></a>
       <a href="docs/ai.html"><strong>AI providers</strong><span>Shared or per-account credentials, provider defaults and account-attributed usage.</span></a>
+      <a href="docs/installing.html"><strong>Installing</strong><span>Per-user, system-wide, Go and release-binary installation.</span></a>
+      <a href="docs/https-caddy.html"><strong>HTTPS with Caddy</strong><span>Automatic HTTPS through the recommended simple reverse proxy.</span></a>
+      <a href="docs/https-nginx.html"><strong>HTTPS with nginx</strong><span>Proxy Warden through an existing nginx deployment.</span></a>
       </div>
       </section>
       <section><h2>Know the authority boundary</h2><p><code>WARDEN_FILE_ROOT</code> confines filesystem APIs. It does not sandbox the terminal. Git source control is deliberately limited to the explicitly opened workspace root, while the PTY runs with the Warden process user's normal OS authority.</p><p>Read <a class="inline-link" href="docs/security.html">Security</a> before exposing Warden beyond a trusted environment.</p></section>

@@ -33,6 +33,9 @@
                                        <a href="./ai.html">AI providers</a>
                                        <a href="./agent.html">Coding agent</a>
                                        <a href="./configuration.html">Configuration</a>
+                                       <a href="./installing.html">Installing</a>
+                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                       <a href="./https-nginx.html">HTTPS with nginx</a>
                                      </aside><article class="docs-content">
       <p class="eyebrow">Documentation · Configuration</p><h1>Configuration</h1><p class="docs-lede">Warden keeps durable instance configuration in small, versioned JSON files that can be managed through the browser or edited directly on disk.</p>
       <section><h2>Configuration directory</h2><p>By default Warden uses <code>~/.config/warden/</code>, or <code>$XDG_CONFIG_HOME/warden/</code> when XDG configuration is set. Override the location with <code>--config</code> or <code>WARDEN_CONFIG_DIR</code>.</p><pre><code>~/.config/warden/
@@ -48,9 +51,9 @@
       <tr><td><code>--config</code> / <code>WARDEN_CONFIG_DIR</code></td><td><code>~/.config/warden</code></td><td>Persistent Warden configuration directory.</td></tr>
       <tr><td><code>--listen</code> / <code>WARDEN_LISTEN</code></td><td><code>127.0.0.1:8080</code></td><td>Initial HTTP listen address when creating <code>config.json</code>.</td></tr>
       <tr><td><code>--root</code> / <code>WARDEN_FILE_ROOT</code></td><td><code>/</code></td><td>Initial Explorer/Editor filesystem root. Does not sandbox Terminal.</td></tr>
-      <tr><td><code>--static</code> / <code>WARDEN_STATIC_DIR</code></td><td><code>public</code></td><td>Initial Nift-built frontend directory.</td></tr>
+      <tr><td><code>--static</code> / <code>WARDEN_STATIC_DIR</code></td><td>embedded</td><td>Optional Nift-built frontend directory override. Release binaries embed the generated frontend.</td></tr>
       <tr><td><code>WARDEN_SECURE_COOKIES</code></td><td>automatic from listen address</td><td>Bootstrap default for Secure session cookies.</td></tr>
-      <tr><td><code>WARDEN_TRUST_PROXY</code></td><td><code>false</code></td><td>Trust reverse-proxy client address headers for audit/rate limiting. Enable only behind a proxy you control.</td></tr>
+      <tr><td><code>WARDEN_TRUST_PROXY</code></td><td><code>false</code></td><td>Trust forwarded proxy headers from a loopback reverse proxy for client attribution and HTTPS detection. Enable only when Warden is behind a local proxy you control.</td></tr>
       <tr><td><code>WARDEN_PASSWORD_HASH</code></td><td>unset</td><td>Optional legacy verifier used only to authorize migration from an older password-only Warden instance.</td></tr>
       </tbody></table></div><p>Once <code>config.json</code> exists it is the durable source of truth; bootstrap flags do not silently overwrite it on later starts.</p></section>
       <section><h2>Browser-managed environment</h2><p>System → Warden includes a persistent environment editor. Variables saved there are written to <code>environment.json</code> and merged into every <em>new</em> terminal session. Existing PTYs keep the environment they were launched with.</p><p>This avoids requiring users to edit <code>.bashrc</code> or export variables after every login. Each Warden account can manage its own persistent overrides from Security → Your environment; administrators can also edit them centrally from Access. Account values override instance-wide values.</p></section>

@@ -6,7 +6,7 @@
   <meta name="description" content="Warden is a dark, security-conscious web console for Linux servers.">
   <meta name="theme-color" content="#111213">
   <link rel="stylesheet" href="../assets/css/style.css">
-  <title>Monitor · Warden</title>
+  <title>https-nginx · Warden</title>
 </head>
 <body>
 <header class="site-header">
@@ -36,11 +36,39 @@
                                        <a href="./installing.html">Installing</a>
                                        <a href="./https-caddy.html">HTTPS with Caddy</a>
                                        <a href="./https-nginx.html">HTTPS with nginx</a>
-                                     </aside><article class="docs-content">
-      <p class="eyebrow">Documentation · Monitor</p><h1>Monitor</h1><p class="docs-lede">Fast answers to the common “what is this machine doing?” questions without turning the overview into a wall of command output.</p>
-      <section><h2>Current metrics</h2><p>The overview reads Linux system information through the Go backend and renders CPU usage/load, memory, root-filesystem storage, hostname, uptime, process count and Warden runtime information. Browser-side history gives short-term context for activity.</p></section>
-      <section><h2>What it is not</h2><p>Monitor is an operational convenience surface, not a replacement for Prometheus, Grafana or a long-term metrics pipeline. Warden deliberately keeps this page compact and useful for immediate server work.</p></section>
-      </article></div></main>
+                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Deployment</p><h1>Serve Warden over HTTPS with nginx</h1><p class="docs-lede">If nginx already fronts services on your server, keep Warden on <code>127.0.0.1:8080</code>, terminate TLS at nginx and forward the original request scheme and client address.</p>
+      <section><h2>Reverse proxy</h2><pre><code>server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name warden.example.com;
+
+    ssl_certificate     /etc/letsencrypt/live/warden.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/warden.example.com/privkey.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        proxy_read_timeout 3600s;
+        proxy_buffering off;
+    }
+}</code></pre><p>Start Warden with <code>WARDEN_TRUST_PROXY=true</code>, or enable <code>trust_proxy</code> in its durable configuration. Warden only honors the forwarded headers when the direct peer is loopback.</p></section>
+      <section><h2>Redirect HTTP</h2><pre><code>server {
+    listen 80;
+    listen [::]:80;
+    server_name warden.example.com;
+    return 301 https://$host$request_uri;
+}</code></pre></section>
+      <section><h2>Terminal and agent streaming</h2><p>The Upgrade headers allow Warden's terminal WebSocket to tunnel through nginx. The long read timeout and disabled response buffering are friendly to long-running coding-agent streams as well.</p></section>
+      <section><h2>Google authentication</h2><p>Configure Warden and the Google OAuth client with the public callback URL, for example <code>https://warden.example.com/api/oauth/google/callback</code>.</p></section>
+      <div class="callout warning"><strong>Keep Warden itself private.</strong><p>Expose nginx on 80/443 and leave Warden on loopback. Authentication protects application access; HTTPS protects passwords, TOTP/session data, terminal traffic and agent activity in transit.</p></div></article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>

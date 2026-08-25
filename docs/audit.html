@@ -33,6 +33,9 @@
                                        <a href="./ai.html">AI providers</a>
                                        <a href="./agent.html">Coding agent</a>
                                        <a href="./configuration.html">Configuration</a>
+                                       <a href="./installing.html">Installing</a>
+                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                       <a href="./https-nginx.html">HTTPS with nginx</a>
                                      </aside><article class="docs-content">
       <p class="eyebrow">Documentation · Audit</p><h1>Audit and sessions</h1><p class="docs-lede">Multi-user Warden records which account and login identity performed authenticated administrative and workspace actions, and gives users control over their active browser sessions.</p>
       <section><h2>Identity-aware audit log</h2><p>Warden stores <code>audit.log</code> inside the private instance configuration directory. Authenticated events record the Warden account ID, the specific login identity ID and the client address alongside the action. This matters when several people deliberately share one Warden account through different identities.</p><p>Users with the <code>audit.read</code> capability can inspect the recent audit tail from <strong>System → Audit</strong>. The capability is independent of other system-administration permissions.</p></section>

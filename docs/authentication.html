@@ -33,6 +33,9 @@
                                        <a href="./ai.html">AI providers</a>
                                        <a href="./agent.html">Coding agent</a>
                                        <a href="./configuration.html">Configuration</a>
+                                       <a href="./installing.html">Installing</a>
+                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                       <a href="./https-nginx.html">HTTPS with nginx</a>
                                      </aside><article class="docs-content">
       <p class="eyebrow">Documentation · Authentication</p><h1>Authentication</h1><p class="docs-lede">Each Warden account can have more than one login identity. Password identities can optionally protect themselves with self-hosted TOTP two-factor authentication.</p>
       <section><h2>Password login</h2><p>Passwords are stored as salted PBKDF2-SHA256 hashes. A login session records both the Warden account and the identity used to enter it, which preserves useful audit information when several people intentionally share one account.</p><p>A user signed in through a password identity can change that identity's password from <strong>System → Security</strong>. The current browser session is retained, while other sessions created through that login identity are revoked. Administrators can reset an individual password identity from <strong>System → Access</strong>; an administrative reset revokes every session using that identity.</p></section>

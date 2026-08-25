@@ -33,6 +33,9 @@
                                        <a href="./ai.html">AI providers</a>
                                        <a href="./agent.html">Coding agent</a>
                                        <a href="./configuration.html">Configuration</a>
+                                       <a href="./installing.html">Installing</a>
+                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                       <a href="./https-nginx.html">HTTPS with nginx</a>
                                      </aside><article class="docs-content">
       <p class="eyebrow">Documentation · Security</p><h1>Security</h1><p class="docs-lede">Warden is intentionally powerful, so security is defined by server-side boundaries and operating-system authority rather than by which controls happen to be visible.</p>
       <section><h2>Implemented controls</h2><ul><li>persistent server-side 12-hour sessions with HttpOnly, SameSite=Strict cookies;</li><li>per-session CSRF tokens for state-changing HTTP requests;</li><li>login rate limiting by client address, with explicit trusted-proxy support;</li><li>optional per-password-identity TOTP with one-time recovery codes;</li><li>AES-GCM encrypted storage for recoverable secrets;</li><li>same-origin checks plus authentication/CSRF for terminal WebSockets;</li><li>restrictive CSP, frame, referrer and content-type headers;</li><li>filesystem confinement with symlink resolution;</li><li>atomic editor writes and permission preservation;</li><li>structured administrative actions rather than arbitrary command strings;</li><li>privileged activity appended to a mode-0600 audit log.</li></ul><p>Destructive account and instance-reset operations require the acting administrator to re-enter a Warden password in a masked browser field; a confirmation click alone is not sufficient.</p></section>

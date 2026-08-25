@@ -6,7 +6,7 @@
   <meta name="description" content="Warden is a dark, security-conscious web console for Linux servers.">
   <meta name="theme-color" content="#111213">
   <link rel="stylesheet" href="../assets/css/style.css">
-  <title>Monitor · Warden</title>
+  <title>https-caddy · Warden</title>
 </head>
 <body>
 <header class="site-header">
@@ -36,11 +36,16 @@
                                        <a href="./installing.html">Installing</a>
                                        <a href="./https-caddy.html">HTTPS with Caddy</a>
                                        <a href="./https-nginx.html">HTTPS with nginx</a>
-                                     </aside><article class="docs-content">
-      <p class="eyebrow">Documentation · Monitor</p><h1>Monitor</h1><p class="docs-lede">Fast answers to the common “what is this machine doing?” questions without turning the overview into a wall of command output.</p>
-      <section><h2>Current metrics</h2><p>The overview reads Linux system information through the Go backend and renders CPU usage/load, memory, root-filesystem storage, hostname, uptime, process count and Warden runtime information. Browser-side history gives short-term context for activity.</p></section>
-      <section><h2>What it is not</h2><p>Monitor is an operational convenience surface, not a replacement for Prometheus, Grafana or a long-term metrics pipeline. Warden deliberately keeps this page compact and useful for immediate server work.</p></section>
-      </article></div></main>
+                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Deployment</p><h1>Serve Warden over HTTPS with Caddy</h1><p class="docs-lede">Warden has substantial authority over the machine it runs on. For remote access, keep Warden on loopback and expose it through HTTPS rather than publishing its HTTP port directly.</p>
+      <section><h2>Recommended setup</h2><p>Point a DNS record such as <code>warden.example.com</code> at the server, allow ports 80 and 443 to reach Caddy, and run Warden on its default <code>127.0.0.1:8080</code> listener with trusted local proxy support enabled:</p><pre><code>WARDEN_TRUST_PROXY=true warden
+
+caddy reverse-proxy   --from warden.example.com   --to 127.0.0.1:8080</code></pre><p>Caddy obtains and renews the public TLS certificate and supplies standard forwarded headers. Warden accepts those proxy headers only when proxy trust is enabled <em>and</em> the direct peer is loopback.</p></section>
+      <section><h2>Caddyfile</h2><pre><code>warden.example.com {
+    reverse_proxy 127.0.0.1:8080
+}</code></pre><p>For a persistent service, set <code>trust_proxy</code> to <code>true</code> in Warden's durable configuration (or bootstrap with <code>WARDEN_TRUST_PROXY=true</code>) and run both services under your normal service manager.</p></section>
+      <section><h2>Secure cookies and WebSockets</h2><p>When Caddy forwards an HTTPS request, Warden recognizes <code>X-Forwarded-Proto: https</code> from the trusted local proxy and marks newly issued session cookies Secure. Warden's terminal WebSocket uses the browser's current <code>wss:</code> scheme automatically when the page is HTTPS.</p></section>
+      <section><h2>Google authentication</h2><p>If Google sign-in is enabled, configure its authorized redirect URI with the public HTTPS origin, for example <code>https://warden.example.com/api/oauth/google/callback</code>. The same value must be authorized in the Google OAuth client.</p></section>
+      <div class="callout warning"><strong>Do not expose port 8080 as a second public path.</strong><p>Keep the backend loopback-only so clients cannot bypass the TLS proxy and so forwarded headers can only arrive from the trusted local proxy.</p></div></article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>

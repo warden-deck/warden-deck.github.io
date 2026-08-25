@@ -33,6 +33,9 @@
                                        <a href="./ai.html">AI providers</a>
                                        <a href="./agent.html">Coding agent</a>
                                        <a href="./configuration.html">Configuration</a>
+                                       <a href="./installing.html">Installing</a>
+                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                       <a href="./https-nginx.html">HTTPS with nginx</a>
                                      </aside><article class="docs-content">
       <p class="eyebrow">Documentation · Development</p><h1>Coding agent</h1><p class="docs-lede">Warden Agent runs OpenCode inside Warden-managed workspaces while Warden retains control of account identity, credentials, workspace confinement, audit and usage attribution.</p>
       <section><h2>Provider selection</h2><p>Agent sessions can use any supported provider configured in <strong>System → AI providers</strong>: OpenCode Zen, OpenRouter, OpenAI, Anthropic, Google Gemini, DeepSeek or local Ollama. The provider dropdown belongs to the current agent session, so two sessions can use different providers at the same time. Warden uses the provider’s configured default model and passes the resulting <code>provider/model</code> reference to OpenCode.</p></section>
@@ -44,7 +47,7 @@
       <section><h2>Usage accounting</h2><p>Warden reads usage from OpenCode’s streamed events and also exports the successful OpenCode session after each run. The export path recovers token and cost data from OpenCode’s persisted <code>tokens.input</code>, <code>tokens.output</code> and cost fields when the final headless event is missing. Provider usage remains attributed to the Warden account that launched the task.</p></section>
       <section><h2>Recovery</h2><p>Some OpenCode releases can finish <code>run --format json</code> successfully without emitting the final assistant text or final usage event to stdout. Warden captures the session ID and exports that isolated session after completion, recovering missing assistant output and accounting data instead of presenting an empty or misleading success.</p></section>
       <section><h2>Authority</h2><p>The agent works only inside a workspace path accepted by Warden’s configured filesystem root. OpenCode can read and edit files and run commands there, so <code>agent.run</code> is a high-authority capability. Like Terminal access, commands ultimately execute with the operating-system authority of the account running this Warden instance.</p></section>
-      </article></div></main>
+      <section><h2>Markdown highlighting</h2><p>Assistant responses receive conservative, non-destructive Markdown highlighting for headings, emphasis, inline code, fenced code blocks, lists, blockquotes and links. Literal Markdown markers such as <code>#</code>, <code>**</code>, <code>*</code> and backticks remain visible and are preserved by Copy session. Tool events keep their separate semantic highlighting.</p></section></article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>

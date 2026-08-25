@@ -33,6 +33,9 @@
                                        <a href="./ai.html">AI providers</a>
                                        <a href="./agent.html">Coding agent</a>
                                        <a href="./configuration.html">Configuration</a>
+                                       <a href="./installing.html">Installing</a>
+                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                       <a href="./https-nginx.html">HTTPS with nginx</a>
                                      </aside><article class="docs-content">
       <p class="eyebrow">Documentation · Accounts</p><h1>Accounts and identities</h1><p class="docs-lede">Warden is moving to one multi-user account model for both personal and shared installations. A personal instance is simply an instance with one account.</p>
       <section><h2>Browser-first setup</h2><p>When no Warden accounts exist, the browser opens a first-run setup screen instead of asking you to create a password hash in a shell. The first account receives the <strong>Administrator</strong> role; administrator is a role, not a permanently special account.</p><p>If an older installation still supplies <code>WARDEN_PASSWORD_HASH</code>, Warden requires that existing password before migrating to the first named account. Remote first-run setup also requires the one-time setup token printed by the Warden process, preventing the first Internet visitor from claiming an unconfigured instance.</p><p>Deleting a Warden account is a privileged destructive action: the acting administrator must re-enter their own Warden password. Warden also refuses to delete or demote the last enabled password-backed Administrator, preserving a local recovery path.</p></section>
