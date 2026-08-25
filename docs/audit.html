@@ -24,6 +24,8 @@
                                        <a href="./terminal.html">Terminal</a>
                                        <a href="./explorer.html">Explorer</a>
                                        <a href="./monitor.html">Monitor</a>
+                                       <a href="./alerts.html">Alerts & rules</a>
+                                       <a href="./websites.html">Websites</a>
                                        <a href="./system.html">System</a>
                                        <a href="./security.html">Security</a>
                                        <a href="./authentication.html">Authentication</a>
@@ -32,16 +34,12 @@
                                        <a href="./audit.html">Audit & sessions</a>
                                        <a href="./ai.html">AI providers</a>
                                        <a href="./agent.html">Coding agent</a>
+                                       <a href="./persistence.html">SQLite & durability</a>
                                        <a href="./configuration.html">Configuration</a>
                                        <a href="./installing.html">Installing</a>
                                        <a href="./https-caddy.html">HTTPS with Caddy</a>
                                        <a href="./https-nginx.html">HTTPS with nginx</a>
-                                     </aside><article class="docs-content">
-      <p class="eyebrow">Documentation · Audit</p><h1>Audit and sessions</h1><p class="docs-lede">Multi-user Warden records which account and login identity performed authenticated administrative and workspace actions, and gives users control over their active browser sessions.</p>
-      <section><h2>Identity-aware audit log</h2><p>Warden stores <code>audit.log</code> inside the private instance configuration directory. Authenticated events record the Warden account ID, the specific login identity ID and the client address alongside the action. This matters when several people deliberately share one Warden account through different identities.</p><p>Users with the <code>audit.read</code> capability can inspect the recent audit tail from <strong>System → Audit</strong>. The capability is independent of other system-administration permissions.</p></section>
-      <section><h2>Session control</h2><p><strong>System → Security</strong> lists the current account's active browser sessions with their client address, user agent and expiry. A user can revoke an individual session. Administrators can revoke every session for an account from <strong>System → Access</strong>, which is useful after credential changes or when removing access.</p></section>
-      <section><h2>Account and identity removal</h2><p>Administrators can remove individual login identities or delete a Warden account. Warden refuses to remove the final login-capable identity from an account and refuses to delete or disable the final enabled administrator. Removing an identity revokes sessions established through it and removes its TOTP secret where applicable.</p><div class="callout"><strong>Workspace files are external data.</strong><p>Deleting a Warden account removes Warden identity/session state and account-specific settings. It does not delete repositories, home directories or workspace files.</p></div></section>
-      </article></div></main>
+                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Audit</p><h1>Audit and sessions</h1><p class="docs-lede">Warden records which account and identity performed authenticated actions and gives users control over active browser sessions.</p><section><h2>Structured SQLite audit history</h2><p>New audit events are written directly to <code>warden.db</code> with event name, account ID, identity ID, client address, detail and timestamp. <strong>System → Audit</strong> reads the most recent structured events for users with <code>audit.read</code>.</p><p>On upgrade, the earlier mode-0600 <code>audit.log</code> is imported idempotently as legacy records, so established history remains visible without duplicating it on every startup.</p></section><section><h2>Browser sessions</h2><p>Security lists the current account's sessions with client address, user agent and expiry. Users can revoke individual sessions; administrators can revoke every session belonging to an account. Session state is normalized into SQLite while the compatibility projection preserves existing backup behavior.</p></section><section><h2>Deletion boundary</h2><div class="callout"><strong>Workspace files are external data.</strong><p>Removing an identity or Warden account revokes its application access and state. It does not delete repositories, home directories or workspace files.</p></div></section></article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>

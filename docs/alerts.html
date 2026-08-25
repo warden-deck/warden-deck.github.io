@@ -6,7 +6,7 @@
   <meta name="description" content="Warden is a dark, security-conscious web console for Linux servers.">
   <meta name="theme-color" content="#111213">
   <link rel="stylesheet" href="../assets/css/style.css">
-  <title>System · Warden</title>
+  <title>Alerts and event rules · Warden</title>
 </head>
 <body>
 <header class="site-header">
@@ -39,11 +39,7 @@
                                        <a href="./installing.html">Installing</a>
                                        <a href="./https-caddy.html">HTTPS with Caddy</a>
                                        <a href="./https-nginx.html">HTTPS with nginx</a>
-                                     </aside><article class="docs-content">
-      <p class="eyebrow">Documentation · System</p><h1>System</h1><p class="docs-lede">Structured administration for common Linux services, using typed state and bounded actions instead of arbitrary shell fragments.</p>
-      <section><h2>Available surfaces</h2><div class="admin-grid"><article><h3>Certificates</h3><p>Inspect common TLS certificate paths and managed certificate state.</p></article><article><h3>Cron</h3><p>Read system/user schedules and perform validated user-crontab changes.</p></article><article><h3>Docker</h3><p>Read the local Docker socket and perform bounded container actions.</p></article><article><h3>Fail2ban</h3><p>Inspect jails and use validated jail/IP actions.</p></article><article><h3>Firewall</h3><p>Read UFW state and apply constrained allow/delete operations.</p></article><article><h3>Services</h3><p>List systemd units at system or user scope and run validated actions.</p></article><article><h3>SSH</h3><p>Surface selected sshd settings and supported configuration operations.</p></article><article><h3>Users</h3><p>Inspect account information and run validated supported user actions.</p></article></div></section>
-      <section><h2>Availability and privilege</h2><p>Individual surfaces depend on host software and the permissions of the Warden process. A missing Docker socket or unavailable system tool should make that capability unavailable rather than silently widening behavior through a generic command runner.</p></section>
-      </article></div></main>
+                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Monitoring</p><h1>Alerts and event rules</h1><p class="docs-lede">Turn Warden's local system observations into durable, explainable firing and resolved events.</p><section><h2>Rules</h2><p>Administrators can create enabled rules for CPU percentage, memory percentage, disk percentage and one-minute load. Each rule defines an above/below operator, threshold, required breach duration and info, warning or critical severity.</p></section><section><h2>Evaluation lifecycle</h2><p>The server evaluates enabled rules in the background. A breach must remain true for the configured duration before an alert fires. Warden records the triggering value and time, keeps the current instance updated, and creates a resolved event when the metric returns to normal.</p></section><section><h2>Acknowledgement</h2><p>Users allowed to read monitoring data can acknowledge an active incident for their own account. Acknowledgement and resolution are separate: acknowledgement records that a person has seen the problem, while resolution is driven by the observed condition.</p></section><section><h2>Scope</h2><div class="callout"><strong>Local operational alerts.</strong><p>Warden watches the machine it operates. It is not intended to become a fleet-scale time-series monitoring system; distributed monitoring can integrate with Warden later for host-level investigation and remediation.</p></div></section></article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>
