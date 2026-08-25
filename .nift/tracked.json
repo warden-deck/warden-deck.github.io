@@ -61,6 +61,11 @@
       "name": "docs/configuration",
       "title": "Configuration",
       "template": "templates/template.html"
+    },
+    {
+      "name": "docs/accounts",
+      "title": "Accounts",
+      "template": "templates/template.html"
     }
   ]
 }

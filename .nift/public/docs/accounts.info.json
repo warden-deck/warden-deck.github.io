@@ -1,9 +1,9 @@
 {
-  "name": "docs/configuration",
-  "title": "Configuration",
+  "name": "docs/accounts",
+  "title": "Accounts",
   "template": "templates/template.html",
-  "content": "content/docs/configuration.html",
-  "output": "public/docs/configuration.html",
+  "content": "content/docs/accounts.html",
+  "output": "public/docs/accounts.html",
   "minify": false,
   "minify-version": 0,
   "pagination": false,
@@ -12,7 +12,7 @@
   "pagination-separator": "",
   "pagination-pages": 0,
   "dependencies": [
-    "content/docs/configuration.html",
+    "content/docs/accounts.html",
     "templates/docs-nav.html",
     "templates/head.html",
     "templates/template.html"
