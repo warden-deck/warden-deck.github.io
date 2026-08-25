@@ -91,6 +91,27 @@
       "name": "docs/agent",
       "title": "Coding agent",
       "template": "templates/template.html"
+    },
+    {
+      "name": "docs/installing",
+      "title": "installing",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/https-caddy",
+      "title": "https-caddy",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/https-nginx",
+      "title": "https-nginx",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "install",
+      "title": "install",
+      "content-ext": ".sh",
+      "output-ext": ".sh"
     }
   ]
 }

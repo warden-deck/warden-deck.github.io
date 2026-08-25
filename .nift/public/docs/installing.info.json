@@ -1,9 +1,9 @@
 {
-  "name": "docs/terminal",
-  "title": "Terminal",
+  "name": "docs/installing",
+  "title": "installing",
   "template": "templates/template.html",
-  "content": "content/docs/terminal.html",
-  "output": "public/docs/terminal.html",
+  "content": "content/docs/installing.html",
+  "output": "public/docs/installing.html",
   "minify": false,
   "minify-version": 0,
   "pagination": false,
@@ -12,7 +12,7 @@
   "pagination-separator": "",
   "pagination-pages": 0,
   "dependencies": [
-    "content/docs/terminal.html",
+    "content/docs/installing.html",
     "templates/docs-nav.html",
     "templates/head.html",
     "templates/template.html"

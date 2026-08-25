@@ -1,0 +1,33 @@
+<div class="docs-layout shell">@input("templates/docs-nav.html")<article class="docs-content"><p class="eyebrow">Documentation · Deployment</p><h1>Serve Warden over HTTPS with nginx</h1><p class="docs-lede">If nginx already fronts services on your server, keep Warden on <code>127.0.0.1:8080</code>, terminate TLS at nginx and forward the original request scheme and client address.</p>
+<section><h2>Reverse proxy</h2><pre><code>server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name warden.example.com;
+
+    ssl_certificate     /etc/letsencrypt/live/warden.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/warden.example.com/privkey.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        proxy_read_timeout 3600s;
+        proxy_buffering off;
+    }
+}</code></pre><p>Start Warden with <code>WARDEN_TRUST_PROXY=true</code>, or enable <code>trust_proxy</code> in its durable configuration. Warden only honors the forwarded headers when the direct peer is loopback.</p></section>
+<section><h2>Redirect HTTP</h2><pre><code>server {
+    listen 80;
+    listen [::]:80;
+    server_name warden.example.com;
+    return 301 https://$host$request_uri;
+}</code></pre></section>
+<section><h2>Terminal and agent streaming</h2><p>The Upgrade headers allow Warden's terminal WebSocket to tunnel through nginx. The long read timeout and disabled response buffering are friendly to long-running coding-agent streams as well.</p></section>
+<section><h2>Google authentication</h2><p>Configure Warden and the Google OAuth client with the public callback URL, for example <code>https://warden.example.com/api/oauth/google/callback</code>.</p></section>
+<div class="callout warning"><strong>Keep Warden itself private.</strong><p>Expose nginx on 80/443 and leave Warden on loopback. Authentication protects application access; HTTPS protects passwords, TOTP/session data, terminal traffic and agent activity in transit.</p></div></article></div>
