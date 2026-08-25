@@ -25,6 +25,7 @@
     "public/docs/accounts.html",
     "public/docs/agent.html",
     "public/docs/ai.html",
+    "public/docs/alerts.html",
     "public/docs/audit.html",
     "public/docs/authentication.html",
     "public/docs/configuration.html",
@@ -34,10 +35,12 @@
     "public/docs/https-nginx.html",
     "public/docs/installing.html",
     "public/docs/monitor.html",
+    "public/docs/persistence.html",
     "public/docs/security.html",
     "public/docs/source-control.html",
     "public/docs/system.html",
     "public/docs/terminal.html",
+    "public/docs/websites.html",
     "public/index.html"
   ]
 }

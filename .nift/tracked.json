@@ -112,6 +112,21 @@
       "title": "install",
       "content-ext": ".sh",
       "output-ext": ".sh"
+    },
+    {
+      "name": "docs/persistence",
+      "title": "SQLite and durability",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/alerts",
+      "title": "Alerts and event rules",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/websites",
+      "title": "Website management",
+      "template": "templates/template.html"
     }
   ]
 }

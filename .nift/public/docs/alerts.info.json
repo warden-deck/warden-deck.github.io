@@ -1,9 +1,9 @@
 {
-  "name": "docs/terminal",
-  "title": "Terminal",
+  "name": "docs/alerts",
+  "title": "Alerts and event rules",
   "template": "templates/template.html",
-  "content": "content/docs/terminal.html",
-  "output": "public/docs/terminal.html",
+  "content": "content/docs/alerts.html",
+  "output": "public/docs/alerts.html",
   "minify": false,
   "minify-version": 0,
   "pagination": false,
@@ -12,7 +12,7 @@
   "pagination-separator": "",
   "pagination-pages": 0,
   "dependencies": [
-    "content/docs/terminal.html",
+    "content/docs/alerts.html",
     "templates/docs-nav.html",
     "templates/head.html",
     "templates/template.html"
