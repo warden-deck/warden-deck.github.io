@@ -25,6 +25,7 @@ export WARDEN_PASSWORD_HASH='pbkdf2-sha256$...'
 <a href="@pathto('docs/explorer')"><strong>Explorer</strong><span>Browse, upload, move, archive and preview files under the configured root.</span></a>
 <a href="@pathto('docs/monitor')"><strong>Monitor</strong><span>CPU, memory, storage, load, uptime and process information at a glance.</span></a>
 <a href="@pathto('docs/system')"><strong>System</strong><span>Structured controls for services, users, SSH, firewall, Docker and more.</span></a>
+<a href="@pathto('docs/ai')"><strong>AI providers</strong><span>Shared or per-account credentials, provider defaults and account-attributed usage.</span></a>
 </div>
 </section>
 <section><h2>Know the authority boundary</h2><p><code>WARDEN_FILE_ROOT</code> confines filesystem APIs. It does not sandbox the terminal. Git source control is deliberately limited to the explicitly opened workspace root, while the PTY runs with the Warden process user's normal OS authority.</p><p>Read <a class="inline-link" href="@pathto('docs/security')">Security</a> before exposing Warden beyond a trusted environment.</p></section>

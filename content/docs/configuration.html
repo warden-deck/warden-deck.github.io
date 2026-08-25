@@ -2,7 +2,13 @@
 <p class="eyebrow">Documentation · Configuration</p><h1>Configuration</h1><p class="docs-lede">Warden keeps durable instance configuration in small, versioned JSON files that can be managed through the browser or edited directly on disk.</p>
 <section><h2>Configuration directory</h2><p>By default Warden uses <code>~/.config/warden/</code>, or <code>$XDG_CONFIG_HOME/warden/</code> when XDG configuration is set. Override the location with <code>--config</code> or <code>WARDEN_CONFIG_DIR</code>.</p><pre><code>~/.config/warden/
   config.json
-  environment.json</code></pre><p>Warden creates these files with owner-only permissions. JSON writes are staged and atomically replaced, and browser writes retain a <code>.bak</code> copy of the previous valid file.</p></section>
+  environment.json
+  authentication.json
+  ai.json
+  users.json
+  roles.json
+  secrets.json
+  ai-usage.json</code></pre><p>Warden creates these files with owner-only permissions. JSON writes are staged and atomically replaced, and browser writes retain a <code>.bak</code> copy of the previous valid file.</p></section>
 <section><h2>Bootstrap options</h2><div class="table-wrap"><table><thead><tr><th>Option / variable</th><th>Default</th><th>Purpose</th></tr></thead><tbody>
 <tr><td><code>--config</code> / <code>WARDEN_CONFIG_DIR</code></td><td><code>~/.config/warden</code></td><td>Persistent Warden configuration directory.</td></tr>
 <tr><td><code>--listen</code> / <code>WARDEN_LISTEN</code></td><td><code>127.0.0.1:8080</code></td><td>Initial HTTP listen address when creating <code>config.json</code>.</td></tr>

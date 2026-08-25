@@ -81,6 +81,11 @@
       "name": "docs/audit",
       "title": "Audit & sessions",
       "template": "templates/template.html"
+    },
+    {
+      "name": "docs/ai",
+      "title": "AI providers",
+      "template": "templates/template.html"
     }
   ]
 }
