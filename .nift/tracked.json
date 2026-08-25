@@ -58,6 +58,11 @@
       "template": "templates/template.html"
     },
     {
+      "name": "docs/authentication",
+      "title": "Authentication",
+      "template": "templates/template.html"
+    },
+    {
       "name": "docs/configuration",
       "title": "Configuration",
       "template": "templates/template.html"

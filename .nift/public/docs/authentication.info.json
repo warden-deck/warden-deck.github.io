@@ -1,9 +1,9 @@
 {
-  "name": "docs/explorer",
-  "title": "Explorer",
+  "name": "docs/authentication",
+  "title": "Authentication",
   "template": "templates/template.html",
-  "content": "content/docs/explorer.html",
-  "output": "public/docs/explorer.html",
+  "content": "content/docs/authentication.html",
+  "output": "public/docs/authentication.html",
   "minify": false,
   "minify-version": 0,
   "pagination": false,
@@ -12,7 +12,7 @@
   "pagination-separator": "",
   "pagination-pages": 0,
   "dependencies": [
-    "content/docs/explorer.html",
+    "content/docs/authentication.html",
     "templates/docs-nav.html",
     "templates/head.html",
     "templates/template.html"

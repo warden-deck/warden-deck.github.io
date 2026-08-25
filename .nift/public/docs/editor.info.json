@@ -23,6 +23,7 @@
     "public/docs.html",
     "public/docs/access-control.html",
     "public/docs/accounts.html",
+    "public/docs/authentication.html",
     "public/docs/configuration.html",
     "public/docs/editor.html",
     "public/docs/explorer.html",
