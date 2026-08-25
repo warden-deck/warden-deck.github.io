@@ -6,7 +6,7 @@
   <meta name="description" content="Warden is a dark, security-conscious web console for Linux servers.">
   <meta name="theme-color" content="#111213">
   <link rel="stylesheet" href="../assets/css/style.css">
-  <title>Explorer · Warden</title>
+  <title>Access control · Warden</title>
 </head>
 <body>
 <header class="site-header">
@@ -30,10 +30,11 @@
                                        <a href="./access-control.html">Access control</a>
                                        <a href="./configuration.html">Configuration</a>
                                      </aside><article class="docs-content">
-      <p class="eyebrow">Documentation · Explorer</p><h1>Explorer</h1><p class="docs-lede">A server-side file manager for broad filesystem work, separate from the project-oriented Editor.</p>
-      <section><h2>Navigation</h2><p>Explorer starts at the server user's home directory when it is inside the configured file root. Root-aware breadcrumbs and the Home shortcut make movement explicit, while inline directory expansion keeps nearby context visible.</p></section>
-      <section><h2>File operations</h2><ul><li>create files and folders;</li><li>upload and download files;</li><li>multi-select copy, move and delete;</li><li>download selections as archives;</li><li>ZIP compression and extraction with path-confinement checks;</li><li>image, audio and video preview;</li><li>open the currently browsed directory directly as the Editor workspace.</li></ul></section>
-      <section><h2>Confinement</h2><p>All Explorer paths are resolved against the configured root, including symlink resolution, rather than accepted by string-prefix checks. Set <code>WARDEN_FILE_ROOT</code> to a narrower subtree when Warden should not manage the whole filesystem.</p></section>
+      <p class="eyebrow">Documentation · Access control</p><h1>Roles and capabilities</h1><p class="docs-lede">Warden uses named roles made from explicit capabilities. Administrator is an assignable role, so an instance can have multiple administrators without one permanently special account.</p>
+      <section><h2>Checkbox-managed permissions</h2><p>System → Access shows accounts, their assigned roles and the capabilities contained in each role. Administrators can edit the normal <strong>User</strong> role or assign several roles to one account. The built-in Administrator role always retains every capability.</p><p>Capabilities are intentionally functional rather than page-shaped: file reading, file writes, workspace replacement, Git mutation, terminal access, system administration, Warden settings and account management are separate decisions.</p></section>
+      <section><h2>Frontend and backend enforcement</h2><p>Warden disables or removes unavailable controls in the browser for a clear UX, but the browser is never the security boundary. Every protected API route checks the authenticated account's effective capabilities and returns <code>403 Forbidden</code> when the permission is absent.</p></section>
+      <section><h2>Terminal authority warning</h2><div class="callout warning"><strong>Terminal access is shell access.</strong><p>An account with terminal access receives the operating-system authority of the user running that Warden instance. File/workspace capabilities do not sandbox commands typed into the PTY.</p></div></section>
+      <section><h2>Multiple identities</h2><p>Accounts can have additional password logins and email identities. This supports several people deliberately sharing one Warden account while still keeping separate login identities for audit trails. Future Google identities attach to the same account model instead of making email addresses the account key.</p></section>
       </article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
