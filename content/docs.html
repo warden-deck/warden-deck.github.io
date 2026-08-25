@@ -12,10 +12,8 @@
 <pre><code>nift build
 go test ./...
 go build -o warden ./cmd/warden
-./warden hash-password 'choose-a-strong-password'
-export WARDEN_PASSWORD_HASH='pbkdf2-sha256$...'
 ./warden</code></pre>
-<p>Nift builds the frontend into <code>public/</code>. Runtime behavior remains ordinary browser JavaScript talking to the Go API. The default listener is <code>127.0.0.1:8080</code>.</p>
+<p>Nift builds the frontend into <code>public/</code>. Runtime behavior remains ordinary browser JavaScript talking to the Go API. The default listener is <code>127.0.0.1:8080</code>. On a fresh instance, open Warden in the browser and create the first administrator there; terminal-based password bootstrapping is no longer required for normal setup.</p>
 </section>
 <section><h2>Choose a surface</h2>
 <div class="docs-card-grid">
