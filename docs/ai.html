@@ -6,7 +6,7 @@
   <meta name="description" content="Warden is a dark, security-conscious web console for Linux servers.">
   <meta name="theme-color" content="#111213">
   <link rel="stylesheet" href="../assets/css/style.css">
-  <title>Access control · Warden</title>
+  <title>AI providers · Warden</title>
 </head>
 <body>
 <header class="site-header">
@@ -33,11 +33,15 @@
                                        <a href="./ai.html">AI providers</a>
                                        <a href="./configuration.html">Configuration</a>
                                      </aside><article class="docs-content">
-      <p class="eyebrow">Documentation · Access control</p><h1>Roles and capabilities</h1><p class="docs-lede">Warden uses named roles made from explicit capabilities. Administrator is an assignable role, so an instance can have multiple administrators without one permanently special account.</p>
-      <section><h2>Checkbox-managed permissions</h2><p>System → Access shows accounts, their assigned roles and the capabilities contained in each role. Administrators can edit the normal <strong>User</strong> role or assign several roles to one account. The built-in Administrator role always retains every capability.</p><p>Capabilities are intentionally functional rather than page-shaped: file reading, file writes, workspace replacement, Git mutation, terminal access, system administration, Warden settings, audit visibility and account management are separate decisions. Audit access is represented by its own <code>audit.read</code> capability.</p></section>
-      <section><h2>Frontend and backend enforcement</h2><p>Warden disables or removes unavailable controls in the browser for a clear UX, but the browser is never the security boundary. Every protected API route checks the authenticated account's effective capabilities and returns <code>403 Forbidden</code> when the permission is absent.</p></section>
-      <section><h2>Terminal authority warning</h2><div class="callout warning"><strong>Terminal access is shell access.</strong><p>An account with terminal access receives the operating-system authority of the user running that Warden instance. File/workspace capabilities do not sandbox commands typed into the PTY.</p></div></section>
-      <section><h2>Multiple identities</h2><p>Accounts can have additional password logins and email identities. This supports several people deliberately sharing one Warden account while still keeping separate login identities for audit trails. Future Google identities attach to the same account model instead of making email addresses the account key.</p></section>
+      <p class="eyebrow">Documentation · AI</p><h1>AI providers</h1><p class="docs-lede">Warden’s AI foundation keeps provider configuration separate from credentials, supports one shared instance credential for simple installs, and lets individual Warden accounts override it when separate billing or quotas are preferred.</p>
+      <section><h2>Credential resolution</h2><pre><code>Warden account starts an AI task
+  → account-specific provider credential, when configured
+  → otherwise shared instance credential
+  → otherwise provider unavailable</code></pre><p>Credentials are stored in Warden’s encrypted <code>secrets.json</code>; plaintext keys are never returned to the browser after saving.</p></section>
+      <section><h2>Simple and individual setups</h2><p>A personal or small trusted installation can configure one provider key once and let every permitted Warden account use it. A user can later add a personal key for the same provider without changing the shared configuration.</p><p>Provider defaults such as base URL and default model live in <code>ai.json</code>. Remote HTTP endpoints are rejected; plain HTTP is allowed only for loopback services such as local Ollama.</p></section>
+      <section><h2>Usage attribution</h2><p>Usage accounting belongs to the <strong>Warden account that launched the task</strong>, not to the credential. That means shared API keys remain convenient without losing per-account request/token/cost reporting. Aggregates are stored in <code>ai-usage.json</code> ready for the coding agent to record real provider usage.</p></section>
+      <section><h2>Access control</h2><p><code>ai.use</code> allows an account to use configured providers and manage its own credential overrides. <code>ai.manage</code> controls shared provider configuration and shared credentials. Both participate in the same role/capability enforcement used throughout Warden.</p></section>
+      <section><h2>Not an agent yet</h2><p>This layer deliberately contains no autonomous coding loop. It establishes provider identity, secrets, policy and accounting first so the future agent inherits multi-user boundaries rather than retrofitting them later.</p></section>
       </article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
