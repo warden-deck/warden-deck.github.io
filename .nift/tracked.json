@@ -76,6 +76,11 @@
       "name": "docs/access-control",
       "title": "Access control",
       "template": "templates/template.html"
+    },
+    {
+      "name": "docs/audit",
+      "title": "Audit & sessions",
+      "template": "templates/template.html"
     }
   ]
 }

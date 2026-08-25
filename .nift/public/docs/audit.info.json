@@ -1,9 +1,9 @@
 {
-  "name": "docs/accounts",
-  "title": "Accounts",
+  "name": "docs/audit",
+  "title": "Audit & sessions",
   "template": "templates/template.html",
-  "content": "content/docs/accounts.html",
-  "output": "public/docs/accounts.html",
+  "content": "content/docs/audit.html",
+  "output": "public/docs/audit.html",
   "minify": false,
   "minify-version": 0,
   "pagination": false,
@@ -12,7 +12,7 @@
   "pagination-separator": "",
   "pagination-pages": 0,
   "dependencies": [
-    "content/docs/accounts.html",
+    "content/docs/audit.html",
     "templates/docs-nav.html",
     "templates/head.html",
     "templates/template.html"
