@@ -15,6 +15,7 @@
   <section><h2>BH07 evidence</h2><p>Git operations use a fixed executable and argument arrays, insert <code>--</code> before user-controlled paths, disable repository hooks, external diffs, pagers and terminal prompting, cap combined output at 4 MiB and time out after ten seconds. Tests stage a dash-prefixed filename and prove a hostile pre-commit hook is not executed. Workspace search remains RE2-based and bounded to 500 results, 2 MiB files and 32 MiB undo state.</p></section>
   <section><h2>BH08 evidence</h2><p>PTY input frames must be masked, final, free of reserved bits and no larger than 64 KiB. Terminal scrollback is capped at 256 KiB and durable sessions at 16 per account. Loader and shell-startup injection variables are removed from child environments. Disconnect terminates the shell process group, not only its leader, so descendants do not survive an ordinary socket close.</p></section>
   <section><h2>BH09 evidence</h2><p>Prompts, provider JSON and restored session exports are bounded independently. Provider objects have depth, collection and string limits; credential-shaped fields and the effective provider key are redacted before streaming to the browser. Provider session identifiers use a strict 128-character alphabet before becoming command arguments, and exports have separate 8 MiB output and 256 KiB error limits. Model/provider events remain labelled provider data, not Warden authorization evidence.</p></section>
+  <section><h2>BH10 evidence</h2><p>The 256-bit master key is generated into a mode-0600 temporary file, synced and installed without overwrite. Key and ciphertext paths must be regular files, ciphertext is authenticated with a fresh AES-GCM nonce, and a corrupt or mismatched store cannot replace the last known-good in-memory snapshot. Configuration imports validate the entire candidate set before replacement. Instance, authentication and account deletion actions require the acting account's current password in addition to session capability and CSRF checks.</p></section>
   <section><h2>Checkpoint ledger</h2><table><thead><tr><th>Checkpoint</th><th>Scope</th><th>Status</th></tr></thead><tbody>
     <tr><td>BH00</td><td>Baseline and threat model</td><td>Complete</td></tr>
     <tr><td>BH01</td><td>HTTP and browser boundary</td><td>Complete</td></tr>
@@ -26,7 +27,7 @@
     <tr><td>BH07</td><td>Editor and Git</td><td>Complete</td></tr>
     <tr><td>BH08</td><td>Terminals and subprocesses</td><td>Complete</td></tr>
     <tr><td>BH09</td><td>Agent and providers</td><td>Complete</td></tr>
-    <tr><td>BH10</td><td>Secrets and lifecycle</td><td>Planned</td></tr>
+    <tr><td>BH10</td><td>Secrets and lifecycle</td><td>Complete</td></tr>
     <tr><td>BH11</td><td>System and websites</td><td>Planned</td></tr>
     <tr><td>BH12</td><td>Audit and privacy</td><td>Planned</td></tr>
     <tr><td>BH13</td><td>SQLite and recovery</td><td>Planned</td></tr>
