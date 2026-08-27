@@ -71,6 +71,7 @@
     return 301 https://$host$request_uri;
 }</code></pre></section>
       <section><h2>Terminal and agent streaming</h2><p>The Upgrade headers allow Warden's terminal WebSocket to tunnel through nginx. The long read timeout and disabled response buffering are friendly to long-running coding-agent streams as well.</p></section>
+      <section><h2>Forwarded-header contract</h2><p>The configuration sends one <code>X-Forwarded-Proto</code> value and preserves the public host. Warden rejects ambiguous protocol chains, considers only the first <code>X-Forwarded-For</code> hop and requires terminal WebSocket origins to match both the effective request scheme and host.</p></section>
       <section><h2>Google authentication</h2><p>Configure Warden and the Google OAuth client with the public callback URL, for example <code>https://warden.example.com/api/oauth/google/callback</code>.</p></section>
       <div class="callout warning"><strong>Keep Warden itself private.</strong><p>Expose nginx on 80/443 and leave Warden on loopback. Authentication protects application access; HTTPS protects passwords, TOTP/session data, terminal traffic and agent activity in transit.</p></div></article></div></main>
 <footer class="site-footer">

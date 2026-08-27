@@ -45,20 +45,21 @@
       <article class="docs-content">
         <p class="eyebrow">Documentation · Assurance</p><h1>Battle Tested</h1>
         <p class="docs-lede">Warden publishes what was attacked, what passed and what remains risky. This is an evidence ledger, not a security slogan.</p>
-        <section><h2>Current status</h2><div class="callout warning"><strong>BH00 complete; broader campaign in progress.</strong><p>The threat model, authority inventory and executable API-route classification are established. Warden remains a development build while later checkpoints proceed.</p></div></section>
+        <section><h2>Current status</h2><div class="callout warning"><strong>BH00-BH05 complete; broader campaign in progress.</strong><p>The HTTP, browser, session, identity, authorization, proxy, CSRF and WebSocket boundaries have executable adversarial coverage. Warden remains a development build while later checkpoints proceed.</p></div></section>
         <section><h2>Evidence standard</h2><ul><li>a named threat and reproducible adversarial test;</li><li>a regression for every repaired finding;</li><li>full Go, race, vet, frontend and Nift gates;</li><li>exact commits, documentation and retained limitations.</li></ul></section>
         <section><h2>BH00 evidence</h2><p>All 35 API routes register through one policy inventory and carry exactly one public, session, capability or WebSocket boundary. A regression rejects duplicate, unclassified and capability-less authoritative routes. The threat model records browser, proxy, filesystem, PTY, provider, SQLite and OS-user boundaries.</p></section>
         <section><h2>BH01 evidence</h2><p>All API request bodies now have a 64 MiB outer bound in addition to smaller handler-specific limits. Unsupported content encodings are rejected before handlers run, API responses are non-cacheable, error responses retain browser security headers, and request headers are capped at 1 MiB.</p></section>
         <section><h2>BH02 evidence</h2><p>Persistent browser sessions are capped at 32 per account, with expired and oldest sessions pruned during creation. Every authenticated request revalidates both the account and the exact login identity, so removed or disabled identities lose access immediately. Tests cover cap enforcement and identity-state revocation.</p></section>
         <section><h2>BH03 evidence</h2><p>TOTP login challenges are IP-bound and consumed on their first verification attempt, preventing replay even after an invalid cross-IP attempt. Google OAuth state is single-use and capped at 128 pending flows. Warden accepts a Google profile only when it has an immutable subject and verified email. Tests cover replay, IP binding and state exhaustion.</p></section>
         <section><h2>BH04 evidence</h2><p>Every capability-classified route is exercised against a session that lacks its required capability. The same issued session is denied immediately after its role loses authority, administrative subroutes derive explicit capabilities, and account-owned session identifiers cannot be revoked by another account.</p></section>
+        <section><h2>BH05 evidence</h2><p>Trusted proxy data is accepted only from a loopback peer. Multi-valued forwarded protocols fail closed, only the first forwarded client hop is considered, and invalid values fall back safely. Terminal WebSockets require a valid session, capability, CSRF token and an Origin whose scheme and host both match the effective request origin. Tests prove CSRF and origin rejection occurs before terminal work begins.</p></section>
         <section><h2>Checkpoint ledger</h2><table><thead><tr><th>Checkpoint</th><th>Scope</th><th>Status</th></tr></thead><tbody>
           <tr><td>BH00</td><td>Baseline and threat model</td><td>Complete</td></tr>
           <tr><td>BH01</td><td>HTTP and browser boundary</td><td>Complete</td></tr>
           <tr><td>BH02</td><td>Passwords and sessions</td><td>Complete</td></tr>
           <tr><td>BH03</td><td>TOTP and OAuth</td><td>Complete</td></tr>
           <tr><td>BH04</td><td>Authorization isolation</td><td>Complete</td></tr>
-          <tr><td>BH05</td><td>CSRF, proxies and WebSockets</td><td>Planned</td></tr>
+          <tr><td>BH05</td><td>CSRF, proxies and WebSockets</td><td>Complete</td></tr>
           <tr><td>BH06</td><td>Filesystem and archives</td><td>Planned</td></tr>
           <tr><td>BH07</td><td>Editor and Git</td><td>Planned</td></tr>
           <tr><td>BH08</td><td>Terminals and subprocesses</td><td>Planned</td></tr>
