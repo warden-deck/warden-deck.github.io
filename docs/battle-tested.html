@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Warden is a dark, security-conscious web console for Linux servers.">
+  <meta name="theme-color" content="#111213">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <title>Battle Tested · Warden</title>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="../docs.html">Docs</a>
+    <a href="https://github.com/warden-deck/warden">GitHub</a>
+  </nav>
+</header>
+<main><div class="docs-layout shell"><aside class="docs-nav">
+                                       <p>Warden docs</p>
+                                       <a href="../docs.html">Overview</a>
+                                       <a href="./editor.html">Editor</a>
+                                       <a href="./source-control.html">Source control</a>
+                                       <a href="./terminal.html">Terminal</a>
+                                       <a href="./explorer.html">Explorer</a>
+                                       <a href="./monitor.html">Monitor</a>
+                                       <a href="./alerts.html">Alerts & rules</a>
+                                       <a href="./websites.html">Websites</a>
+                                       <a href="./system.html">System</a>
+                                       <a href="./security.html">Security</a>
+                                       <a href="./battle-tested.html">Battle Tested</a>
+                                       <a href="./authentication.html">Authentication</a>
+                                       <a href="./accounts.html">Accounts</a>
+                                       <a href="./access-control.html">Access control</a>
+                                       <a href="./audit.html">Audit & sessions</a>
+                                       <a href="./ai.html">AI providers</a>
+                                       <a href="./agent.html">Coding agent</a>
+                                       <a href="./persistence.html">SQLite & durability</a>
+                                       <a href="./configuration.html">Configuration</a>
+                                       <a href="./installing.html">Installing</a>
+                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                       <a href="./https-nginx.html">HTTPS with nginx</a>
+                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Assurance</p><h1>Battle Tested</h1><p class="docs-lede">Warden's hardening campaign publishes what was attacked, what passed and what remains risky. This page is an evidence ledger, not a security slogan.</p><section><h2>Current status</h2><div class="callout warning"><strong>Campaign planned, not yet completed.</strong><p>The 18-checkpoint programme has been defined against Warden's current authentication, authorization, filesystem, terminal, agent, administration and persistence boundaries. Existing focused tests are useful baseline evidence, but they are not presented as completion of the adversarial campaign.</p></div><p>Warden remains a development build. Keep it bound to loopback behind a trusted HTTPS reverse proxy, run it with deliberately limited operating-system authority, grant terminal and agent capabilities sparingly, and maintain tested backups.</p></section><section><h2>What counts as evidence</h2><ul><li>a named threat and invariant;</li><li>a reproducible adversarial test or operational drill;</li><li>a regression test for every repaired finding;</li><li>focused tests plus the full Go, race, vet, frontend and Nift gates;</li><li>exact commits, environment and retained limitations;</li><li>public documentation updated in the same checkpoint.</li></ul><p>A green test run proves only the cases and environment it exercised. Warden will not translate one fuzz run or deployment drill into a universal "secure" claim.</p></section><section><h2>Campaign checkpoints</h2><div class="docs-card-grid"><div><strong>BH00–BH03 · Identity boundary</strong><span>Baseline and threat model, HTTP handling, sessions, passwords, TOTP and OAuth.</span></div><div><strong>BH04–BH05 · Request authority</strong><span>Capabilities, ownership, cross-account isolation, CSRF, origins, proxies and WebSockets.</span></div><div><strong>BH06–BH08 · Host authority</strong><span>Filesystem and archives, editor and Git, terminals and subprocess lifecycle.</span></div><div><strong>BH09–BH11 · Privileged integrations</strong><span>Coding agents, provider hostility, secrets, destructive actions, system and website administration.</span></div><div><strong>BH12–BH14 · Evidence and endurance</strong><span>Audit privacy, SQLite recovery, migrations, resource exhaustion, races and fuzzing.</span></div><div><strong>BH15–BH17 · Release proof</strong><span>Frontend resilience, accessibility, supply chain, artifacts, deployment drills and final review.</span></div></div></section><section><h2>Checkpoint ledger</h2><table><thead><tr><th>Checkpoint</th><th>Scope</th><th>Status</th></tr></thead><tbody><tr><td>BH00</td><td>Baseline, threat model and evidence ledger</td><td>Planned</td></tr><tr><td>BH01</td><td>HTTP parsing, response and browser boundary</td><td>Planned</td></tr><tr><td>BH02</td><td>Password authentication and session lifecycle</td><td>Planned</td></tr><tr><td>BH03</td><td>TOTP, recovery codes and Google OAuth</td><td>Planned</td></tr><tr><td>BH04</td><td>Authorization and cross-account isolation</td><td>Planned</td></tr><tr><td>BH05</td><td>CSRF, origins, proxies and WebSockets</td><td>Planned</td></tr><tr><td>BH06</td><td>Filesystem confinement and archive safety</td><td>Planned</td></tr><tr><td>BH07</td><td>Editor, workspace search and source control</td><td>Planned</td></tr><tr><td>BH08</td><td>Terminal and subprocess lifecycle</td><td>Planned</td></tr><tr><td>BH09</td><td>Coding agent, providers and hostile output</td><td>Planned</td></tr><tr><td>BH10</td><td>Secrets, configuration and destructive lifecycle</td><td>Planned</td></tr><tr><td>BH11</td><td>System administration and websites</td><td>Planned</td></tr><tr><td>BH12</td><td>Audit, privacy and forensic integrity</td><td>Planned</td></tr><tr><td>BH13</td><td>SQLite, migrations, backup, restore and upgrade</td><td>Planned</td></tr><tr><td>BH14</td><td>Resource exhaustion, races and fuzzing</td><td>Planned</td></tr><tr><td>BH15</td><td>Frontend security, accessibility and responsiveness</td><td>Planned</td></tr><tr><td>BH16</td><td>Supply chain, builds, installers and artifacts</td><td>Planned</td></tr><tr><td>BH17</td><td>Deployment drills, final review and claim freeze</td><td>Planned</td></tr></tbody></table></section><section><h2>Already implemented, awaiting campaign validation</h2><p>Warden already includes server-side sessions, per-session CSRF tokens, password throttling, optional TOTP, Google OAuth with PKCE, capability-bearing accounts, encrypted secret storage, trusted-proxy restrictions, filesystem path resolution, atomic saves, authenticated terminal WebSockets, SQLite state and audit events. The campaign will test these as interacting systems and repair any gap it finds.</p></section><section><h2>Known authority limit</h2><div class="callout warning"><strong>Warden accounts are not operating-system sandboxes.</strong><p>Terminal and coding-agent subprocesses inherit the authority of the operating-system user running Warden. Separate OS users or stronger containment remain necessary when users require OS-level isolation.</p></div></section><section><h2>How this page will evolve</h2><p>Every completed checkpoint will replace its planned status with the date, exact evidence, relevant commits, repaired findings and retained limitations. Related feature pages will be updated at the same time so this ledger never becomes the only accurate page on the site.</p></section></article></div></main>
+<footer class="site-footer">
+  <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
+  <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>
+</footer>
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
