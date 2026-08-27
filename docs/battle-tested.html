@@ -53,6 +53,7 @@
         <section><h2>BH03 evidence</h2><p>TOTP login challenges are IP-bound and consumed on their first verification attempt, preventing replay even after an invalid cross-IP attempt. Google OAuth state is single-use and capped at 128 pending flows. Warden accepts a Google profile only when it has an immutable subject and verified email. Tests cover replay, IP binding and state exhaustion.</p></section>
         <section><h2>BH04 evidence</h2><p>Every capability-classified route is exercised against a session that lacks its required capability. The same issued session is denied immediately after its role loses authority, administrative subroutes derive explicit capabilities, and account-owned session identifiers cannot be revoked by another account.</p></section>
         <section><h2>BH05 evidence</h2><p>Trusted proxy data is accepted only from a loopback peer. Multi-valued forwarded protocols fail closed, only the first forwarded client hop is considered, and invalid values fall back safely. Terminal WebSockets require a valid session, capability, CSRF token and an Origin whose scheme and host both match the effective request origin. Tests prove CSRF and origin rejection occurs before terminal work begins.</p></section>
+        <section><h2>BH06 evidence</h2><p>Archive extraction now preflights entry count, expanded size, expansion ratio, paths and file types before writing. Content is extracted into a private sibling staging directory and published by rename only after every entry succeeds. Existing targets are never merged or overwritten. Copy and compression refuse symlinks and special files, with regression cases for zip-slip, high-ratio archives and symlink chains.</p></section>
         <section><h2>Checkpoint ledger</h2><table><thead><tr><th>Checkpoint</th><th>Scope</th><th>Status</th></tr></thead><tbody>
           <tr><td>BH00</td><td>Baseline and threat model</td><td>Complete</td></tr>
           <tr><td>BH01</td><td>HTTP and browser boundary</td><td>Complete</td></tr>
@@ -60,7 +61,7 @@
           <tr><td>BH03</td><td>TOTP and OAuth</td><td>Complete</td></tr>
           <tr><td>BH04</td><td>Authorization isolation</td><td>Complete</td></tr>
           <tr><td>BH05</td><td>CSRF, proxies and WebSockets</td><td>Complete</td></tr>
-          <tr><td>BH06</td><td>Filesystem and archives</td><td>Planned</td></tr>
+          <tr><td>BH06</td><td>Filesystem and archives</td><td>Complete</td></tr>
           <tr><td>BH07</td><td>Editor and Git</td><td>Planned</td></tr>
           <tr><td>BH08</td><td>Terminals and subprocesses</td><td>Planned</td></tr>
           <tr><td>BH09</td><td>Agent and providers</td><td>Planned</td></tr>
