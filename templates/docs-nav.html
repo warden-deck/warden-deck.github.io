@@ -1,25 +1,27 @@
 <aside class="docs-nav">
   <p>Warden docs</p>
-  <a href="@pathto('docs')">Overview</a>
-  <a href="@pathto('docs/editor')">Editor</a>
-  <a href="@pathto('docs/source-control')">Source control</a>
-  <a href="@pathto('docs/terminal')">Terminal</a>
-  <a href="@pathto('docs/explorer')">Explorer</a>
-  <a href="@pathto('docs/monitor')">Monitor</a>
-  <a href="@pathto('docs/alerts')">Alerts & rules</a>
-  <a href="@pathto('docs/websites')">Websites</a>
-  <a href="@pathto('docs/system')">System</a>
-  <a href="@pathto('docs/security')">Security</a>
-  <a href="@pathto('docs/battle-tested')">Battle Tested</a>
-  <a href="@pathto('docs/authentication')">Authentication</a>
-  <a href="@pathto('docs/accounts')">Accounts</a>
-  <a href="@pathto('docs/access-control')">Access control</a>
-  <a href="@pathto('docs/audit')">Audit & sessions</a>
-  <a href="@pathto('docs/ai')">AI providers</a>
-  <a href="@pathto('docs/agent')">Coding agent</a>
-  <a href="@pathto('docs/persistence')">SQLite & durability</a>
-  <a href="@pathto('docs/configuration')">Configuration</a>
-  <a href="@pathto('docs/installing')">Installing</a>
-  <a href="@pathto('docs/https-caddy')">HTTPS with Caddy</a>
-  <a href="@pathto('docs/https-nginx')">HTTPS with nginx</a>
+  <div class="docs-nav-group" data-docs-group>
+    <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Start</span><i aria-hidden="true"></i></button>
+    <div class="docs-nav-links" hidden><a href="@pathto('docs')">Overview</a><a href="@pathto('docs/installing')">Installing</a><a href="@pathto('docs/configuration')">Configuration</a></div>
+  </div>
+  <div class="docs-nav-group" data-docs-group>
+    <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Workspace</span><i aria-hidden="true"></i></button>
+    <div class="docs-nav-links" hidden><a href="@pathto('docs/editor')">Editor</a><a href="@pathto('docs/source-control')">Source control</a><a href="@pathto('docs/explorer')">Explorer</a><a href="@pathto('docs/terminal')">Terminal</a></div>
+  </div>
+  <div class="docs-nav-group" data-docs-group>
+    <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Operations</span><i aria-hidden="true"></i></button>
+    <div class="docs-nav-links" hidden><a href="@pathto('docs/monitor')">Monitor</a><a href="@pathto('docs/alerts')">Alerts & rules</a><a href="@pathto('docs/websites')">Websites</a><a href="@pathto('docs/system')">System</a><a href="@pathto('docs/persistence')">SQLite & durability</a></div>
+  </div>
+  <div class="docs-nav-group" data-docs-group>
+    <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Identity</span><i aria-hidden="true"></i></button>
+    <div class="docs-nav-links" hidden><a href="@pathto('docs/authentication')">Authentication</a><a href="@pathto('docs/accounts')">Accounts</a><a href="@pathto('docs/access-control')">Access control</a><a href="@pathto('docs/audit')">Audit & sessions</a></div>
+  </div>
+  <div class="docs-nav-group" data-docs-group>
+    <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>AI</span><i aria-hidden="true"></i></button>
+    <div class="docs-nav-links" hidden><a href="@pathto('docs/ai')">AI providers</a><a href="@pathto('docs/agent')">Coding agent</a></div>
+  </div>
+  <div class="docs-nav-group" data-docs-group>
+    <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Security & deployment</span><i aria-hidden="true"></i></button>
+    <div class="docs-nav-links" hidden><a href="@pathto('docs/security')">Security</a><a href="@pathto('docs/battle-tested')">Battle Tested</a><a href="@pathto('docs/https-caddy')">HTTPS with Caddy</a><a href="@pathto('docs/https-nginx')">HTTPS with nginx</a></div>
+  </div>
 </aside>

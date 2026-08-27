@@ -7,3 +7,22 @@
 .skip-link:focus{transform:translateY(0)}
 :where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:2px solid var(--green);outline-offset:3px}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
+
+/* Compact documentation navigation with a page-aware open section. */
+.docs-nav{max-height:calc(100vh - 118px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:14px;gap:0}
+.docs-nav>p{margin-bottom:12px}
+.docs-nav-group{border-top:1px solid var(--line)}
+.docs-nav-group:last-child{border-bottom:1px solid var(--line)}
+.docs-nav-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:42px;padding:0;border:0;background:transparent;color:var(--muted2);text-align:left;font-size:10px;font-weight:850;letter-spacing:.11em;text-transform:uppercase;cursor:pointer}
+.docs-nav-toggle:hover{color:#fff}
+.docs-nav-toggle i{position:relative;flex:0 0 12px;width:12px;height:12px}
+.docs-nav-toggle i::before,.docs-nav-toggle i::after{content:"";position:absolute;background:currentColor}
+.docs-nav-toggle i::before{left:1px;right:1px;top:5px;height:1px}
+.docs-nav-toggle i::after{top:1px;bottom:1px;left:5px;width:1px;transition:opacity .15s ease}
+.docs-nav-toggle[aria-expanded="true"] i::after{opacity:0}
+.docs-nav-links{display:grid;gap:1px;padding:0 0 10px}
+.docs-nav-links a{display:block;padding:4px 8px;border-radius:5px;font-size:12px;color:var(--muted)}
+.docs-nav-links a:hover{background:var(--panel);color:var(--text)}
+.docs-nav-links a.active{background:var(--panel2);color:var(--text);font-weight:700}
+@media(max-width:1100px){.docs-nav{position:static;display:block;max-height:none;overflow:visible;padding:16px}.docs-nav>p{width:auto}.docs-nav-links{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}}
+@media(max-width:600px){.docs-nav-links{grid-template-columns:1fr}}
