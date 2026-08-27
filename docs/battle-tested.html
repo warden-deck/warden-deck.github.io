@@ -48,8 +48,26 @@
         <section><h2>Current status</h2><div class="callout warning"><strong>BH00 complete; broader campaign in progress.</strong><p>The threat model, authority inventory and executable API-route classification are established. Warden remains a development build while later checkpoints proceed.</p></div></section>
         <section><h2>Evidence standard</h2><ul><li>a named threat and reproducible adversarial test;</li><li>a regression for every repaired finding;</li><li>full Go, race, vet, frontend and Nift gates;</li><li>exact commits, documentation and retained limitations.</li></ul></section>
         <section><h2>BH00 evidence</h2><p>All 35 API routes register through one policy inventory and carry exactly one public, session, capability or WebSocket boundary. A regression rejects duplicate, unclassified and capability-less authoritative routes. The threat model records browser, proxy, filesystem, PTY, provider, SQLite and OS-user boundaries.</p></section>
+        <section><h2>BH01 evidence</h2><p>All API request bodies now have a 64 MiB outer bound in addition to smaller handler-specific limits. Unsupported content encodings are rejected before handlers run, API responses are non-cacheable, error responses retain browser security headers, and request headers are capped at 1 MiB.</p></section>
         <section><h2>Checkpoint ledger</h2><table><thead><tr><th>Checkpoint</th><th>Scope</th><th>Status</th></tr></thead><tbody>
-          <tr><td>BH00</td><td>Baseline and threat model</td><td>Complete</td></tr><tr><td>BH01</td><td>HTTP and browser boundary</td><td>Planned</td></tr><tr><td>BH02</td><td>Passwords and sessions</td><td>Planned</td></tr><tr><td>BH03</td><td>TOTP and OAuth</td><td>Planned</td></tr><tr><td>BH04</td><td>Authorization isolation</td><td>Planned</td></tr><tr><td>BH05</td><td>CSRF, proxies and WebSockets</td><td>Planned</td></tr><tr><td>BH06</td><td>Filesystem and archives</td><td>Planned</td></tr><tr><td>BH07</td><td>Editor and Git</td><td>Planned</td></tr><tr><td>BH08</td><td>Terminals and subprocesses</td><td>Planned</td></tr><tr><td>BH09</td><td>Agent and providers</td><td>Planned</td></tr><tr><td>BH10</td><td>Secrets and lifecycle</td><td>Planned</td></tr><tr><td>BH11</td><td>System and websites</td><td>Planned</td></tr><tr><td>BH12</td><td>Audit and privacy</td><td>Planned</td></tr><tr><td>BH13</td><td>SQLite and recovery</td><td>Planned</td></tr><tr><td>BH14</td><td>Resources, races and fuzzing</td><td>Planned</td></tr><tr><td>BH15</td><td>Frontend and accessibility</td><td>Planned</td></tr><tr><td>BH16</td><td>Supply chain and releases</td><td>Planned</td></tr><tr><td>BH17</td><td>Deployment and final review</td><td>Planned</td></tr>
+          <tr><td>BH00</td><td>Baseline and threat model</td><td>Complete</td></tr>
+          <tr><td>BH01</td><td>HTTP and browser boundary</td><td>Complete</td></tr>
+          <tr><td>BH02</td><td>Passwords and sessions</td><td>Planned</td></tr>
+          <tr><td>BH03</td><td>TOTP and OAuth</td><td>Planned</td></tr>
+          <tr><td>BH04</td><td>Authorization isolation</td><td>Planned</td></tr>
+          <tr><td>BH05</td><td>CSRF, proxies and WebSockets</td><td>Planned</td></tr>
+          <tr><td>BH06</td><td>Filesystem and archives</td><td>Planned</td></tr>
+          <tr><td>BH07</td><td>Editor and Git</td><td>Planned</td></tr>
+          <tr><td>BH08</td><td>Terminals and subprocesses</td><td>Planned</td></tr>
+          <tr><td>BH09</td><td>Agent and providers</td><td>Planned</td></tr>
+          <tr><td>BH10</td><td>Secrets and lifecycle</td><td>Planned</td></tr>
+          <tr><td>BH11</td><td>System and websites</td><td>Planned</td></tr>
+          <tr><td>BH12</td><td>Audit and privacy</td><td>Planned</td></tr>
+          <tr><td>BH13</td><td>SQLite and recovery</td><td>Planned</td></tr>
+          <tr><td>BH14</td><td>Resources, races and fuzzing</td><td>Planned</td></tr>
+          <tr><td>BH15</td><td>Frontend and accessibility</td><td>Planned</td></tr>
+          <tr><td>BH16</td><td>Supply chain and releases</td><td>Planned</td></tr>
+          <tr><td>BH17</td><td>Deployment and final review</td><td>Planned</td></tr>
         </tbody></table></section>
         <section><h2>Retained authority limit</h2><div class="callout warning"><strong>Warden accounts are not OS sandboxes.</strong><p>Terminal and coding-agent subprocesses inherit the authority of the OS user running Warden.</p></div></section>
       </article></div></main>
