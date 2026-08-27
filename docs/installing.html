@@ -9,6 +9,7 @@
   <title>installing · Warden</title>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
   <nav class="site-nav" aria-label="Primary">
@@ -16,37 +17,37 @@
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
 </header>
-<main><div class="docs-layout shell"><aside class="docs-nav">
-                                       <p>Warden docs</p>
-                                       <a href="../docs.html">Overview</a>
-                                       <a href="./editor.html">Editor</a>
-                                       <a href="./source-control.html">Source control</a>
-                                       <a href="./terminal.html">Terminal</a>
-                                       <a href="./explorer.html">Explorer</a>
-                                       <a href="./monitor.html">Monitor</a>
-                                       <a href="./alerts.html">Alerts & rules</a>
-                                       <a href="./websites.html">Websites</a>
-                                       <a href="./system.html">System</a>
-                                       <a href="./security.html">Security</a>
-                                       <a href="./battle-tested.html">Battle Tested</a>
-                                       <a href="./authentication.html">Authentication</a>
-                                       <a href="./accounts.html">Accounts</a>
-                                       <a href="./access-control.html">Access control</a>
-                                       <a href="./audit.html">Audit & sessions</a>
-                                       <a href="./ai.html">AI providers</a>
-                                       <a href="./agent.html">Coding agent</a>
-                                       <a href="./persistence.html">SQLite & durability</a>
-                                       <a href="./configuration.html">Configuration</a>
-                                       <a href="./installing.html">Installing</a>
-                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
-                                       <a href="./https-nginx.html">HTTPS with nginx</a>
-                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Installing</p><h1>Installing Warden</h1><p class="docs-lede">Release binaries contain Warden's Nift-built frontend, so a normal installation is a single executable.</p>
-      <section><h2>Go install</h2><pre><code>go install github.com/warden-app/warden/cmd/warden@latest</code></pre><p>This is cross-platform and follows your Go toolchain's configured binary directory.</p></section>
-      <section><h2>Linux and macOS</h2><p>The recommended installer is per-user and does not require <code>sudo</code>:</p><pre><code>curl -fsSL https://warden-deck.github.io/install.sh | sh</code></pre><p>It installs to <code>~/.local/bin/warden</code>. If that directory is not in <code>PATH</code>, the installer prints the shell-profile line to add it.</p><p>For a deliberate machine-wide install:</p><pre><code>curl -fsSL https://warden-deck.github.io/install.sh | sudo sh -s -- --system</code></pre><p><code>--system</code> installs to <code>/usr/local/bin/warden</code>. The installer rejects accidental sudo use in normal per-user mode. Set <code>WARDEN_INSTALL_DIR</code> for another per-user destination.</p></section>
-      <section><h2>Windows</h2><p>GitHub Releases provide <code>warden-windows-amd64.zip</code> and <code>warden-windows-arm64.zip</code>. Extract <code>warden.exe</code> somewhere on <code>PATH</code>, or use <code>go install</code>.</p></section>
-      <section><h2>Release targets</h2><p>Every published release includes six archives: Linux, macOS and Windows for both <code>amd64</code> and <code>arm64</code>. The installer detects the supported operating system and architecture and downloads the matching archive.</p></section>
-      <section><h2>Upgrade and rollback</h2><p>Before replacing the executable, stop Warden and take a complete copy of its configuration directory. Start the new version and verify login, authority, audit and one durable object. Warden migrates older schemas transactionally and runs an integrity check, but it will not open a schema newer than itself. Rollback therefore means restoring the matching pre-upgrade data snapshot before starting the older binary.</p></section>
-      <section><h2>Frontend assets</h2><p>The release binary embeds the generated Nift frontend. Source development still uses <code>content/</code> and <code>templates/</code> as the frontend source of truth and rebuilds <code>public/</code> with Nift before compiling Go.</p></section></article></div></main>
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+                                                                       <p>Warden docs</p>
+                                                                       <a href="../docs.html">Overview</a>
+                                                                       <a href="./editor.html">Editor</a>
+                                                                       <a href="./source-control.html">Source control</a>
+                                                                       <a href="./terminal.html">Terminal</a>
+                                                                       <a href="./explorer.html">Explorer</a>
+                                                                       <a href="./monitor.html">Monitor</a>
+                                                                       <a href="./alerts.html">Alerts & rules</a>
+                                                                       <a href="./websites.html">Websites</a>
+                                                                       <a href="./system.html">System</a>
+                                                                       <a href="./security.html">Security</a>
+                                                                       <a href="./battle-tested.html">Battle Tested</a>
+                                                                       <a href="./authentication.html">Authentication</a>
+                                                                       <a href="./accounts.html">Accounts</a>
+                                                                       <a href="./access-control.html">Access control</a>
+                                                                       <a href="./audit.html">Audit & sessions</a>
+                                                                       <a href="./ai.html">AI providers</a>
+                                                                       <a href="./agent.html">Coding agent</a>
+                                                                       <a href="./persistence.html">SQLite & durability</a>
+                                                                       <a href="./configuration.html">Configuration</a>
+                                                                       <a href="./installing.html">Installing</a>
+                                                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                                                       <a href="./https-nginx.html">HTTPS with nginx</a>
+                                                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Installing</p><h1>Installing Warden</h1><p class="docs-lede">Release binaries contain Warden's Nift-built frontend, so a normal installation is a single executable.</p>
+                                      <section><h2>Go install</h2><pre><code>go install github.com/warden-app/warden/cmd/warden@latest</code></pre><p>This is cross-platform and follows your Go toolchain's configured binary directory.</p></section>
+                                      <section><h2>Linux and macOS</h2><p>The recommended installer is per-user and does not require <code>sudo</code>:</p><pre><code>curl -fsSL https://warden-deck.github.io/install.sh | sh</code></pre><p>It installs to <code>~/.local/bin/warden</code>. If that directory is not in <code>PATH</code>, the installer prints the shell-profile line to add it.</p><p>For a deliberate machine-wide install:</p><pre><code>curl -fsSL https://warden-deck.github.io/install.sh | sudo sh -s -- --system</code></pre><p><code>--system</code> installs to <code>/usr/local/bin/warden</code>. The installer rejects accidental sudo use in normal per-user mode. Set <code>WARDEN_INSTALL_DIR</code> for another per-user destination.</p></section>
+                                      <section><h2>Windows</h2><p>GitHub Releases provide <code>warden-windows-amd64.zip</code> and <code>warden-windows-arm64.zip</code>. Extract <code>warden.exe</code> somewhere on <code>PATH</code>, or use <code>go install</code>.</p></section>
+                                      <section><h2>Release targets</h2><p>Every published release includes six archives: Linux, macOS and Windows for both <code>amd64</code> and <code>arm64</code>. The installer detects the supported operating system and architecture and downloads the matching archive.</p></section>
+                                      <section><h2>Upgrade and rollback</h2><p>Before replacing the executable, stop Warden and take a complete copy of its configuration directory. Start the new version and verify login, authority, audit and one durable object. Warden migrates older schemas transactionally and runs an integrity check, but it will not open a schema newer than itself. Rollback therefore means restoring the matching pre-upgrade data snapshot before starting the older binary.</p></section>
+                                      <section><h2>Frontend assets</h2><p>The release binary embeds the generated Nift frontend. Source development still uses <code>content/</code> and <code>templates/</code> as the frontend source of truth and rebuilds <code>public/</code> with Nift before compiling Go.</p></section></article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>

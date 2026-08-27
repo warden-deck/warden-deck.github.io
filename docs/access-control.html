@@ -9,6 +9,7 @@
   <title>Access control · Warden</title>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
   <nav class="site-nav" aria-label="Primary">
@@ -16,39 +17,39 @@
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
 </header>
-<main><div class="docs-layout shell"><aside class="docs-nav">
-                                       <p>Warden docs</p>
-                                       <a href="../docs.html">Overview</a>
-                                       <a href="./editor.html">Editor</a>
-                                       <a href="./source-control.html">Source control</a>
-                                       <a href="./terminal.html">Terminal</a>
-                                       <a href="./explorer.html">Explorer</a>
-                                       <a href="./monitor.html">Monitor</a>
-                                       <a href="./alerts.html">Alerts & rules</a>
-                                       <a href="./websites.html">Websites</a>
-                                       <a href="./system.html">System</a>
-                                       <a href="./security.html">Security</a>
-                                       <a href="./battle-tested.html">Battle Tested</a>
-                                       <a href="./authentication.html">Authentication</a>
-                                       <a href="./accounts.html">Accounts</a>
-                                       <a href="./access-control.html">Access control</a>
-                                       <a href="./audit.html">Audit & sessions</a>
-                                       <a href="./ai.html">AI providers</a>
-                                       <a href="./agent.html">Coding agent</a>
-                                       <a href="./persistence.html">SQLite & durability</a>
-                                       <a href="./configuration.html">Configuration</a>
-                                       <a href="./installing.html">Installing</a>
-                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
-                                       <a href="./https-nginx.html">HTTPS with nginx</a>
-                                     </aside><article class="docs-content">
-      <p class="eyebrow">Documentation · Access control</p><h1>Roles and capabilities</h1><p class="docs-lede">Warden uses named roles made from explicit capabilities. Administrator is an assignable role, so an instance can have multiple administrators without one permanently special account.</p>
-      <section><h2>Checkbox-managed permissions</h2><p>System → Access shows accounts, their assigned roles and the capabilities contained in each role. Administrators can edit the normal <strong>User</strong> role or assign several roles to one account. The built-in Administrator role always retains every capability.</p><p>Capabilities are intentionally functional rather than page-shaped: file reading, file writes, workspace replacement, Git mutation, terminal access, system administration, Warden settings, audit visibility and account management are separate decisions. Audit access is represented by its own <code>audit.read</code> capability. AI access is split into <code>ai.use</code> for using providers, <code>ai.credentials</code> for supplying personal credentials, and <code>ai.manage</code> for shared instance provider settings. This lets an organization force users onto company credentials without disabling AI access.</p></section>
-      <section><h2>Frontend and backend enforcement</h2><p>Warden disables or removes unavailable controls in the browser for a clear UX, but the browser is never the security boundary. Every protected API route checks the authenticated account's effective capabilities and returns <code>403 Forbidden</code> when the permission is absent.</p><p>Read-only combinations are first-class: for example, <code>system.read</code> without <code>system.manage</code> keeps system inspection available while mutation buttons/forms are disabled; <code>source.read</code> without <code>source.write</code> keeps Git status available while stage/commit controls are disabled.</p></section>
-      <section><h2>Live authority</h2><p>Capabilities are resolved from current server-side account and role state on every HTTP request, not copied permanently into the session. Removing a role capability therefore affects already-issued sessions immediately. Account-owned identifiers such as sessions, conversations and terminal metadata remain scoped by account in addition to capability checks.</p></section>
-      <section><h2>Terminal authority warning</h2><div class="callout warning"><strong>Terminal access is shell access.</strong><p>An account with terminal access receives the operating-system authority of the user running that Warden instance. File/workspace capabilities do not sandbox commands typed into the PTY.</p></div></section>
-      <section><h2>Multiple identities</h2><p>Accounts can have additional password logins and email identities. This supports several people deliberately sharing one Warden account while still keeping separate login identities for audit trails. Google identities attach to the same account model instead of making email addresses the account key.</p></section>
-      <section><h2>Local administrator recovery</h2><p>Warden always retains at least one enabled Administrator with an enabled password login. Other administrators may rely on linked Google identities, but the final local administrator password cannot be removed or disabled. This keeps optional external authentication from becoming the only recovery path for the instance.</p></section>
-      </article></div></main>
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+                                                                       <p>Warden docs</p>
+                                                                       <a href="../docs.html">Overview</a>
+                                                                       <a href="./editor.html">Editor</a>
+                                                                       <a href="./source-control.html">Source control</a>
+                                                                       <a href="./terminal.html">Terminal</a>
+                                                                       <a href="./explorer.html">Explorer</a>
+                                                                       <a href="./monitor.html">Monitor</a>
+                                                                       <a href="./alerts.html">Alerts & rules</a>
+                                                                       <a href="./websites.html">Websites</a>
+                                                                       <a href="./system.html">System</a>
+                                                                       <a href="./security.html">Security</a>
+                                                                       <a href="./battle-tested.html">Battle Tested</a>
+                                                                       <a href="./authentication.html">Authentication</a>
+                                                                       <a href="./accounts.html">Accounts</a>
+                                                                       <a href="./access-control.html">Access control</a>
+                                                                       <a href="./audit.html">Audit & sessions</a>
+                                                                       <a href="./ai.html">AI providers</a>
+                                                                       <a href="./agent.html">Coding agent</a>
+                                                                       <a href="./persistence.html">SQLite & durability</a>
+                                                                       <a href="./configuration.html">Configuration</a>
+                                                                       <a href="./installing.html">Installing</a>
+                                                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                                                       <a href="./https-nginx.html">HTTPS with nginx</a>
+                                                                     </aside><article class="docs-content">
+                                      <p class="eyebrow">Documentation · Access control</p><h1>Roles and capabilities</h1><p class="docs-lede">Warden uses named roles made from explicit capabilities. Administrator is an assignable role, so an instance can have multiple administrators without one permanently special account.</p>
+                                      <section><h2>Checkbox-managed permissions</h2><p>System → Access shows accounts, their assigned roles and the capabilities contained in each role. Administrators can edit the normal <strong>User</strong> role or assign several roles to one account. The built-in Administrator role always retains every capability.</p><p>Capabilities are intentionally functional rather than page-shaped: file reading, file writes, workspace replacement, Git mutation, terminal access, system administration, Warden settings, audit visibility and account management are separate decisions. Audit access is represented by its own <code>audit.read</code> capability. AI access is split into <code>ai.use</code> for using providers, <code>ai.credentials</code> for supplying personal credentials, and <code>ai.manage</code> for shared instance provider settings. This lets an organization force users onto company credentials without disabling AI access.</p></section>
+                                      <section><h2>Frontend and backend enforcement</h2><p>Warden disables or removes unavailable controls in the browser for a clear UX, but the browser is never the security boundary. Every protected API route checks the authenticated account's effective capabilities and returns <code>403 Forbidden</code> when the permission is absent.</p><p>Read-only combinations are first-class: for example, <code>system.read</code> without <code>system.manage</code> keeps system inspection available while mutation buttons/forms are disabled; <code>source.read</code> without <code>source.write</code> keeps Git status available while stage/commit controls are disabled.</p></section>
+                                      <section><h2>Live authority</h2><p>Capabilities are resolved from current server-side account and role state on every HTTP request, not copied permanently into the session. Removing a role capability therefore affects already-issued sessions immediately. Account-owned identifiers such as sessions, conversations and terminal metadata remain scoped by account in addition to capability checks.</p></section>
+                                      <section><h2>Terminal authority warning</h2><div class="callout warning"><strong>Terminal access is shell access.</strong><p>An account with terminal access receives the operating-system authority of the user running that Warden instance. File/workspace capabilities do not sandbox commands typed into the PTY.</p></div></section>
+                                      <section><h2>Multiple identities</h2><p>Accounts can have additional password logins and email identities. This supports several people deliberately sharing one Warden account while still keeping separate login identities for audit trails. Google identities attach to the same account model instead of making email addresses the account key.</p></section>
+                                      <section><h2>Local administrator recovery</h2><p>Warden always retains at least one enabled Administrator with an enabled password login. Other administrators may rely on linked Google identities, but the final local administrator password cannot be removed or disabled. This keeps optional external authentication from becoming the only recovery path for the instance.</p></section>
+                                      </article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>

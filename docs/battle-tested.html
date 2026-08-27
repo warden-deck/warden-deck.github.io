@@ -9,6 +9,7 @@
   <title>Battle Tested · Warden</title>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
   <nav class="site-nav" aria-label="Primary">
@@ -16,74 +17,75 @@
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
 </header>
-<main><div class="docs-layout shell">
-      <aside class="docs-nav">
-        <p>Warden docs</p>
-        <a href="../docs.html">Overview</a>
-        <a href="./editor.html">Editor</a>
-        <a href="./source-control.html">Source control</a>
-        <a href="./terminal.html">Terminal</a>
-        <a href="./explorer.html">Explorer</a>
-        <a href="./monitor.html">Monitor</a>
-        <a href="./alerts.html">Alerts & rules</a>
-        <a href="./websites.html">Websites</a>
-        <a href="./system.html">System</a>
-        <a href="./security.html">Security</a>
-        <a href="./battle-tested.html">Battle Tested</a>
-        <a href="./authentication.html">Authentication</a>
-        <a href="./accounts.html">Accounts</a>
-        <a href="./access-control.html">Access control</a>
-        <a href="./audit.html">Audit & sessions</a>
-        <a href="./ai.html">AI providers</a>
-        <a href="./agent.html">Coding agent</a>
-        <a href="./persistence.html">SQLite & durability</a>
-        <a href="./configuration.html">Configuration</a>
-        <a href="./installing.html">Installing</a>
-        <a href="./https-caddy.html">HTTPS with Caddy</a>
-        <a href="./https-nginx.html">HTTPS with nginx</a>
-      </aside>
-      <article class="docs-content">
-        <p class="eyebrow">Documentation · Assurance</p><h1>Battle Tested</h1>
-        <p class="docs-lede">Warden publishes what was attacked, what passed and what remains risky. This is an evidence ledger, not a security slogan.</p>
-        <section><h2>Current status</h2><div class="callout warning"><strong>BH00-BH14 complete; broader campaign in progress.</strong><p>Application boundaries through resource exhaustion and fuzz regression now have executable adversarial coverage. Warden remains a development build while frontend, release and deployment checkpoints proceed.</p></div></section>
-        <section><h2>Evidence standard</h2><ul><li>a named threat and reproducible adversarial test;</li><li>a regression for every repaired finding;</li><li>full Go, race, vet, frontend and Nift gates;</li><li>exact commits, documentation and retained limitations.</li></ul></section>
-        <section><h2>BH00 evidence</h2><p>All 35 API routes register through one policy inventory and carry exactly one public, session, capability or WebSocket boundary. A regression rejects duplicate, unclassified and capability-less authoritative routes. The threat model records browser, proxy, filesystem, PTY, provider, SQLite and OS-user boundaries.</p></section>
-        <section><h2>BH01 evidence</h2><p>All API request bodies now have a 64 MiB outer bound in addition to smaller handler-specific limits. Unsupported content encodings are rejected before handlers run, API responses are non-cacheable, error responses retain browser security headers, and request headers are capped at 1 MiB.</p></section>
-        <section><h2>BH02 evidence</h2><p>Persistent browser sessions are capped at 32 per account, with expired and oldest sessions pruned during creation. Every authenticated request revalidates both the account and the exact login identity, so removed or disabled identities lose access immediately. Tests cover cap enforcement and identity-state revocation.</p></section>
-        <section><h2>BH03 evidence</h2><p>TOTP login challenges are IP-bound and consumed on their first verification attempt, preventing replay even after an invalid cross-IP attempt. Google OAuth state is single-use and capped at 128 pending flows. Warden accepts a Google profile only when it has an immutable subject and verified email. Tests cover replay, IP binding and state exhaustion.</p></section>
-        <section><h2>BH04 evidence</h2><p>Every capability-classified route is exercised against a session that lacks its required capability. The same issued session is denied immediately after its role loses authority, administrative subroutes derive explicit capabilities, and account-owned session identifiers cannot be revoked by another account.</p></section>
-        <section><h2>BH05 evidence</h2><p>Trusted proxy data is accepted only from a loopback peer. Multi-valued forwarded protocols fail closed, only the first forwarded client hop is considered, and invalid values fall back safely. Terminal WebSockets require a valid session, capability, CSRF token and an Origin whose scheme and host both match the effective request origin. Tests prove CSRF and origin rejection occurs before terminal work begins.</p></section>
-        <section><h2>BH06 evidence</h2><p>Archive extraction now preflights entry count, expanded size, expansion ratio, paths and file types before writing. Content is extracted into a private sibling staging directory and published by rename only after every entry succeeds. Existing targets are never merged or overwritten. Copy and compression refuse symlinks and special files, with regression cases for zip-slip, high-ratio archives and symlink chains.</p></section>
-        <section><h2>BH07 evidence</h2><p>Git operations use a fixed executable and argument arrays, insert <code>--</code> before user-controlled paths, disable repository hooks, external diffs, pagers and terminal prompting, cap combined output at 4 MiB and time out after ten seconds. Tests stage a dash-prefixed filename and prove a hostile pre-commit hook is not executed. Workspace search remains RE2-based and bounded to 500 results, 2 MiB files and 32 MiB undo state.</p></section>
-        <section><h2>BH08 evidence</h2><p>PTY input frames must be masked, final, free of reserved bits and no larger than 64 KiB. Terminal scrollback is capped at 256 KiB and durable sessions at 16 per account. Loader and shell-startup injection variables are removed from child environments. Disconnect terminates the shell process group, not only its leader, so descendants do not survive an ordinary socket close.</p></section>
-        <section><h2>BH09 evidence</h2><p>Prompts, provider JSON and restored session exports are bounded independently. Provider objects have depth, collection and string limits; credential-shaped fields and the effective provider key are redacted before streaming to the browser. Provider session identifiers use a strict 128-character alphabet before becoming command arguments, and exports have separate 8 MiB output and 256 KiB error limits. Model/provider events remain labelled provider data, not Warden authorization evidence.</p></section>
-        <section><h2>BH10 evidence</h2><p>The 256-bit master key is generated into a mode-0600 temporary file, synced and installed without overwrite. Key and ciphertext paths must be regular files, ciphertext is authenticated with a fresh AES-GCM nonce, and a corrupt or mismatched store cannot replace the last known-good in-memory snapshot. Configuration imports validate the entire candidate set before replacement. Instance, authentication and account deletion actions require the acting account's current password in addition to session capability and CSRF checks.</p></section>
-        <section><h2>BH11 evidence</h2><p>Typed administration resolves fixed executable names only from system binary directories, uses argument arrays and a minimal environment, enforces per-operation timeouts, and caps command input/output at 1 MiB. Website definitions reject non-loopback proxies, stale revisions and invalid identifiers. Generated Caddy values are quoted, disabled-site comments are line-sanitized, and fragments are atomically replaced. Tests cover executable-path rejection, input limits, stale saves and configuration-line injection.</p></section>
-        <section><h2>BH12 evidence</h2><p>Audit events use a versioned envelope with request correlation, action, target, outcome, actor identity and timestamp. Authorization failures create denied evidence before returning. Central redaction tests inject canaries into every credential-shaped field and prove they are absent from both SQLite and log output. Details, exports and retention are bounded. Local logs remain attributable evidence, not a tamper-proof ledger.</p></section>
-        <section><h2>BH13 evidence</h2><p>Tests build every historical migration prefix and upgrade it without losing a durable canary. Startup performs SQLite integrity checking, refuses corrupt and future schemas, and converges under four simultaneous open attempts. Password-encrypted backup tests recover configuration and provider secrets with the correct password and reject incorrect credentials. The recovery guide requires an offline whole-directory snapshot and makes downgrade refusal explicit.</p></section>
-        <section><h2>BH14 evidence</h2><p>Six retained native fuzz targets cover domain and loopback-upstream validation, agent session identifiers, audit redaction, Git status parsing and cron syntax. Seed corpora run in every ordinary test; selected targets also ran for two seconds during the checkpoint. A 32-worker stress case performs 3,200 concurrent redactions under the race detector. Exact HTTP, file, terminal, session, process, audit and database ceilings are published in the resource inventory. These campaign durations are regression evidence, not universal exhaustion claims.</p></section>
-        <section><h2>Checkpoint ledger</h2><table><thead><tr><th>Checkpoint</th><th>Scope</th><th>Status</th></tr></thead><tbody>
-          <tr><td>BH00</td><td>Baseline and threat model</td><td>Complete</td></tr>
-          <tr><td>BH01</td><td>HTTP and browser boundary</td><td>Complete</td></tr>
-          <tr><td>BH02</td><td>Passwords and sessions</td><td>Complete</td></tr>
-          <tr><td>BH03</td><td>TOTP and OAuth</td><td>Complete</td></tr>
-          <tr><td>BH04</td><td>Authorization isolation</td><td>Complete</td></tr>
-          <tr><td>BH05</td><td>CSRF, proxies and WebSockets</td><td>Complete</td></tr>
-          <tr><td>BH06</td><td>Filesystem and archives</td><td>Complete</td></tr>
-          <tr><td>BH07</td><td>Editor and Git</td><td>Complete</td></tr>
-          <tr><td>BH08</td><td>Terminals and subprocesses</td><td>Complete</td></tr>
-          <tr><td>BH09</td><td>Agent and providers</td><td>Complete</td></tr>
-          <tr><td>BH10</td><td>Secrets and lifecycle</td><td>Complete</td></tr>
-          <tr><td>BH11</td><td>System and websites</td><td>Complete</td></tr>
-          <tr><td>BH12</td><td>Audit and privacy</td><td>Complete</td></tr>
-          <tr><td>BH13</td><td>SQLite and recovery</td><td>Complete</td></tr>
-          <tr><td>BH14</td><td>Resources, races and fuzzing</td><td>Complete</td></tr>
-          <tr><td>BH15</td><td>Frontend and accessibility</td><td>Planned</td></tr>
-          <tr><td>BH16</td><td>Supply chain and releases</td><td>Planned</td></tr>
-          <tr><td>BH17</td><td>Deployment and final review</td><td>Planned</td></tr>
-        </tbody></table></section>
-        <section><h2>Retained authority limit</h2><div class="callout warning"><strong>Warden accounts are not OS sandboxes.</strong><p>Terminal and coding-agent subprocesses inherit the authority of the OS user running Warden.</p></div></section>
-      </article></div></main>
+<main id="main-content" tabindex="-1"><div class="docs-layout shell">
+                                      <aside class="docs-nav">
+                                        <p>Warden docs</p>
+                                        <a href="../docs.html">Overview</a>
+                                        <a href="./editor.html">Editor</a>
+                                        <a href="./source-control.html">Source control</a>
+                                        <a href="./terminal.html">Terminal</a>
+                                        <a href="./explorer.html">Explorer</a>
+                                        <a href="./monitor.html">Monitor</a>
+                                        <a href="./alerts.html">Alerts & rules</a>
+                                        <a href="./websites.html">Websites</a>
+                                        <a href="./system.html">System</a>
+                                        <a href="./security.html">Security</a>
+                                        <a href="./battle-tested.html">Battle Tested</a>
+                                        <a href="./authentication.html">Authentication</a>
+                                        <a href="./accounts.html">Accounts</a>
+                                        <a href="./access-control.html">Access control</a>
+                                        <a href="./audit.html">Audit & sessions</a>
+                                        <a href="./ai.html">AI providers</a>
+                                        <a href="./agent.html">Coding agent</a>
+                                        <a href="./persistence.html">SQLite & durability</a>
+                                        <a href="./configuration.html">Configuration</a>
+                                        <a href="./installing.html">Installing</a>
+                                        <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                        <a href="./https-nginx.html">HTTPS with nginx</a>
+                                      </aside>
+                                      <article class="docs-content">
+                                        <p class="eyebrow">Documentation · Assurance</p><h1>Battle Tested</h1>
+                                        <p class="docs-lede">Warden publishes what was attacked, what passed and what remains risky. This is an evidence ledger, not a security slogan.</p>
+                                        <section><h2>Current status</h2><div class="callout warning"><strong>BH00-BH15 complete; broader campaign in progress.</strong><p>Application boundaries through frontend security and accessibility now have executable adversarial coverage. Warden remains a development build while release and deployment checkpoints proceed.</p></div></section>
+                                        <section><h2>Evidence standard</h2><ul><li>a named threat and reproducible adversarial test;</li><li>a regression for every repaired finding;</li><li>full Go, race, vet, frontend and Nift gates;</li><li>exact commits, documentation and retained limitations.</li></ul></section>
+                                        <section><h2>BH00 evidence</h2><p>All 35 API routes register through one policy inventory and carry exactly one public, session, capability or WebSocket boundary. A regression rejects duplicate, unclassified and capability-less authoritative routes. The threat model records browser, proxy, filesystem, PTY, provider, SQLite and OS-user boundaries.</p></section>
+                                        <section><h2>BH01 evidence</h2><p>All API request bodies now have a 64 MiB outer bound in addition to smaller handler-specific limits. Unsupported content encodings are rejected before handlers run, API responses are non-cacheable, error responses retain browser security headers, and request headers are capped at 1 MiB.</p></section>
+                                        <section><h2>BH02 evidence</h2><p>Persistent browser sessions are capped at 32 per account, with expired and oldest sessions pruned during creation. Every authenticated request revalidates both the account and the exact login identity, so removed or disabled identities lose access immediately. Tests cover cap enforcement and identity-state revocation.</p></section>
+                                        <section><h2>BH03 evidence</h2><p>TOTP login challenges are IP-bound and consumed on their first verification attempt, preventing replay even after an invalid cross-IP attempt. Google OAuth state is single-use and capped at 128 pending flows. Warden accepts a Google profile only when it has an immutable subject and verified email. Tests cover replay, IP binding and state exhaustion.</p></section>
+                                        <section><h2>BH04 evidence</h2><p>Every capability-classified route is exercised against a session that lacks its required capability. The same issued session is denied immediately after its role loses authority, administrative subroutes derive explicit capabilities, and account-owned session identifiers cannot be revoked by another account.</p></section>
+                                        <section><h2>BH05 evidence</h2><p>Trusted proxy data is accepted only from a loopback peer. Multi-valued forwarded protocols fail closed, only the first forwarded client hop is considered, and invalid values fall back safely. Terminal WebSockets require a valid session, capability, CSRF token and an Origin whose scheme and host both match the effective request origin. Tests prove CSRF and origin rejection occurs before terminal work begins.</p></section>
+                                        <section><h2>BH06 evidence</h2><p>Archive extraction now preflights entry count, expanded size, expansion ratio, paths and file types before writing. Content is extracted into a private sibling staging directory and published by rename only after every entry succeeds. Existing targets are never merged or overwritten. Copy and compression refuse symlinks and special files, with regression cases for zip-slip, high-ratio archives and symlink chains.</p></section>
+                                        <section><h2>BH07 evidence</h2><p>Git operations use a fixed executable and argument arrays, insert <code>--</code> before user-controlled paths, disable repository hooks, external diffs, pagers and terminal prompting, cap combined output at 4 MiB and time out after ten seconds. Tests stage a dash-prefixed filename and prove a hostile pre-commit hook is not executed. Workspace search remains RE2-based and bounded to 500 results, 2 MiB files and 32 MiB undo state.</p></section>
+                                        <section><h2>BH08 evidence</h2><p>PTY input frames must be masked, final, free of reserved bits and no larger than 64 KiB. Terminal scrollback is capped at 256 KiB and durable sessions at 16 per account. Loader and shell-startup injection variables are removed from child environments. Disconnect terminates the shell process group, not only its leader, so descendants do not survive an ordinary socket close.</p></section>
+                                        <section><h2>BH09 evidence</h2><p>Prompts, provider JSON and restored session exports are bounded independently. Provider objects have depth, collection and string limits; credential-shaped fields and the effective provider key are redacted before streaming to the browser. Provider session identifiers use a strict 128-character alphabet before becoming command arguments, and exports have separate 8 MiB output and 256 KiB error limits. Model/provider events remain labelled provider data, not Warden authorization evidence.</p></section>
+                                        <section><h2>BH10 evidence</h2><p>The 256-bit master key is generated into a mode-0600 temporary file, synced and installed without overwrite. Key and ciphertext paths must be regular files, ciphertext is authenticated with a fresh AES-GCM nonce, and a corrupt or mismatched store cannot replace the last known-good in-memory snapshot. Configuration imports validate the entire candidate set before replacement. Instance, authentication and account deletion actions require the acting account's current password in addition to session capability and CSRF checks.</p></section>
+                                        <section><h2>BH11 evidence</h2><p>Typed administration resolves fixed executable names only from system binary directories, uses argument arrays and a minimal environment, enforces per-operation timeouts, and caps command input/output at 1 MiB. Website definitions reject non-loopback proxies, stale revisions and invalid identifiers. Generated Caddy values are quoted, disabled-site comments are line-sanitized, and fragments are atomically replaced. Tests cover executable-path rejection, input limits, stale saves and configuration-line injection.</p></section>
+                                        <section><h2>BH12 evidence</h2><p>Audit events use a versioned envelope with request correlation, action, target, outcome, actor identity and timestamp. Authorization failures create denied evidence before returning. Central redaction tests inject canaries into every credential-shaped field and prove they are absent from both SQLite and log output. Details, exports and retention are bounded. Local logs remain attributable evidence, not a tamper-proof ledger.</p></section>
+                                        <section><h2>BH13 evidence</h2><p>Tests build every historical migration prefix and upgrade it without losing a durable canary. Startup performs SQLite integrity checking, refuses corrupt and future schemas, and converges under four simultaneous open attempts. Password-encrypted backup tests recover configuration and provider secrets with the correct password and reject incorrect credentials. The recovery guide requires an offline whole-directory snapshot and makes downgrade refusal explicit.</p></section>
+                                        <section><h2>BH14 evidence</h2><p>Six retained native fuzz targets cover domain and loopback-upstream validation, agent session identifiers, audit redaction, Git status parsing and cron syntax. Seed corpora run in every ordinary test; selected targets also ran for two seconds during the checkpoint. A 32-worker stress case performs 3,200 concurrent redactions under the race detector. Exact HTTP, file, terminal, session, process, audit and database ceilings are published in the resource inventory. These campaign durations are regression evidence, not universal exhaustion claims.</p></section>
+                                        <section><h2>BH15 evidence</h2><p>A hostile-display smoke test exercises the shared HTML escaper with injected markup and event handlers, and rejects high-risk DOM execution primitives. The embedded dashboard now includes skip navigation, a consistent visible focus ring, polite status announcements and effective reduced-motion behavior. The existing responsive breakpoints were audited against Explorer, Editor, Terminal, Agent and administration layouts; authority remains enforced by the server rather than hidden controls.</p></section>
+                                        <section><h2>Checkpoint ledger</h2><table><thead><tr><th>Checkpoint</th><th>Scope</th><th>Status</th></tr></thead><tbody>
+                                          <tr><td>BH00</td><td>Baseline and threat model</td><td>Complete</td></tr>
+                                          <tr><td>BH01</td><td>HTTP and browser boundary</td><td>Complete</td></tr>
+                                          <tr><td>BH02</td><td>Passwords and sessions</td><td>Complete</td></tr>
+                                          <tr><td>BH03</td><td>TOTP and OAuth</td><td>Complete</td></tr>
+                                          <tr><td>BH04</td><td>Authorization isolation</td><td>Complete</td></tr>
+                                          <tr><td>BH05</td><td>CSRF, proxies and WebSockets</td><td>Complete</td></tr>
+                                          <tr><td>BH06</td><td>Filesystem and archives</td><td>Complete</td></tr>
+                                          <tr><td>BH07</td><td>Editor and Git</td><td>Complete</td></tr>
+                                          <tr><td>BH08</td><td>Terminals and subprocesses</td><td>Complete</td></tr>
+                                          <tr><td>BH09</td><td>Agent and providers</td><td>Complete</td></tr>
+                                          <tr><td>BH10</td><td>Secrets and lifecycle</td><td>Complete</td></tr>
+                                          <tr><td>BH11</td><td>System and websites</td><td>Complete</td></tr>
+                                          <tr><td>BH12</td><td>Audit and privacy</td><td>Complete</td></tr>
+                                          <tr><td>BH13</td><td>SQLite and recovery</td><td>Complete</td></tr>
+                                          <tr><td>BH14</td><td>Resources, races and fuzzing</td><td>Complete</td></tr>
+                                          <tr><td>BH15</td><td>Frontend and accessibility</td><td>Complete</td></tr>
+                                          <tr><td>BH16</td><td>Supply chain and releases</td><td>Planned</td></tr>
+                                          <tr><td>BH17</td><td>Deployment and final review</td><td>Planned</td></tr>
+                                        </tbody></table></section>
+                                        <section><h2>Retained authority limit</h2><div class="callout warning"><strong>Warden accounts are not OS sandboxes.</strong><p>Terminal and coding-agent subprocesses inherit the authority of the OS user running Warden.</p></div></section>
+                                      </article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>

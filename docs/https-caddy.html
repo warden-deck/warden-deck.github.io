@@ -9,6 +9,7 @@
   <title>https-caddy · Warden</title>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
   <nav class="site-nav" aria-label="Primary">
@@ -16,41 +17,41 @@
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
 </header>
-<main><div class="docs-layout shell"><aside class="docs-nav">
-                                       <p>Warden docs</p>
-                                       <a href="../docs.html">Overview</a>
-                                       <a href="./editor.html">Editor</a>
-                                       <a href="./source-control.html">Source control</a>
-                                       <a href="./terminal.html">Terminal</a>
-                                       <a href="./explorer.html">Explorer</a>
-                                       <a href="./monitor.html">Monitor</a>
-                                       <a href="./alerts.html">Alerts & rules</a>
-                                       <a href="./websites.html">Websites</a>
-                                       <a href="./system.html">System</a>
-                                       <a href="./security.html">Security</a>
-                                       <a href="./battle-tested.html">Battle Tested</a>
-                                       <a href="./authentication.html">Authentication</a>
-                                       <a href="./accounts.html">Accounts</a>
-                                       <a href="./access-control.html">Access control</a>
-                                       <a href="./audit.html">Audit & sessions</a>
-                                       <a href="./ai.html">AI providers</a>
-                                       <a href="./agent.html">Coding agent</a>
-                                       <a href="./persistence.html">SQLite & durability</a>
-                                       <a href="./configuration.html">Configuration</a>
-                                       <a href="./installing.html">Installing</a>
-                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
-                                       <a href="./https-nginx.html">HTTPS with nginx</a>
-                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Deployment</p><h1>Serve Warden over HTTPS with Caddy</h1><p class="docs-lede">Warden has substantial authority over the machine it runs on. For remote access, keep Warden on loopback and expose it through HTTPS rather than publishing its HTTP port directly.</p>
-      <section><h2>Recommended setup</h2><p>Point a DNS record such as <code>warden.example.com</code> at the server, allow ports 80 and 443 to reach Caddy, and run Warden on its default <code>127.0.0.1:8080</code> listener with trusted local proxy support enabled:</p><pre><code>WARDEN_TRUST_PROXY=true warden
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+                                                                       <p>Warden docs</p>
+                                                                       <a href="../docs.html">Overview</a>
+                                                                       <a href="./editor.html">Editor</a>
+                                                                       <a href="./source-control.html">Source control</a>
+                                                                       <a href="./terminal.html">Terminal</a>
+                                                                       <a href="./explorer.html">Explorer</a>
+                                                                       <a href="./monitor.html">Monitor</a>
+                                                                       <a href="./alerts.html">Alerts & rules</a>
+                                                                       <a href="./websites.html">Websites</a>
+                                                                       <a href="./system.html">System</a>
+                                                                       <a href="./security.html">Security</a>
+                                                                       <a href="./battle-tested.html">Battle Tested</a>
+                                                                       <a href="./authentication.html">Authentication</a>
+                                                                       <a href="./accounts.html">Accounts</a>
+                                                                       <a href="./access-control.html">Access control</a>
+                                                                       <a href="./audit.html">Audit & sessions</a>
+                                                                       <a href="./ai.html">AI providers</a>
+                                                                       <a href="./agent.html">Coding agent</a>
+                                                                       <a href="./persistence.html">SQLite & durability</a>
+                                                                       <a href="./configuration.html">Configuration</a>
+                                                                       <a href="./installing.html">Installing</a>
+                                                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                                                       <a href="./https-nginx.html">HTTPS with nginx</a>
+                                                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Deployment</p><h1>Serve Warden over HTTPS with Caddy</h1><p class="docs-lede">Warden has substantial authority over the machine it runs on. For remote access, keep Warden on loopback and expose it through HTTPS rather than publishing its HTTP port directly.</p>
+                                      <section><h2>Recommended setup</h2><p>Point a DNS record such as <code>warden.example.com</code> at the server, allow ports 80 and 443 to reach Caddy, and run Warden on its default <code>127.0.0.1:8080</code> listener with trusted local proxy support enabled:</p><pre><code>WARDEN_TRUST_PROXY=true warden
 
 caddy reverse-proxy   --from warden.example.com   --to 127.0.0.1:8080</code></pre><p>Caddy obtains and renews the public TLS certificate and supplies standard forwarded headers. Warden accepts those proxy headers only when proxy trust is enabled <em>and</em> the direct peer is loopback.</p></section>
-      <section><h2>Caddyfile</h2><pre><code>warden.example.com {
+                                      <section><h2>Caddyfile</h2><pre><code>warden.example.com {
     reverse_proxy 127.0.0.1:8080
 }</code></pre><p>For a persistent service, set <code>trust_proxy</code> to <code>true</code> in Warden's durable configuration (or bootstrap with <code>WARDEN_TRUST_PROXY=true</code>) and run both services under your normal service manager.</p></section>
-      <section><h2>Secure cookies and WebSockets</h2><p>When Caddy forwards an HTTPS request, Warden recognizes <code>X-Forwarded-Proto: https</code> from the trusted local proxy and marks newly issued session cookies Secure. Warden's terminal WebSocket uses the browser's current <code>wss:</code> scheme automatically when the page is HTTPS.</p></section>
-      <section><h2>Forwarded-header contract</h2><p>Send one unambiguous <code>X-Forwarded-Proto</code> value. Warden fails closed on comma-separated protocol chains and considers only the first <code>X-Forwarded-For</code> hop. Terminal WebSockets must present an Origin matching the effective scheme and host, so keep the public <code>Host</code> header intact.</p></section>
-      <section><h2>Google authentication</h2><p>If Google sign-in is enabled, configure its authorized redirect URI with the public HTTPS origin, for example <code>https://warden.example.com/api/oauth/google/callback</code>. The same value must be authorized in the Google OAuth client.</p></section>
-      <div class="callout warning"><strong>Do not expose port 8080 as a second public path.</strong><p>Keep the backend loopback-only so clients cannot bypass the TLS proxy and so forwarded headers can only arrive from the trusted local proxy.</p></div></article></div></main>
+                                      <section><h2>Secure cookies and WebSockets</h2><p>When Caddy forwards an HTTPS request, Warden recognizes <code>X-Forwarded-Proto: https</code> from the trusted local proxy and marks newly issued session cookies Secure. Warden's terminal WebSocket uses the browser's current <code>wss:</code> scheme automatically when the page is HTTPS.</p></section>
+                                      <section><h2>Forwarded-header contract</h2><p>Send one unambiguous <code>X-Forwarded-Proto</code> value. Warden fails closed on comma-separated protocol chains and considers only the first <code>X-Forwarded-For</code> hop. Terminal WebSockets must present an Origin matching the effective scheme and host, so keep the public <code>Host</code> header intact.</p></section>
+                                      <section><h2>Google authentication</h2><p>If Google sign-in is enabled, configure its authorized redirect URI with the public HTTPS origin, for example <code>https://warden.example.com/api/oauth/google/callback</code>. The same value must be authorized in the Google OAuth client.</p></section>
+                                      <div class="callout warning"><strong>Do not expose port 8080 as a second public path.</strong><p>Keep the backend loopback-only so clients cannot bypass the TLS proxy and so forwarded headers can only arrive from the trusted local proxy.</p></div></article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>

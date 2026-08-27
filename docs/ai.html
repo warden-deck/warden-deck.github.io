@@ -9,6 +9,7 @@
   <title>AI providers · Warden</title>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
   <nav class="site-nav" aria-label="Primary">
@@ -16,41 +17,41 @@
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
 </header>
-<main><div class="docs-layout shell"><aside class="docs-nav">
-                                       <p>Warden docs</p>
-                                       <a href="../docs.html">Overview</a>
-                                       <a href="./editor.html">Editor</a>
-                                       <a href="./source-control.html">Source control</a>
-                                       <a href="./terminal.html">Terminal</a>
-                                       <a href="./explorer.html">Explorer</a>
-                                       <a href="./monitor.html">Monitor</a>
-                                       <a href="./alerts.html">Alerts & rules</a>
-                                       <a href="./websites.html">Websites</a>
-                                       <a href="./system.html">System</a>
-                                       <a href="./security.html">Security</a>
-                                       <a href="./battle-tested.html">Battle Tested</a>
-                                       <a href="./authentication.html">Authentication</a>
-                                       <a href="./accounts.html">Accounts</a>
-                                       <a href="./access-control.html">Access control</a>
-                                       <a href="./audit.html">Audit & sessions</a>
-                                       <a href="./ai.html">AI providers</a>
-                                       <a href="./agent.html">Coding agent</a>
-                                       <a href="./persistence.html">SQLite & durability</a>
-                                       <a href="./configuration.html">Configuration</a>
-                                       <a href="./installing.html">Installing</a>
-                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
-                                       <a href="./https-nginx.html">HTTPS with nginx</a>
-                                     </aside><article class="docs-content">
-      <p class="eyebrow">Documentation · AI</p><h1>AI providers</h1><p class="docs-lede">Warden’s AI foundation keeps provider configuration separate from credentials, supports one shared instance credential for simple installs, and lets individual Warden accounts override it when separate billing or quotas are preferred.</p>
-      <section><h2>Credential resolution</h2><pre><code>Warden account starts an AI task
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+                                                                       <p>Warden docs</p>
+                                                                       <a href="../docs.html">Overview</a>
+                                                                       <a href="./editor.html">Editor</a>
+                                                                       <a href="./source-control.html">Source control</a>
+                                                                       <a href="./terminal.html">Terminal</a>
+                                                                       <a href="./explorer.html">Explorer</a>
+                                                                       <a href="./monitor.html">Monitor</a>
+                                                                       <a href="./alerts.html">Alerts & rules</a>
+                                                                       <a href="./websites.html">Websites</a>
+                                                                       <a href="./system.html">System</a>
+                                                                       <a href="./security.html">Security</a>
+                                                                       <a href="./battle-tested.html">Battle Tested</a>
+                                                                       <a href="./authentication.html">Authentication</a>
+                                                                       <a href="./accounts.html">Accounts</a>
+                                                                       <a href="./access-control.html">Access control</a>
+                                                                       <a href="./audit.html">Audit & sessions</a>
+                                                                       <a href="./ai.html">AI providers</a>
+                                                                       <a href="./agent.html">Coding agent</a>
+                                                                       <a href="./persistence.html">SQLite & durability</a>
+                                                                       <a href="./configuration.html">Configuration</a>
+                                                                       <a href="./installing.html">Installing</a>
+                                                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                                                       <a href="./https-nginx.html">HTTPS with nginx</a>
+                                                                     </aside><article class="docs-content">
+                                      <p class="eyebrow">Documentation · AI</p><h1>AI providers</h1><p class="docs-lede">Warden’s AI foundation keeps provider configuration separate from credentials, supports one shared instance credential for simple installs, and lets individual Warden accounts override it when separate billing or quotas are preferred.</p>
+                                      <section><h2>Credential resolution</h2><pre><code>Warden account starts an AI task
   → account-specific provider credential, when configured
   → otherwise shared instance credential
   → otherwise provider unavailable</code></pre><p>Credentials are stored in Warden’s encrypted <code>secrets.json</code>; plaintext keys are never returned to the browser after saving. Administrators can include them in a password-encrypted portable Warden backup when migrating or reinstalling an instance.</p></section>
-      <section><h2>Simple and individual setups</h2><p>A personal or small trusted installation can configure one provider key once and let every permitted Warden account use it. A user can later add a personal key for the same provider without changing the shared configuration.</p><p>Provider defaults such as base URL and default model live in <code>ai.json</code>. Remote HTTP endpoints are rejected; plain HTTP is allowed only for loopback services such as local Ollama.</p></section>
-      <section><h2>Usage attribution</h2><p>Usage accounting belongs to the <strong>Warden account that launched the task</strong>, not to the credential. That means shared API keys remain convenient without losing per-account request/token/cost reporting. Users see their own totals in <strong>System → AI providers</strong>; accounts with <code>ai.manage</code> also see usage broken down by Warden account so a shared credential can still be accounted for. Aggregates are stored in <code>ai-usage.json</code> ready for the coding agent to record real provider usage.</p></section>
-      <section><h2>Access control</h2><p><code>ai.use</code> allows an account to use configured providers. <code>ai.credentials</code> separately controls whether that account may store and use a personal credential override. Administrators can therefore require company/shared credentials while still allowing the coding agent. <code>ai.manage</code> controls shared provider configuration and shared credentials. If <code>ai.credentials</code> is removed, any previously stored personal key remains encrypted but is ignored until permission is restored.</p></section>
-      <section><h2>Credential and output boundaries</h2><p>Personal credentials take precedence only while the account retains <code>ai.credentials</code>; otherwise Warden ignores them and falls back to an available shared credential. Plaintext credentials are injected into a private subprocess environment and are never returned by settings or status APIs. Provider diagnostics and structured events are redacted and bounded, but operators should still treat provider output as hostile content rather than trusted system evidence.</p></section>
-      <section><h2>Warden Agent</h2><p>Warden Agent now uses this provider layer directly. OpenCode Zen, OpenRouter, OpenAI, Anthropic, Google Gemini and DeepSeek use Warden-managed account/shared credentials; Ollama can run locally without a key. Each Agent session chooses its provider independently and uses that provider’s configured default model. See <a href="./agent.html">Coding agent</a>.</p></section><section><h2>Built-in provider updates</h2><p>When Warden introduces a new built-in AI provider, existing installations merge that provider into their editable <code>ai.json</code> automatically at startup. Existing provider settings and custom providers are preserved.</p></section></article></div></main>
+                                      <section><h2>Simple and individual setups</h2><p>A personal or small trusted installation can configure one provider key once and let every permitted Warden account use it. A user can later add a personal key for the same provider without changing the shared configuration.</p><p>Provider defaults such as base URL and default model live in <code>ai.json</code>. Remote HTTP endpoints are rejected; plain HTTP is allowed only for loopback services such as local Ollama.</p></section>
+                                      <section><h2>Usage attribution</h2><p>Usage accounting belongs to the <strong>Warden account that launched the task</strong>, not to the credential. That means shared API keys remain convenient without losing per-account request/token/cost reporting. Users see their own totals in <strong>System → AI providers</strong>; accounts with <code>ai.manage</code> also see usage broken down by Warden account so a shared credential can still be accounted for. Aggregates are stored in <code>ai-usage.json</code> ready for the coding agent to record real provider usage.</p></section>
+                                      <section><h2>Access control</h2><p><code>ai.use</code> allows an account to use configured providers. <code>ai.credentials</code> separately controls whether that account may store and use a personal credential override. Administrators can therefore require company/shared credentials while still allowing the coding agent. <code>ai.manage</code> controls shared provider configuration and shared credentials. If <code>ai.credentials</code> is removed, any previously stored personal key remains encrypted but is ignored until permission is restored.</p></section>
+                                      <section><h2>Credential and output boundaries</h2><p>Personal credentials take precedence only while the account retains <code>ai.credentials</code>; otherwise Warden ignores them and falls back to an available shared credential. Plaintext credentials are injected into a private subprocess environment and are never returned by settings or status APIs. Provider diagnostics and structured events are redacted and bounded, but operators should still treat provider output as hostile content rather than trusted system evidence.</p></section>
+                                      <section><h2>Warden Agent</h2><p>Warden Agent now uses this provider layer directly. OpenCode Zen, OpenRouter, OpenAI, Anthropic, Google Gemini and DeepSeek use Warden-managed account/shared credentials; Ollama can run locally without a key. Each Agent session chooses its provider independently and uses that provider’s configured default model. See <a href="./agent.html">Coding agent</a>.</p></section><section><h2>Built-in provider updates</h2><p>When Warden introduces a new built-in AI provider, existing installations merge that provider into their editable <code>ai.json</code> automatically at startup. Existing provider settings and custom providers are preserved.</p></section></article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>

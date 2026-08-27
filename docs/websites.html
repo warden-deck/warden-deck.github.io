@@ -9,6 +9,7 @@
   <title>Website management · Warden</title>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
   <nav class="site-nav" aria-label="Primary">
@@ -16,31 +17,31 @@
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
 </header>
-<main><div class="docs-layout shell"><aside class="docs-nav">
-                                       <p>Warden docs</p>
-                                       <a href="../docs.html">Overview</a>
-                                       <a href="./editor.html">Editor</a>
-                                       <a href="./source-control.html">Source control</a>
-                                       <a href="./terminal.html">Terminal</a>
-                                       <a href="./explorer.html">Explorer</a>
-                                       <a href="./monitor.html">Monitor</a>
-                                       <a href="./alerts.html">Alerts & rules</a>
-                                       <a href="./websites.html">Websites</a>
-                                       <a href="./system.html">System</a>
-                                       <a href="./security.html">Security</a>
-                                       <a href="./battle-tested.html">Battle Tested</a>
-                                       <a href="./authentication.html">Authentication</a>
-                                       <a href="./accounts.html">Accounts</a>
-                                       <a href="./access-control.html">Access control</a>
-                                       <a href="./audit.html">Audit & sessions</a>
-                                       <a href="./ai.html">AI providers</a>
-                                       <a href="./agent.html">Coding agent</a>
-                                       <a href="./persistence.html">SQLite & durability</a>
-                                       <a href="./configuration.html">Configuration</a>
-                                       <a href="./installing.html">Installing</a>
-                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
-                                       <a href="./https-nginx.html">HTTPS with nginx</a>
-                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Websites</p><h1>Website management</h1><p class="docs-lede">Register static sites and loopback application proxies, retain immutable revisions and publish deployment fragments through explicit background jobs.</p><section><h2>Website definitions</h2><p>A managed website has a name, one or more unique domains and either a static document root inside Warden's filesystem boundary or an HTTP(S) loopback upstream. Restricting proxy upstreams to loopback preserves the same local reverse-proxy boundary used by Warden itself.</p></section><section><h2>Immutable revisions</h2><p>Every save creates a complete JSON revision of the website definition. Updates carry the revision they were edited from; a stale browser cannot silently overwrite a newer save and must reload first. Current state remains convenient to query while revision history preserves what configuration existed at each change.</p></section><section><h2>Publish jobs</h2><p>Publishing queues an operation rather than hiding filesystem work inside the form request. The worker re-resolves static roots, quotes Caddy directive values, atomically replaces the fragment under <code>sites/</code>, and records queued, running, completed or failed state with a result message.</p></section><section><h2>Deliberate deployment boundary</h2><div class="callout warning"><strong>Generating a fragment does not silently reconfigure Caddy.</strong><p>Include Warden's generated fragment directory from a Caddy configuration you control, then validate and reload Caddy through your normal deployment process. This keeps Warden from unexpectedly taking ownership of an existing reverse proxy.</p></div></section></article></div></main>
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+                                                                       <p>Warden docs</p>
+                                                                       <a href="../docs.html">Overview</a>
+                                                                       <a href="./editor.html">Editor</a>
+                                                                       <a href="./source-control.html">Source control</a>
+                                                                       <a href="./terminal.html">Terminal</a>
+                                                                       <a href="./explorer.html">Explorer</a>
+                                                                       <a href="./monitor.html">Monitor</a>
+                                                                       <a href="./alerts.html">Alerts & rules</a>
+                                                                       <a href="./websites.html">Websites</a>
+                                                                       <a href="./system.html">System</a>
+                                                                       <a href="./security.html">Security</a>
+                                                                       <a href="./battle-tested.html">Battle Tested</a>
+                                                                       <a href="./authentication.html">Authentication</a>
+                                                                       <a href="./accounts.html">Accounts</a>
+                                                                       <a href="./access-control.html">Access control</a>
+                                                                       <a href="./audit.html">Audit & sessions</a>
+                                                                       <a href="./ai.html">AI providers</a>
+                                                                       <a href="./agent.html">Coding agent</a>
+                                                                       <a href="./persistence.html">SQLite & durability</a>
+                                                                       <a href="./configuration.html">Configuration</a>
+                                                                       <a href="./installing.html">Installing</a>
+                                                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                                                       <a href="./https-nginx.html">HTTPS with nginx</a>
+                                                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Websites</p><h1>Website management</h1><p class="docs-lede">Register static sites and loopback application proxies, retain immutable revisions and publish deployment fragments through explicit background jobs.</p><section><h2>Website definitions</h2><p>A managed website has a name, one or more unique domains and either a static document root inside Warden's filesystem boundary or an HTTP(S) loopback upstream. Restricting proxy upstreams to loopback preserves the same local reverse-proxy boundary used by Warden itself.</p></section><section><h2>Immutable revisions</h2><p>Every save creates a complete JSON revision of the website definition. Updates carry the revision they were edited from; a stale browser cannot silently overwrite a newer save and must reload first. Current state remains convenient to query while revision history preserves what configuration existed at each change.</p></section><section><h2>Publish jobs</h2><p>Publishing queues an operation rather than hiding filesystem work inside the form request. The worker re-resolves static roots, quotes Caddy directive values, atomically replaces the fragment under <code>sites/</code>, and records queued, running, completed or failed state with a result message.</p></section><section><h2>Deliberate deployment boundary</h2><div class="callout warning"><strong>Generating a fragment does not silently reconfigure Caddy.</strong><p>Include Warden's generated fragment directory from a Caddy configuration you control, then validate and reload Caddy through your normal deployment process. This keeps Warden from unexpectedly taking ownership of an existing reverse proxy.</p></div></section></article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>

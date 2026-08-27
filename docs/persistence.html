@@ -9,6 +9,7 @@
   <title>SQLite and durability · Warden</title>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
   <nav class="site-nav" aria-label="Primary">
@@ -16,31 +17,31 @@
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
 </header>
-<main><div class="docs-layout shell"><aside class="docs-nav">
-                                       <p>Warden docs</p>
-                                       <a href="../docs.html">Overview</a>
-                                       <a href="./editor.html">Editor</a>
-                                       <a href="./source-control.html">Source control</a>
-                                       <a href="./terminal.html">Terminal</a>
-                                       <a href="./explorer.html">Explorer</a>
-                                       <a href="./monitor.html">Monitor</a>
-                                       <a href="./alerts.html">Alerts & rules</a>
-                                       <a href="./websites.html">Websites</a>
-                                       <a href="./system.html">System</a>
-                                       <a href="./security.html">Security</a>
-                                       <a href="./battle-tested.html">Battle Tested</a>
-                                       <a href="./authentication.html">Authentication</a>
-                                       <a href="./accounts.html">Accounts</a>
-                                       <a href="./access-control.html">Access control</a>
-                                       <a href="./audit.html">Audit & sessions</a>
-                                       <a href="./ai.html">AI providers</a>
-                                       <a href="./agent.html">Coding agent</a>
-                                       <a href="./persistence.html">SQLite & durability</a>
-                                       <a href="./configuration.html">Configuration</a>
-                                       <a href="./installing.html">Installing</a>
-                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
-                                       <a href="./https-nginx.html">HTTPS with nginx</a>
-                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Durability</p><h1>SQLite and durable state</h1><p class="docs-lede">Warden uses a protected SQLite database for conversations, terminal history, alerts, website revisions, operation jobs and normalized application state.</p><section><h2>Database foundation</h2><p><code>warden.db</code> lives in the private configuration directory with owner-only permissions. Numbered migrations run transactionally at startup; foreign keys, WAL journaling, full synchronous writes and a busy timeout are enabled. Startup runs <code>PRAGMA quick_check</code> after migration and refuses corrupt databases or schemas newer than the binary.</p></section><section><h2>Migration evidence</h2><p>The hardening suite constructs every historical schema prefix, inserts a durable canary where the first schema exists, upgrades it to the current schema and verifies both the complete migration ledger and preserved canary. Separate cases cover a clean database, four simultaneous startup attempts, corrupt bytes and a synthetic future version.</p></section><section><h2>Durable operational objects</h2><ul><li>account-owned agent conversations, transcript events and individual agent runs;</li><li>account-owned terminal tabs and bounded server-side scrollback;</li><li>alert rules, evaluation state, firing/resolved incidents, events and acknowledgements;</li><li>website definitions, domains, immutable revisions and asynchronous operation jobs;</li><li>normalized accounts, identities, roles/capabilities, browser sessions and AI usage totals;</li><li>structured audit events, including an idempotent import of the earlier audit log.</li></ul></section><section><h2>Restore drill</h2><ol><li>Stop Warden so no process owns the database or configuration projections.</li><li>Copy the entire configuration directory to protected storage, including <code>warden.db</code>, its WAL/SHM files if present, <code>master.key</code>, <code>secrets.json</code> and site data.</li><li>Restore into an empty mode-0700 directory owned by the Warden OS user.</li><li>Start the same or a newer Warden release. Never start an older release against a newer schema.</li><li>Sign in, confirm roles and identities, open one conversation and terminal record, inspect Audit, and decrypt one configured provider credential by making a controlled request.</li></ol><p>For cross-instance migration, the password-encrypted portable backup re-encrypts secrets under the destination master key. The test suite verifies correct-password recovery and wrong-password rejection.</p></section><section><h2>Rollback boundary</h2><div class="callout warning"><strong>Rollback restores data as well as the binary.</strong><p>If an upgrade must be reversed after a schema migration, stop Warden and restore the pre-upgrade configuration-directory snapshot before running the earlier binary. Warden deliberately refuses a future schema instead of guessing at downgrade compatibility.</p></div></section></article></div></main>
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+                                                                       <p>Warden docs</p>
+                                                                       <a href="../docs.html">Overview</a>
+                                                                       <a href="./editor.html">Editor</a>
+                                                                       <a href="./source-control.html">Source control</a>
+                                                                       <a href="./terminal.html">Terminal</a>
+                                                                       <a href="./explorer.html">Explorer</a>
+                                                                       <a href="./monitor.html">Monitor</a>
+                                                                       <a href="./alerts.html">Alerts & rules</a>
+                                                                       <a href="./websites.html">Websites</a>
+                                                                       <a href="./system.html">System</a>
+                                                                       <a href="./security.html">Security</a>
+                                                                       <a href="./battle-tested.html">Battle Tested</a>
+                                                                       <a href="./authentication.html">Authentication</a>
+                                                                       <a href="./accounts.html">Accounts</a>
+                                                                       <a href="./access-control.html">Access control</a>
+                                                                       <a href="./audit.html">Audit & sessions</a>
+                                                                       <a href="./ai.html">AI providers</a>
+                                                                       <a href="./agent.html">Coding agent</a>
+                                                                       <a href="./persistence.html">SQLite & durability</a>
+                                                                       <a href="./configuration.html">Configuration</a>
+                                                                       <a href="./installing.html">Installing</a>
+                                                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                                                       <a href="./https-nginx.html">HTTPS with nginx</a>
+                                                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Durability</p><h1>SQLite and durable state</h1><p class="docs-lede">Warden uses a protected SQLite database for conversations, terminal history, alerts, website revisions, operation jobs and normalized application state.</p><section><h2>Database foundation</h2><p><code>warden.db</code> lives in the private configuration directory with owner-only permissions. Numbered migrations run transactionally at startup; foreign keys, WAL journaling, full synchronous writes and a busy timeout are enabled. Startup runs <code>PRAGMA quick_check</code> after migration and refuses corrupt databases or schemas newer than the binary.</p></section><section><h2>Migration evidence</h2><p>The hardening suite constructs every historical schema prefix, inserts a durable canary where the first schema exists, upgrades it to the current schema and verifies both the complete migration ledger and preserved canary. Separate cases cover a clean database, four simultaneous startup attempts, corrupt bytes and a synthetic future version.</p></section><section><h2>Durable operational objects</h2><ul><li>account-owned agent conversations, transcript events and individual agent runs;</li><li>account-owned terminal tabs and bounded server-side scrollback;</li><li>alert rules, evaluation state, firing/resolved incidents, events and acknowledgements;</li><li>website definitions, domains, immutable revisions and asynchronous operation jobs;</li><li>normalized accounts, identities, roles/capabilities, browser sessions and AI usage totals;</li><li>structured audit events, including an idempotent import of the earlier audit log.</li></ul></section><section><h2>Restore drill</h2><ol><li>Stop Warden so no process owns the database or configuration projections.</li><li>Copy the entire configuration directory to protected storage, including <code>warden.db</code>, its WAL/SHM files if present, <code>master.key</code>, <code>secrets.json</code> and site data.</li><li>Restore into an empty mode-0700 directory owned by the Warden OS user.</li><li>Start the same or a newer Warden release. Never start an older release against a newer schema.</li><li>Sign in, confirm roles and identities, open one conversation and terminal record, inspect Audit, and decrypt one configured provider credential by making a controlled request.</li></ol><p>For cross-instance migration, the password-encrypted portable backup re-encrypts secrets under the destination master key. The test suite verifies correct-password recovery and wrong-password rejection.</p></section><section><h2>Rollback boundary</h2><div class="callout warning"><strong>Rollback restores data as well as the binary.</strong><p>If an upgrade must be reversed after a schema migration, stop Warden and restore the pre-upgrade configuration-directory snapshot before running the earlier binary. Warden deliberately refuses a future schema instead of guessing at downgrade compatibility.</p></div></section></article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>

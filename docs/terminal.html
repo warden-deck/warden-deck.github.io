@@ -9,6 +9,7 @@
   <title>Terminal · Warden</title>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
   <nav class="site-nav" aria-label="Primary">
@@ -16,31 +17,31 @@
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
 </header>
-<main><div class="docs-layout shell"><aside class="docs-nav">
-                                       <p>Warden docs</p>
-                                       <a href="../docs.html">Overview</a>
-                                       <a href="./editor.html">Editor</a>
-                                       <a href="./source-control.html">Source control</a>
-                                       <a href="./terminal.html">Terminal</a>
-                                       <a href="./explorer.html">Explorer</a>
-                                       <a href="./monitor.html">Monitor</a>
-                                       <a href="./alerts.html">Alerts & rules</a>
-                                       <a href="./websites.html">Websites</a>
-                                       <a href="./system.html">System</a>
-                                       <a href="./security.html">Security</a>
-                                       <a href="./battle-tested.html">Battle Tested</a>
-                                       <a href="./authentication.html">Authentication</a>
-                                       <a href="./accounts.html">Accounts</a>
-                                       <a href="./access-control.html">Access control</a>
-                                       <a href="./audit.html">Audit & sessions</a>
-                                       <a href="./ai.html">AI providers</a>
-                                       <a href="./agent.html">Coding agent</a>
-                                       <a href="./persistence.html">SQLite & durability</a>
-                                       <a href="./configuration.html">Configuration</a>
-                                       <a href="./installing.html">Installing</a>
-                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
-                                       <a href="./https-nginx.html">HTTPS with nginx</a>
-                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Terminal</p><h1>Terminal</h1><p class="docs-lede">Multiple real Linux PTYs over authenticated WebSockets, available in both Editor and the expanded Terminal view.</p><section><h2>Terminal tabs</h2><p>Create and switch between independent terminal sessions without stopping their shells. Each tab keeps its own PTY, current directory, connection state and bounded scrollback. The shared terminal surface moves between Editor and Terminal without creating a duplicate view.</p></section><section><h2>Durable metadata and scrollback</h2><p>Terminal definitions are account-owned SQLite records. Warden restores tabs after reload and stores up to 256 KiB of recent server-side output per terminal. Each account may retain up to 16 terminal sessions. Reconnecting starts a new PTY for that durable tab; closing it deletes its stored session and scrollback.</p></section><section><h2>Protocol and lifecycle limits</h2><p>Client frames must follow the browser WebSocket contract and are capped at 64 KiB. Loader and shell-startup injection variables are removed from the child environment. When the socket ends, Warden kills the PTY shell's process group and waits for it before returning.</p></section><section><h2>Authentication and origin checks</h2><p>Every WebSocket upgrade requires an authenticated browser session, per-session CSRF token, matching Origin/Host relationship and a valid account-owned terminal identity. ANSI/SGR colour is rendered without weakening the CSP.</p></section><section><h2>Authority</h2><div class="callout warning"><strong>The file root is not a shell sandbox.</strong><p><code>WARDEN_FILE_ROOT</code> confines Explorer, Editor and related file APIs. Every PTY executes with the Warden process user's operating-system authority. Use a dedicated OS account or container when terminal users must not inherit the host account's authority.</p></div></section></article></div></main>
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+                                                                       <p>Warden docs</p>
+                                                                       <a href="../docs.html">Overview</a>
+                                                                       <a href="./editor.html">Editor</a>
+                                                                       <a href="./source-control.html">Source control</a>
+                                                                       <a href="./terminal.html">Terminal</a>
+                                                                       <a href="./explorer.html">Explorer</a>
+                                                                       <a href="./monitor.html">Monitor</a>
+                                                                       <a href="./alerts.html">Alerts & rules</a>
+                                                                       <a href="./websites.html">Websites</a>
+                                                                       <a href="./system.html">System</a>
+                                                                       <a href="./security.html">Security</a>
+                                                                       <a href="./battle-tested.html">Battle Tested</a>
+                                                                       <a href="./authentication.html">Authentication</a>
+                                                                       <a href="./accounts.html">Accounts</a>
+                                                                       <a href="./access-control.html">Access control</a>
+                                                                       <a href="./audit.html">Audit & sessions</a>
+                                                                       <a href="./ai.html">AI providers</a>
+                                                                       <a href="./agent.html">Coding agent</a>
+                                                                       <a href="./persistence.html">SQLite & durability</a>
+                                                                       <a href="./configuration.html">Configuration</a>
+                                                                       <a href="./installing.html">Installing</a>
+                                                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                                                       <a href="./https-nginx.html">HTTPS with nginx</a>
+                                                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Terminal</p><h1>Terminal</h1><p class="docs-lede">Multiple real Linux PTYs over authenticated WebSockets, available in both Editor and the expanded Terminal view.</p><section><h2>Terminal tabs</h2><p>Create and switch between independent terminal sessions without stopping their shells. Each tab keeps its own PTY, current directory, connection state and bounded scrollback. The shared terminal surface moves between Editor and Terminal without creating a duplicate view.</p></section><section><h2>Durable metadata and scrollback</h2><p>Terminal definitions are account-owned SQLite records. Warden restores tabs after reload and stores up to 256 KiB of recent server-side output per terminal. Each account may retain up to 16 terminal sessions. Reconnecting starts a new PTY for that durable tab; closing it deletes its stored session and scrollback.</p></section><section><h2>Protocol and lifecycle limits</h2><p>Client frames must follow the browser WebSocket contract and are capped at 64 KiB. Loader and shell-startup injection variables are removed from the child environment. When the socket ends, Warden kills the PTY shell's process group and waits for it before returning.</p></section><section><h2>Authentication and origin checks</h2><p>Every WebSocket upgrade requires an authenticated browser session, per-session CSRF token, matching Origin/Host relationship and a valid account-owned terminal identity. ANSI/SGR colour is rendered without weakening the CSP.</p></section><section><h2>Authority</h2><div class="callout warning"><strong>The file root is not a shell sandbox.</strong><p><code>WARDEN_FILE_ROOT</code> confines Explorer, Editor and related file APIs. Every PTY executes with the Warden process user's operating-system authority. Use a dedicated OS account or container when terminal users must not inherit the host account's authority.</p></div></section></article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>

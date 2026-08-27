@@ -9,6 +9,7 @@
   <title>Source control · Warden</title>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
   <nav class="site-nav" aria-label="Primary">
@@ -16,37 +17,37 @@
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
 </header>
-<main><div class="docs-layout shell"><aside class="docs-nav">
-                                       <p>Warden docs</p>
-                                       <a href="../docs.html">Overview</a>
-                                       <a href="./editor.html">Editor</a>
-                                       <a href="./source-control.html">Source control</a>
-                                       <a href="./terminal.html">Terminal</a>
-                                       <a href="./explorer.html">Explorer</a>
-                                       <a href="./monitor.html">Monitor</a>
-                                       <a href="./alerts.html">Alerts & rules</a>
-                                       <a href="./websites.html">Websites</a>
-                                       <a href="./system.html">System</a>
-                                       <a href="./security.html">Security</a>
-                                       <a href="./battle-tested.html">Battle Tested</a>
-                                       <a href="./authentication.html">Authentication</a>
-                                       <a href="./accounts.html">Accounts</a>
-                                       <a href="./access-control.html">Access control</a>
-                                       <a href="./audit.html">Audit & sessions</a>
-                                       <a href="./ai.html">AI providers</a>
-                                       <a href="./agent.html">Coding agent</a>
-                                       <a href="./persistence.html">SQLite & durability</a>
-                                       <a href="./configuration.html">Configuration</a>
-                                       <a href="./installing.html">Installing</a>
-                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
-                                       <a href="./https-nginx.html">HTTPS with nginx</a>
-                                     </aside><article class="docs-content">
-      <p class="eyebrow">Documentation · Source control</p><h1>Source control</h1><p class="docs-lede">A deliberately small Git surface inside the Editor: enough to understand and commit a workspace without turning Warden into a general-purpose Git GUI.</p>
-      <section><h2>Current scope</h2><p>The Source tab activates when the opened workspace root is itself a Git repository. It reports the current branch and separates staged changes from working-tree changes.</p><ul><li>open a changed file directly in the editor;</li><li>stage or unstage individual paths;</li><li>stage or unstage all changes;</li><li>enter a commit message and create a commit;</li><li>refresh status at any time, with saves also refreshing source-control state.</li></ul></section>
-      <section><h2>Why it is bounded</h2><p>Warden does not expose a free-form Git command box through the source-control UI. The backend invokes Git with fixed operations and structured arguments. More advanced Git work remains available through the terminal.</p><div class="callout"><strong>Workspace root means repository root.</strong><p>The current implementation intentionally does not reach upward into a parent repository. Open the repository root as the Warden workspace to use Source Control.</p></div><p>Commits use the Git identity configured for the Warden process user. If <code>user.name</code> or <code>user.email</code> is missing, Git returns its normal configuration error rather than Warden inventing an identity.</p></section>
-      <section><h2>Repository trust boundary</h2><p>Repository hooks, external diff commands, pagers and interactive credential prompts are disabled for dashboard operations. User-controlled filenames are passed after Git's <code>--</code> option terminator. Commands have a ten-second deadline and a 4 MiB combined-output limit. The integrated terminal remains the deliberate escape hatch for operators who choose to run a repository's own tooling or hooks.</p></section>
-      <section><h2>Likely next steps</h2><p>Useful additions include per-file diff viewing, discard/revert with confirmation, commit history and branch switching. Those should earn their way in through use rather than importing the entire VS Code Source Control feature set at once.</p></section>
-      </article></div></main>
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+                                                                       <p>Warden docs</p>
+                                                                       <a href="../docs.html">Overview</a>
+                                                                       <a href="./editor.html">Editor</a>
+                                                                       <a href="./source-control.html">Source control</a>
+                                                                       <a href="./terminal.html">Terminal</a>
+                                                                       <a href="./explorer.html">Explorer</a>
+                                                                       <a href="./monitor.html">Monitor</a>
+                                                                       <a href="./alerts.html">Alerts & rules</a>
+                                                                       <a href="./websites.html">Websites</a>
+                                                                       <a href="./system.html">System</a>
+                                                                       <a href="./security.html">Security</a>
+                                                                       <a href="./battle-tested.html">Battle Tested</a>
+                                                                       <a href="./authentication.html">Authentication</a>
+                                                                       <a href="./accounts.html">Accounts</a>
+                                                                       <a href="./access-control.html">Access control</a>
+                                                                       <a href="./audit.html">Audit & sessions</a>
+                                                                       <a href="./ai.html">AI providers</a>
+                                                                       <a href="./agent.html">Coding agent</a>
+                                                                       <a href="./persistence.html">SQLite & durability</a>
+                                                                       <a href="./configuration.html">Configuration</a>
+                                                                       <a href="./installing.html">Installing</a>
+                                                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
+                                                                       <a href="./https-nginx.html">HTTPS with nginx</a>
+                                                                     </aside><article class="docs-content">
+                                      <p class="eyebrow">Documentation · Source control</p><h1>Source control</h1><p class="docs-lede">A deliberately small Git surface inside the Editor: enough to understand and commit a workspace without turning Warden into a general-purpose Git GUI.</p>
+                                      <section><h2>Current scope</h2><p>The Source tab activates when the opened workspace root is itself a Git repository. It reports the current branch and separates staged changes from working-tree changes.</p><ul><li>open a changed file directly in the editor;</li><li>stage or unstage individual paths;</li><li>stage or unstage all changes;</li><li>enter a commit message and create a commit;</li><li>refresh status at any time, with saves also refreshing source-control state.</li></ul></section>
+                                      <section><h2>Why it is bounded</h2><p>Warden does not expose a free-form Git command box through the source-control UI. The backend invokes Git with fixed operations and structured arguments. More advanced Git work remains available through the terminal.</p><div class="callout"><strong>Workspace root means repository root.</strong><p>The current implementation intentionally does not reach upward into a parent repository. Open the repository root as the Warden workspace to use Source Control.</p></div><p>Commits use the Git identity configured for the Warden process user. If <code>user.name</code> or <code>user.email</code> is missing, Git returns its normal configuration error rather than Warden inventing an identity.</p></section>
+                                      <section><h2>Repository trust boundary</h2><p>Repository hooks, external diff commands, pagers and interactive credential prompts are disabled for dashboard operations. User-controlled filenames are passed after Git's <code>--</code> option terminator. Commands have a ten-second deadline and a 4 MiB combined-output limit. The integrated terminal remains the deliberate escape hatch for operators who choose to run a repository's own tooling or hooks.</p></section>
+                                      <section><h2>Likely next steps</h2><p>Useful additions include per-file diff viewing, discard/revert with confirmation, commit history and branch switching. Those should earn their way in through use rather than importing the entire VS Code Source Control feature set at once.</p></section>
+                                      </article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>
