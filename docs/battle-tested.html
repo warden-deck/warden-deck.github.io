@@ -50,11 +50,12 @@
         <section><h2>BH00 evidence</h2><p>All 35 API routes register through one policy inventory and carry exactly one public, session, capability or WebSocket boundary. A regression rejects duplicate, unclassified and capability-less authoritative routes. The threat model records browser, proxy, filesystem, PTY, provider, SQLite and OS-user boundaries.</p></section>
         <section><h2>BH01 evidence</h2><p>All API request bodies now have a 64 MiB outer bound in addition to smaller handler-specific limits. Unsupported content encodings are rejected before handlers run, API responses are non-cacheable, error responses retain browser security headers, and request headers are capped at 1 MiB.</p></section>
         <section><h2>BH02 evidence</h2><p>Persistent browser sessions are capped at 32 per account, with expired and oldest sessions pruned during creation. Every authenticated request revalidates both the account and the exact login identity, so removed or disabled identities lose access immediately. Tests cover cap enforcement and identity-state revocation.</p></section>
+        <section><h2>BH03 evidence</h2><p>TOTP login challenges are IP-bound and consumed on their first verification attempt, preventing replay even after an invalid cross-IP attempt. Google OAuth state is single-use and capped at 128 pending flows. Warden accepts a Google profile only when it has an immutable subject and verified email. Tests cover replay, IP binding and state exhaustion.</p></section>
         <section><h2>Checkpoint ledger</h2><table><thead><tr><th>Checkpoint</th><th>Scope</th><th>Status</th></tr></thead><tbody>
           <tr><td>BH00</td><td>Baseline and threat model</td><td>Complete</td></tr>
           <tr><td>BH01</td><td>HTTP and browser boundary</td><td>Complete</td></tr>
           <tr><td>BH02</td><td>Passwords and sessions</td><td>Complete</td></tr>
-          <tr><td>BH03</td><td>TOTP and OAuth</td><td>Planned</td></tr>
+          <tr><td>BH03</td><td>TOTP and OAuth</td><td>Complete</td></tr>
           <tr><td>BH04</td><td>Authorization isolation</td><td>Planned</td></tr>
           <tr><td>BH05</td><td>CSRF, proxies and WebSockets</td><td>Planned</td></tr>
           <tr><td>BH06</td><td>Filesystem and archives</td><td>Planned</td></tr>
