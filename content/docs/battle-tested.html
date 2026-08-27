@@ -3,7 +3,7 @@
 <article class="docs-content">
   <p class="eyebrow">Documentation · Assurance</p><h1>Battle Tested</h1>
   <p class="docs-lede">Warden publishes what was attacked, what passed and what remains risky. This is an evidence ledger, not a security slogan.</p>
-  <section><h2>Current status</h2><div class="callout warning"><strong>BH00-BH12 complete; broader campaign in progress.</strong><p>Application boundaries through audit and privacy now have executable adversarial coverage. Warden remains a development build while recovery, resource, frontend, release and deployment checkpoints proceed.</p></div></section>
+  <section><h2>Current status</h2><div class="callout warning"><strong>BH00-BH13 complete; broader campaign in progress.</strong><p>Application boundaries through persistence and recovery now have executable adversarial coverage. Warden remains a development build while resource, frontend, release and deployment checkpoints proceed.</p></div></section>
   <section><h2>Evidence standard</h2><ul><li>a named threat and reproducible adversarial test;</li><li>a regression for every repaired finding;</li><li>full Go, race, vet, frontend and Nift gates;</li><li>exact commits, documentation and retained limitations.</li></ul></section>
   <section><h2>BH00 evidence</h2><p>All 35 API routes register through one policy inventory and carry exactly one public, session, capability or WebSocket boundary. A regression rejects duplicate, unclassified and capability-less authoritative routes. The threat model records browser, proxy, filesystem, PTY, provider, SQLite and OS-user boundaries.</p></section>
   <section><h2>BH01 evidence</h2><p>All API request bodies now have a 64 MiB outer bound in addition to smaller handler-specific limits. Unsupported content encodings are rejected before handlers run, API responses are non-cacheable, error responses retain browser security headers, and request headers are capped at 1 MiB.</p></section>
@@ -18,6 +18,7 @@
   <section><h2>BH10 evidence</h2><p>The 256-bit master key is generated into a mode-0600 temporary file, synced and installed without overwrite. Key and ciphertext paths must be regular files, ciphertext is authenticated with a fresh AES-GCM nonce, and a corrupt or mismatched store cannot replace the last known-good in-memory snapshot. Configuration imports validate the entire candidate set before replacement. Instance, authentication and account deletion actions require the acting account's current password in addition to session capability and CSRF checks.</p></section>
   <section><h2>BH11 evidence</h2><p>Typed administration resolves fixed executable names only from system binary directories, uses argument arrays and a minimal environment, enforces per-operation timeouts, and caps command input/output at 1 MiB. Website definitions reject non-loopback proxies, stale revisions and invalid identifiers. Generated Caddy values are quoted, disabled-site comments are line-sanitized, and fragments are atomically replaced. Tests cover executable-path rejection, input limits, stale saves and configuration-line injection.</p></section>
   <section><h2>BH12 evidence</h2><p>Audit events use a versioned envelope with request correlation, action, target, outcome, actor identity and timestamp. Authorization failures create denied evidence before returning. Central redaction tests inject canaries into every credential-shaped field and prove they are absent from both SQLite and log output. Details, exports and retention are bounded. Local logs remain attributable evidence, not a tamper-proof ledger.</p></section>
+  <section><h2>BH13 evidence</h2><p>Tests build every historical migration prefix and upgrade it without losing a durable canary. Startup performs SQLite integrity checking, refuses corrupt and future schemas, and converges under four simultaneous open attempts. Password-encrypted backup tests recover configuration and provider secrets with the correct password and reject incorrect credentials. The recovery guide requires an offline whole-directory snapshot and makes downgrade refusal explicit.</p></section>
   <section><h2>Checkpoint ledger</h2><table><thead><tr><th>Checkpoint</th><th>Scope</th><th>Status</th></tr></thead><tbody>
     <tr><td>BH00</td><td>Baseline and threat model</td><td>Complete</td></tr>
     <tr><td>BH01</td><td>HTTP and browser boundary</td><td>Complete</td></tr>
@@ -32,7 +33,7 @@
     <tr><td>BH10</td><td>Secrets and lifecycle</td><td>Complete</td></tr>
     <tr><td>BH11</td><td>System and websites</td><td>Complete</td></tr>
     <tr><td>BH12</td><td>Audit and privacy</td><td>Complete</td></tr>
-    <tr><td>BH13</td><td>SQLite and recovery</td><td>Planned</td></tr>
+    <tr><td>BH13</td><td>SQLite and recovery</td><td>Complete</td></tr>
     <tr><td>BH14</td><td>Resources, races and fuzzing</td><td>Planned</td></tr>
     <tr><td>BH15</td><td>Frontend and accessibility</td><td>Planned</td></tr>
     <tr><td>BH16</td><td>Supply chain and releases</td><td>Planned</td></tr>
