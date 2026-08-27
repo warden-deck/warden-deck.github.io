@@ -16,31 +16,40 @@
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
 </header>
-<main><div class="docs-layout shell"><aside class="docs-nav">
-                                       <p>Warden docs</p>
-                                       <a href="../docs.html">Overview</a>
-                                       <a href="./editor.html">Editor</a>
-                                       <a href="./source-control.html">Source control</a>
-                                       <a href="./terminal.html">Terminal</a>
-                                       <a href="./explorer.html">Explorer</a>
-                                       <a href="./monitor.html">Monitor</a>
-                                       <a href="./alerts.html">Alerts & rules</a>
-                                       <a href="./websites.html">Websites</a>
-                                       <a href="./system.html">System</a>
-                                       <a href="./security.html">Security</a>
-                                       <a href="./battle-tested.html">Battle Tested</a>
-                                       <a href="./authentication.html">Authentication</a>
-                                       <a href="./accounts.html">Accounts</a>
-                                       <a href="./access-control.html">Access control</a>
-                                       <a href="./audit.html">Audit & sessions</a>
-                                       <a href="./ai.html">AI providers</a>
-                                       <a href="./agent.html">Coding agent</a>
-                                       <a href="./persistence.html">SQLite & durability</a>
-                                       <a href="./configuration.html">Configuration</a>
-                                       <a href="./installing.html">Installing</a>
-                                       <a href="./https-caddy.html">HTTPS with Caddy</a>
-                                       <a href="./https-nginx.html">HTTPS with nginx</a>
-                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Security</p><h1>Security</h1><p class="docs-lede">Warden is intentionally powerful, so security is defined by server-side capabilities, filesystem validation and OS authority—not by hidden controls.</p><section><h2>Implemented controls</h2><ul><li>server-side multi-user accounts, identities, reusable roles and capability checks;</li><li>12-hour HttpOnly, SameSite=Strict browser sessions and per-session CSRF tokens;</li><li>seven-character minimum account passwords, rate limiting, optional TOTP and recovery codes;</li><li>AES-GCM encrypted recoverable secrets;</li><li>same-origin authentication and CSRF checks for terminal WebSockets;</li><li>trusted forwarded headers only when the direct reverse-proxy peer is loopback;</li><li>filesystem confinement with symlink resolution and atomic editor writes;</li><li>typed administrative actions and structured SQLite audit events;</li><li>account ownership for conversations, terminal metadata and acknowledgements.</li></ul></section><section><h2>Remote deployment</h2><p>Keep Warden on loopback behind Caddy or nginx, enable <code>WARDEN_TRUST_PROXY=true</code> only for a local proxy you control, and use HTTPS. Warden uses trusted <code>X-Forwarded-Proto</code> when deciding whether cookies must be Secure; a remote client cannot become trusted merely by sending forwarded headers.</p></section><section><h2>Authority</h2><div class="callout warning"><strong>Application accounts are not OS sandboxes.</strong><p>Terminal and Agent processes run with the operating-system authority of the user that launched Warden. Grant <code>terminal.open</code> and <code>agent.run</code> accordingly. For OS-level isolation, run separate Warden instances under separate system users or stronger containment.</p></div></section><section><h2>Operational data</h2><p><code>warden.db</code>, JSON compatibility files, encrypted secrets and <code>master.key</code> all live inside the private configuration directory. Preserve owner-only permissions and back up the directory as a unit.</p></section></article></div></main>
+<main><div class="docs-layout shell">
+      <aside class="docs-nav">
+        <p>Warden docs</p>
+        <a href="../docs.html">Overview</a>
+        <a href="./editor.html">Editor</a>
+        <a href="./source-control.html">Source control</a>
+        <a href="./terminal.html">Terminal</a>
+        <a href="./explorer.html">Explorer</a>
+        <a href="./monitor.html">Monitor</a>
+        <a href="./alerts.html">Alerts & rules</a>
+        <a href="./websites.html">Websites</a>
+        <a href="./system.html">System</a>
+        <a href="./security.html">Security</a>
+        <a href="./battle-tested.html">Battle Tested</a>
+        <a href="./authentication.html">Authentication</a>
+        <a href="./accounts.html">Accounts</a>
+        <a href="./access-control.html">Access control</a>
+        <a href="./audit.html">Audit & sessions</a>
+        <a href="./ai.html">AI providers</a>
+        <a href="./agent.html">Coding agent</a>
+        <a href="./persistence.html">SQLite & durability</a>
+        <a href="./configuration.html">Configuration</a>
+        <a href="./installing.html">Installing</a>
+        <a href="./https-caddy.html">HTTPS with Caddy</a>
+        <a href="./https-nginx.html">HTTPS with nginx</a>
+      </aside>
+      <article class="docs-content">
+        <p class="eyebrow">Documentation · Security</p><h1>Security</h1>
+        <p class="docs-lede">Warden is intentionally powerful, so security is defined by server-side capabilities, filesystem validation and OS authority.</p>
+        <section><h2>Threat model</h2><p>Remote clients, forwarded headers, filenames, repositories, terminal streams, model/provider output and imported configuration are hostile inputs. Every API route is centrally classified as public, authenticated session, named capability or terminal WebSocket.</p></section>
+        <section><h2>Implemented controls</h2><ul><li>server-side accounts, identities, roles and capabilities;</li><li>HttpOnly SameSite sessions and CSRF tokens;</li><li>password throttling, optional TOTP and recovery codes;</li><li>encrypted secret storage;</li><li>origin and CSRF checks for terminal WebSockets;</li><li>loopback-only proxy trust;</li><li>filesystem confinement and atomic writes;</li><li>typed administration and audit events.</li></ul></section>
+        <section><h2>Authority</h2><div class="callout warning"><strong>Application accounts are not OS sandboxes.</strong><p>Terminal and Agent processes run with the authority of the user that launched Warden.</p></div></section>
+        <section><h2>Deployment</h2><p>Keep Warden on loopback behind Caddy or nginx and use HTTPS. Follow exact campaign evidence on <a class="inline-link" href="./battle-tested.html">Battle Tested</a>.</p></section>
+      </article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
   <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>
