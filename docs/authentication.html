@@ -16,8 +16,11 @@
     <a href="../docs.html">Docs</a>
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle aria-label="Open navigation"><span></span><span></span></button>
 </header>
-<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+<div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden><a href="../docs.html">Docs</a><a href="https://github.com/warden-deck/warden">GitHub</a></div>
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><button class="docs-menu-toggle" type="button" aria-expanded="false" aria-controls="docs-mobile-nav" data-docs-menu-toggle aria-label="Open documentation menu"><span></span><span></span></button>
+                                                                     <aside class="docs-nav">
                                                                        <p>Warden docs</p>
                                                                        <div class="docs-nav-group" data-docs-group>
                                                                          <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Start</span><i aria-hidden="true"></i></button>
@@ -43,7 +46,8 @@
                                                                          <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Security & deployment</span><i aria-hidden="true"></i></button>
                                                                          <div class="docs-nav-links" hidden><a href="./security.html">Security</a><a href="./battle-tested.html">Battle Tested</a><a href="./https-caddy.html">HTTPS with Caddy</a><a href="./https-nginx.html">HTTPS with nginx</a></div>
                                                                        </div>
-                                                                     </aside><article class="docs-content">
+                                                                     </aside>
+                                                                     <div class="docs-mobile-nav" id="docs-mobile-nav" data-docs-mobile-nav hidden></div><article class="docs-content">
                                       <p class="eyebrow">Documentation · Authentication</p><h1>Authentication</h1><p class="docs-lede">Each Warden account can have more than one login identity. Password identities can optionally protect themselves with self-hosted TOTP two-factor authentication.</p>
                                       <section><h2>Password login</h2><p>Passwords are stored as salted PBKDF2-SHA256 hashes. A login session records both the Warden account and the identity used to enter it, which preserves useful audit information when several people intentionally share one account.</p><p>A user signed in through a password identity can change that identity's password from <strong>System → Security</strong>. The current browser session is retained, while other sessions created through that login identity are revoked. Administrators can reset an individual password identity from <strong>System → Access</strong>; an administrative reset revokes every session using that identity.</p></section>
                                       <section><h2>Self-hosted TOTP</h2><p>Open <strong>System → Security</strong> while signed in with a password identity. Warden generates the TOTP secret locally and shows both the secret and its <code>otpauth://</code> URI so it can be added to any standard authenticator. A valid six-digit code must be supplied before TOTP is enabled.</p><p>The TOTP secret is encrypted at rest by Warden. It is not stored in <code>users.json</code>. Recovery codes are generated with high entropy, shown once, and only one-way hashes are stored. Using a recovery code consumes it.</p></section>

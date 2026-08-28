@@ -16,8 +16,11 @@
     <a href="../docs.html">Docs</a>
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle aria-label="Open navigation"><span></span><span></span></button>
 </header>
-<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+<div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden><a href="../docs.html">Docs</a><a href="https://github.com/warden-deck/warden">GitHub</a></div>
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><button class="docs-menu-toggle" type="button" aria-expanded="false" aria-controls="docs-mobile-nav" data-docs-menu-toggle aria-label="Open documentation menu"><span></span><span></span></button>
+                                                                     <aside class="docs-nav">
                                                                        <p>Warden docs</p>
                                                                        <div class="docs-nav-group" data-docs-group>
                                                                          <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Start</span><i aria-hidden="true"></i></button>
@@ -43,7 +46,8 @@
                                                                          <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Security & deployment</span><i aria-hidden="true"></i></button>
                                                                          <div class="docs-nav-links" hidden><a href="./security.html">Security</a><a href="./battle-tested.html">Battle Tested</a><a href="./https-caddy.html">HTTPS with Caddy</a><a href="./https-nginx.html">HTTPS with nginx</a></div>
                                                                        </div>
-                                                                     </aside><article class="docs-content">
+                                                                     </aside>
+                                                                     <div class="docs-mobile-nav" id="docs-mobile-nav" data-docs-mobile-nav hidden></div><article class="docs-content">
                                       <p class="eyebrow">Documentation · Source control</p><h1>Source control</h1><p class="docs-lede">A deliberately small Git surface inside the Editor: enough to understand and commit a workspace without turning Warden into a general-purpose Git GUI.</p>
                                       <section><h2>Current scope</h2><p>The Source tab activates when the opened workspace root is itself a Git repository. It reports the current branch and separates staged changes from working-tree changes.</p><ul><li>open a changed file directly in the editor;</li><li>stage or unstage individual paths;</li><li>stage or unstage all changes;</li><li>enter a commit message and create a commit;</li><li>refresh status at any time, with saves also refreshing source-control state.</li></ul></section>
                                       <section><h2>Why it is bounded</h2><p>Warden does not expose a free-form Git command box through the source-control UI. The backend invokes Git with fixed operations and structured arguments. More advanced Git work remains available through the terminal.</p><div class="callout"><strong>Workspace root means repository root.</strong><p>The current implementation intentionally does not reach upward into a parent repository. Open the repository root as the Warden workspace to use Source Control.</p></div><p>Commits use the Git identity configured for the Warden process user. If <code>user.name</code> or <code>user.email</code> is missing, Git returns its normal configuration error rather than Warden inventing an identity.</p></section>

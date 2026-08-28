@@ -16,8 +16,11 @@
     <a href="../docs.html">Docs</a>
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle aria-label="Open navigation"><span></span><span></span></button>
 </header>
-<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+<div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden><a href="../docs.html">Docs</a><a href="https://github.com/warden-deck/warden">GitHub</a></div>
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><button class="docs-menu-toggle" type="button" aria-expanded="false" aria-controls="docs-mobile-nav" data-docs-menu-toggle aria-label="Open documentation menu"><span></span><span></span></button>
+                                                                     <aside class="docs-nav">
                                                                        <p>Warden docs</p>
                                                                        <div class="docs-nav-group" data-docs-group>
                                                                          <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Start</span><i aria-hidden="true"></i></button>
@@ -43,7 +46,8 @@
                                                                          <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Security & deployment</span><i aria-hidden="true"></i></button>
                                                                          <div class="docs-nav-links" hidden><a href="./security.html">Security</a><a href="./battle-tested.html">Battle Tested</a><a href="./https-caddy.html">HTTPS with Caddy</a><a href="./https-nginx.html">HTTPS with nginx</a></div>
                                                                        </div>
-                                                                     </aside><article class="docs-content">
+                                                                     </aside>
+                                                                     <div class="docs-mobile-nav" id="docs-mobile-nav" data-docs-mobile-nav hidden></div><article class="docs-content">
                                       <p class="eyebrow">Documentation · System</p><h1>System</h1><p class="docs-lede">Structured administration for common Linux services, using typed state and bounded actions instead of arbitrary shell fragments.</p>
                                       <section><h2>Available surfaces</h2><div class="admin-grid"><article><h3>Certificates</h3><p>Inspect common TLS certificate paths and managed certificate state.</p></article><article><h3>Cron</h3><p>Read system/user schedules and perform validated user-crontab changes.</p></article><article><h3>Docker</h3><p>Read the local Docker socket and perform bounded container actions.</p></article><article><h3>Fail2ban</h3><p>Inspect jails and use validated jail/IP actions.</p></article><article><h3>Firewall</h3><p>Read UFW state and apply constrained allow/delete operations.</p></article><article><h3>Services</h3><p>List systemd units at system or user scope and run validated actions.</p></article><article><h3>SSH</h3><p>Surface selected sshd settings and supported configuration operations.</p></article><article><h3>Users</h3><p>Inspect account information and run validated supported user actions.</p></article></div></section>
                                       <section><h2>Availability and privilege</h2><p>Individual surfaces depend on host software and the permissions of the Warden process. A missing Docker socket or unavailable system tool should make that capability unavailable rather than silently widening behavior through a generic command runner.</p></section>

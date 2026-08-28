@@ -16,8 +16,11 @@
     <a href="../docs.html">Docs</a>
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle aria-label="Open navigation"><span></span><span></span></button>
 </header>
-<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+<div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden><a href="../docs.html">Docs</a><a href="https://github.com/warden-deck/warden">GitHub</a></div>
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><button class="docs-menu-toggle" type="button" aria-expanded="false" aria-controls="docs-mobile-nav" data-docs-menu-toggle aria-label="Open documentation menu"><span></span><span></span></button>
+                                                                     <aside class="docs-nav">
                                                                        <p>Warden docs</p>
                                                                        <div class="docs-nav-group" data-docs-group>
                                                                          <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Start</span><i aria-hidden="true"></i></button>
@@ -43,7 +46,8 @@
                                                                          <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Security & deployment</span><i aria-hidden="true"></i></button>
                                                                          <div class="docs-nav-links" hidden><a href="./security.html">Security</a><a href="./battle-tested.html">Battle Tested</a><a href="./https-caddy.html">HTTPS with Caddy</a><a href="./https-nginx.html">HTTPS with nginx</a></div>
                                                                        </div>
-                                                                     </aside><article class="docs-content">
+                                                                     </aside>
+                                                                     <div class="docs-mobile-nav" id="docs-mobile-nav" data-docs-mobile-nav hidden></div><article class="docs-content">
                                       <p class="eyebrow">Documentation · Accounts</p><h1>Accounts and identities</h1><p class="docs-lede">Warden is moving to one multi-user account model for both personal and shared installations. A personal instance is simply an instance with one account.</p>
                                       <section><h2>Browser-first setup</h2><p>When no Warden accounts exist, the browser opens a first-run setup screen instead of asking you to create a password hash in a shell. The first account receives the <strong>Administrator</strong> role; administrator is a role, not a permanently special account.</p><p>If an older installation still supplies <code>WARDEN_PASSWORD_HASH</code>, Warden requires that existing password before migrating to the first named account. Remote first-run setup also requires the one-time setup token printed by the Warden process, preventing the first Internet visitor from claiming an unconfigured instance.</p><p>Deleting a Warden account is a privileged destructive action: the acting administrator must re-enter their own Warden password. Warden also refuses to delete or demote the last enabled password-backed Administrator, preserving a local recovery path.</p></section>
                                       <section><h2>Account versus identity</h2><p>A Warden account is the unit that owns preferences, roles, environment overrides and AI credentials and usage accounting. Login identities are attached to that account. This allows one account to have multiple usernames, email addresses or Google identities, including intentionally shared Warden accounts without forcing everyone to share one external identity.</p></section>

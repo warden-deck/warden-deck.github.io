@@ -16,8 +16,11 @@
     <a href="../docs.html">Docs</a>
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle aria-label="Open navigation"><span></span><span></span></button>
 </header>
-<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+<div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden><a href="../docs.html">Docs</a><a href="https://github.com/warden-deck/warden">GitHub</a></div>
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><button class="docs-menu-toggle" type="button" aria-expanded="false" aria-controls="docs-mobile-nav" data-docs-menu-toggle aria-label="Open documentation menu"><span></span><span></span></button>
+                                                                     <aside class="docs-nav">
                                                                        <p>Warden docs</p>
                                                                        <div class="docs-nav-group" data-docs-group>
                                                                          <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Start</span><i aria-hidden="true"></i></button>
@@ -43,7 +46,8 @@
                                                                          <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Security & deployment</span><i aria-hidden="true"></i></button>
                                                                          <div class="docs-nav-links" hidden><a href="./security.html">Security</a><a href="./battle-tested.html">Battle Tested</a><a href="./https-caddy.html">HTTPS with Caddy</a><a href="./https-nginx.html">HTTPS with nginx</a></div>
                                                                        </div>
-                                                                     </aside><article class="docs-content">
+                                                                     </aside>
+                                                                     <div class="docs-mobile-nav" id="docs-mobile-nav" data-docs-mobile-nav hidden></div><article class="docs-content">
                                       <p class="eyebrow">Documentation · Monitor</p><h1>Monitor</h1><p class="docs-lede">Fast answers to the common “what is this machine doing?” questions without turning the overview into a wall of command output.</p>
                                       <section><h2>Current metrics</h2><p>The overview reads Linux system information through the Go backend and renders CPU usage/load, memory, root-filesystem storage, hostname, uptime, process count and Warden runtime information. Browser-side history gives short-term context for activity.</p></section>
                                       <section><h2>What it is not</h2><p>Monitor is an operational convenience surface, not a replacement for Prometheus, Grafana or a long-term metrics pipeline. Warden deliberately keeps this page compact and useful for immediate server work.</p></section>

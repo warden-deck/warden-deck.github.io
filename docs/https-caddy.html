@@ -16,8 +16,11 @@
     <a href="../docs.html">Docs</a>
     <a href="https://github.com/warden-deck/warden">GitHub</a>
   </nav>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle aria-label="Open navigation"><span></span><span></span></button>
 </header>
-<main id="main-content" tabindex="-1"><div class="docs-layout shell"><aside class="docs-nav">
+<div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden><a href="../docs.html">Docs</a><a href="https://github.com/warden-deck/warden">GitHub</a></div>
+<main id="main-content" tabindex="-1"><div class="docs-layout shell"><button class="docs-menu-toggle" type="button" aria-expanded="false" aria-controls="docs-mobile-nav" data-docs-menu-toggle aria-label="Open documentation menu"><span></span><span></span></button>
+                                                                     <aside class="docs-nav">
                                                                        <p>Warden docs</p>
                                                                        <div class="docs-nav-group" data-docs-group>
                                                                          <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Start</span><i aria-hidden="true"></i></button>
@@ -43,7 +46,8 @@
                                                                          <button class="docs-nav-toggle" type="button" aria-expanded="false"><span>Security & deployment</span><i aria-hidden="true"></i></button>
                                                                          <div class="docs-nav-links" hidden><a href="./security.html">Security</a><a href="./battle-tested.html">Battle Tested</a><a href="./https-caddy.html">HTTPS with Caddy</a><a href="./https-nginx.html">HTTPS with nginx</a></div>
                                                                        </div>
-                                                                     </aside><article class="docs-content"><p class="eyebrow">Documentation · Deployment</p><h1>Serve Warden over HTTPS with Caddy</h1><p class="docs-lede">Warden has substantial authority over the machine it runs on. For remote access, keep Warden on loopback and expose it through HTTPS rather than publishing its HTTP port directly.</p>
+                                                                     </aside>
+                                                                     <div class="docs-mobile-nav" id="docs-mobile-nav" data-docs-mobile-nav hidden></div><article class="docs-content"><p class="eyebrow">Documentation · Deployment</p><h1>Serve Warden over HTTPS with Caddy</h1><p class="docs-lede">Warden has substantial authority over the machine it runs on. For remote access, keep Warden on loopback and expose it through HTTPS rather than publishing its HTTP port directly.</p>
                                       <section><h2>Recommended setup</h2><p>Point a DNS record such as <code>warden.example.com</code> at the server, allow ports 80 and 443 to reach Caddy, and run Warden on its default <code>127.0.0.1:8080</code> listener with trusted local proxy support enabled:</p><pre><code>WARDEN_TRUST_PROXY=true warden
 
 caddy reverse-proxy   --from warden.example.com   --to 127.0.0.1:8080</code></pre><p>Caddy obtains and renews the public TLS certificate and supplies standard forwarded headers. Warden accepts those proxy headers only when proxy trust is enabled <em>and</em> the direct peer is loopback.</p></section>
