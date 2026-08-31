@@ -19,6 +19,7 @@
   ],
   "reqs": [
     "public/assets/css/style.css",
+    "public/assets/images/warden-editor.png",
     "public/assets/js/script.js",
     "public/docs.html",
     "public/docs/access-control.html",
@@ -38,6 +39,7 @@
     "public/docs/monitor.html",
     "public/docs/persistence.html",
     "public/docs/security.html",
+    "public/docs/service.html",
     "public/docs/source-control.html",
     "public/docs/system.html",
     "public/docs/terminal.html",

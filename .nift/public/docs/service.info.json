@@ -1,9 +1,9 @@
 {
-  "name": "docs/https-nginx",
-  "title": "https-nginx",
+  "name": "docs/service",
+  "title": "Systemd service",
   "template": "templates/template.html",
-  "content": "content/docs/https-nginx.html",
-  "output": "public/docs/https-nginx.html",
+  "content": "content/docs/service.html",
+  "output": "public/docs/service.html",
   "minify": false,
   "minify-version": 0,
   "pagination": false,
@@ -12,7 +12,7 @@
   "pagination-separator": "",
   "pagination-pages": 0,
   "dependencies": [
-    "content/docs/https-nginx.html",
+    "content/docs/service.html",
     "templates/docs-nav.html",
     "templates/head.html",
     "templates/template.html"

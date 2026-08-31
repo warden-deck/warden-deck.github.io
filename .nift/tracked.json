@@ -132,6 +132,11 @@
       "name": "docs/websites",
       "title": "Website management",
       "template": "templates/template.html"
+    },
+    {
+      "name": "docs/service",
+      "title": "Systemd service",
+      "template": "templates/template.html"
     }
   ]
 }

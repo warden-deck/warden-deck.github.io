@@ -18,6 +18,7 @@
   ],
   "reqs": [
     "public/assets/css/style.css",
+    "public/assets/images/warden-terminal.png",
     "public/assets/js/script.js",
     "public/docs.html",
     "public/docs/security.html",
