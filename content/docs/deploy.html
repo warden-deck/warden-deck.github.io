@@ -1,0 +1,79 @@
+<div class="docs-layout shell">@input("templates/docs-nav.html")<article class="docs-content"><p class="eyebrow">Documentation · Deployment</p><h1>Deploy Warden on a company subdomain</h1><p class="docs-lede">This guide deploys one Warden instance for a team behind a company hostname such as <code>warden.company.com</code>. It is self-contained: you do not need to install Cortex, Trestle or Watchpost to use it. Warden, Cortex, Trestle and Watchpost can be deployed together on sibling subdomains, and every project also works independently. Sharing a parent domain creates no implicit trust or shared authentication — credentials, cookies, databases, service accounts and authorization remain separate per application. Use one distinct hostname per application (for example <code>warden.company.com</code> rather than <code>company.com/warden</code>), because independent subdomains simplify proxying, cookie scope, origins, upgrades and operational isolation.</p>
+<div class="callout"><strong>Ecosystem map.</strong><span><code>warden.company.com</code> is the browser IDE and agent, <code>cortex.company.com</code> the coding agent, <code>trestle.company.com</code> the backend platform, and <code>watchpost.company.com</code> the monitoring control plane. Deploy only the projects you need.</span></div>
+<section><h2>Recommended topology</h2><pre><code>Internet or company network
+        |
+        v
+DNS hostname (warden.company.com)
+        |
+        v
+Caddy or nginx with HTTPS (TLS termination, hostname routing)
+        |
+        v
+127.0.0.1:8080
+        |
+        v
+systemd user service (warden.service)</code></pre><p>Warden listens on loopback by default. The reverse proxy owns the externally reachable hostname and TLS termination; Warden itself stays bound to <code>127.0.0.1</code> unless your documented security model requires otherwise. Warden is a per-OS-user service — its processes run with the authority of the OS user that owns the unit, so treat that account as privileged.</p></section>
+<section><h2>1. Choose the hostname</h2><p>Pick a stable internal or public name. <code>warden.company.com</code> is used throughout this guide.</p></section>
+<section><h2>2. Create the DNS record</h2><p>With a fixed public IP, create an A record (and an AAAA record with the IPv6 address where applicable):</p><pre><code>Type: A
+Name: warden
+Value: 203.0.113.10</code></pre><p>When the hostname should point at another hostname instead, use a CNAME:</p><pre><code>Type: CNAME
+Name: warden
+Value: apps.company.com</code></pre><p>DNS only maps the hostname. It does not select the application port, provide HTTPS, or secure the service — Caddy or nginx performs hostname routing and TLS termination. Private deployments do not require public DNS: split-horizon DNS, internal DNS and VPN-only hostnames are valid and often preferable.</p></section>
+<section><h2>3. Install the Warden binary</h2><p>Place the binary at a stable absolute path:</p><pre><code>mkdir -p /opt/warden
+install -m 0755 warden /opt/warden/warden</code></pre><p>or use the official installer, which installs to <code>~/.local/bin</code> by default: <code>curl -fsSL https://warden-deck.github.io/install.sh | sh</code>. A <code>Downloads</code> directory is disposable and will break the unit; the recorded unit contains an absolute executable path, so moving or deleting it breaks the service until you reinstall.</p></section>
+<section><h2>4. Install the service unit</h2><p>Keep the listener on loopback and point the service at durable configuration, file root and configuration directory:</p><pre><code>warden service install \
+  --config /var/lib/warden \
+  --listen 127.0.0.1:8080 \
+  --root /srv/warden-files</code></pre><p>The file-management root (<code>--root</code>) bounds Explorer and Editor paths; the PTY terminal deliberately runs with the Warden process user's OS authority and is not sandboxed by that root.</p></section>
+<section><h2>5. Keep the listener on loopback</h2><p>The <code>--listen 127.0.0.1:8080</code> value keeps Warden private; only the reverse proxy on the same host reaches it. Multi-user authentication is mandatory: every account signs in with a password (optionally TOTP and Google sign-in) and gets server-side sessions; browsers store only an HttpOnly session cookie.</p></section>
+<section><h2>6. Trusted proxy and secure cookies</h2><p>Behind the proxy, create the durable configuration with proxy trust and secure cookies enabled. Warden reads these from its durable configuration directory, so set them at config creation via environment or edit them in the stored configuration file:</p><pre><code>WARDEN_LISTEN=127.0.0.1:8080 WARDEN_TRUST_PROXY=true WARDEN_SECURE_COOKIES=true \
+  warden --config /var/lib/warden</code></pre><p><code>WARDEN_TRUST_PROXY=true</code> makes Warden honour forwarding headers only from the direct loopback proxy peer. <code>WARDEN_SECURE_COOKIES=true</code> marks the session cookie Secure, which is required when serving over HTTPS. The proxy must replace (not blindly forward) browser-supplied <code>X-Forwarded-*</code> headers.</p></section>
+<section><h2>7. Configure Caddy</h2><pre><code>warden.company.com {
+    reverse_proxy 127.0.0.1:8080
+}</code></pre><p>Caddy forwards WebSocket upgrades (needed for interactive PTY terminals) and streaming responses natively through <code>reverse_proxy</code>. Add forwarded headers explicitly when the backend must see the peer and scheme:</p><pre><code>warden.company.com {
+    reverse_proxy 127.0.0.1:8080 {
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}</code></pre><p>Caddy's automatic HTTPS requires working public DNS and a reachable ACME challenge path. For private networks, use an internal certificate or your company PKI instead of presenting a development certificate as publicly trusted.</p></section>
+<section><h2>8. Configure nginx as an alternative</h2><pre><code>server {
+    listen 80;
+    server_name warden.company.com;
+    return 301 https://warden.company.com$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name warden.company.com;
+
+    ssl_certificate     /etc/letsencrypt/live/warden.company.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/warden.company.com/privkey.pem;
+
+    client_max_body_size 200m;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_buffering off;
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
+    }
+}</code></pre><p>Obtain the certificate with Certbot or your company PKI before starting nginx. <code>Upgrade</code>/<code>Connection</code> headers carry interactive terminal WebSockets; <code>proxy_buffering off</code> keeps streaming terminal and agent output flowing; the long timeouts accommodate long-lived sessions. The body limit covers uploads and archives; raise it only as far as your legitimate upload sizes require.</p></section>
+<section><h2>9. Obtain and verify HTTPS</h2><pre><code>curl -I https://warden.company.com</code></pre><p>Confirm the certificate is issued for the hostname and the TLS handshake completes.</p></section>
+<section><h2>10. Verify the public health endpoint</h2><pre><code>curl -s https://warden.company.com/api/setup/status</code></pre><p>Expect a JSON status object from the public, read-only health endpoint. <code>warden service status</code> reports the same endpoint and exits nonzero when the service is failed or missing.</p></section>
+<section><h2>11. Open the application and complete first-run setup</h2><p>Open <code>https://warden.company.com</code>, complete setup, and create the first administrator account. Multi-user authentication means every additional account signs in separately; the host GitHub CLI is not shared by default and must be granted per account in <strong>System → Access → Accounts</strong>.</p></section>
+<section><h2>12. Configure lingering for unattended boot</h2><pre><code>loginctl show-user "$USER" -p Linger
+loginctl enable-linger "$USER"</code></pre><p>Warden never enables lingering automatically. Enable it only when the service must run after logout or start before login; it changes what the host runs without a login session.</p></section>
+<section><h2>13. Verify service status and logs</h2><pre><code>warden service status
+warden service logs</code></pre><p><code>status</code> resolves the effective listen address from Warden's durable configuration and reports enabled/running state, PID, version, listen address and a live health check.</p></section>
+<section><h2>14. Troubleshoot</h2><ul><li><strong>DNS</strong> — the hostname resolves but nothing loads: confirm the A/AAAA or CNAME points at the proxy host, and use internal DNS for VPN-only names.</li>
+<li><strong>TLS</strong> — certificate warnings: automatic HTTPS needs public DNS and reachable ACME paths; internal deployments need a company PKI/internal CA.</li>
+<li><strong>Proxy</strong> — reverse proxy connects but requests loop or cookies fail: the proxy must replace forwarding headers and <code>WARDEN_TRUST_PROXY</code> must be enabled only when the proxy is the direct loopback peer.</li>
+<li><strong>Cookies</strong> — login works on <code>127.0.0.1</code> but not through the proxy: <code>WARDEN_SECURE_COOKIES=true</code> is required over HTTPS and the cookie domain must match <code>warden.company.com</code>.</li>
+<li><strong>Terminals</strong> — terminal sessions disconnect immediately: the proxy must forward WebSocket <code>Upgrade</code>/<code>Connection</code> headers and must not buffer the stream.</li>
+</ul></section></article></div>

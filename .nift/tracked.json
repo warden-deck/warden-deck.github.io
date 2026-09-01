@@ -113,6 +113,11 @@
       "template": "templates/template.html"
     },
     {
+      "name": "docs/deploy",
+      "title": "Subdomain deployment",
+      "template": "templates/template.html"
+    },
+    {
       "name": "install",
       "title": "install",
       "content-ext": ".sh",
