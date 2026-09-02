@@ -1,4 +1,4 @@
-<div class="docs-layout shell">@input("templates/docs-nav.html")<article class="docs-content"><p class="eyebrow">Documentation · Deployment</p><h1>Serve Warden over HTTPS with nginx</h1><p class="docs-lede">If nginx already fronts services on your server, keep Warden on <code>127.0.0.1:8080</code>, terminate TLS at nginx and forward the original request scheme and client address.</p>
+<div class="docs-layout shell">@input("templates/docs-nav.html")<article class="docs-content"><p class="eyebrow">Documentation · Deployment</p><h1>Serve Warden over HTTPS with nginx</h1><p class="docs-lede">If nginx already fronts services on your server, keep Warden on <code>127.0.0.1:7332</code>, terminate TLS at nginx and forward the original request scheme and client address.</p>
 <section><h2>Reverse proxy</h2><pre><code>server {
     listen 443 ssl;
     listen [::]:443 ssl;
@@ -8,7 +8,7 @@
     ssl_certificate_key /etc/letsencrypt/live/warden.example.com/privkey.pem;
 
     location / {
-        proxy_pass http://127.0.0.1:8080;
+        proxy_pass http://127.0.0.1:7332;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-Proto $scheme;

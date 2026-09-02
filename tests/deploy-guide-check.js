@@ -12,7 +12,7 @@ const generated = fs.existsSync(path.join(__dirname, '..', 'public', 'docs', 'de
 const hostname = process.argv[2] || 'warden.company.com';
 const health = process.argv[3] || '/api/setup/status';
 
-for (const needle of [hostname, 'Caddy', 'nginx', health, '127.0.0.1:8080', 'independently', 'WARDEN_TRUST_PROXY', 'WARDEN_SECURE_COOKIES']) {
+for (const needle of [hostname, 'Caddy', 'nginx', health, '127.0.0.1:7332', 'independently', 'WARDEN_TRUST_PROXY', 'WARDEN_SECURE_COOKIES']) {
   if (!source.includes(needle)) throw new Error(`deployment guide is missing ${needle}`);
 }
 if (!source.includes('Type: A') || !source.includes('Type: CNAME')) {
