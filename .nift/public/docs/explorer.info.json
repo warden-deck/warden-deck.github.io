@@ -18,9 +18,7 @@
     "templates/template.html"
   ],
   "reqs": [
-    "public/assets/css/style.css",
     "public/assets/images/warden-explorer.png",
-    "public/assets/js/script.js",
     "public/docs.html",
     "public/docs/access-control.html",
     "public/docs/accounts.html",
