@@ -95,7 +95,11 @@ document.querySelectorAll('pre code').forEach(code => {
     .replace(/(#[^\n]*|(?<![:/])\/\/[^\n]*)|("[^"\n]*"|'[^'\n]*'|`[^`\n]*`)|(\b\d+(?:\.\d+)?\b)|(\b(?:const|let|var|function|async|await|return|if|else|for|true|false|null|package|import|func|curl|GET|POST|PATCH|DELETE)\b)/g,
       (match, comment, string, number) => `<span class="${comment ? 'tok-comment' : string ? 'tok-string' : number ? 'tok-number' : 'tok-keyword'}">${match}</span>`);
   const pre = code.closest('pre');
-  if (!pre || pre.querySelector('.copy-code')) return;
+  if (!pre || pre.parentElement?.classList.contains('code-copy-shell')) return;
+  const shell = document.createElement('div');
+  shell.className = 'code-copy-shell';
+  pre.before(shell);
+  shell.append(pre);
   const button = document.createElement('button');
   button.type = 'button'; button.className = 'copy-code';
   button.setAttribute('aria-label', 'Copy code'); button.textContent = '⧉';
@@ -103,5 +107,5 @@ document.querySelectorAll('pre code').forEach(code => {
     await navigator.clipboard.writeText(raw); button.textContent = '✓';
     setTimeout(() => { button.textContent = '⧉'; }, 1400);
   });
-  pre.append(button);
+  shell.append(button);
 });
