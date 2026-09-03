@@ -1,8 +1,8 @@
 const fs = require('fs');
 
 const nav = fs.readFileSync('templates/docs-nav.html', 'utf8');
-const script = fs.readFileSync('content/assets/js/script.js', 'utf8');
-const style = fs.readFileSync('content/assets/css/style.css', 'utf8');
+const script = fs.readFileSync('public/assets/js/script.js', 'utf8');
+const style = fs.readFileSync('public/assets/css/style.css', 'utf8');
 const groups = [...nav.matchAll(/class="docs-nav-group"/g)];
 const routes = [...nav.matchAll(/@pathto\('([^']+)'\)/g)].map(match => match[1]);
 const expected = fs.readdirSync('content/docs')
