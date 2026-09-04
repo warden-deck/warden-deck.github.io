@@ -15,11 +15,11 @@
   <a class="brand" href="../"><span>W</span><strong>Warden</strong></a>
   <nav class="site-nav" aria-label="Primary">
     <a href="../docs.html">Docs</a>
-    <a href="https://github.com/warden-deck/warden">GitHub</a>
+    <a href="https://github.com/warden-cv/warden">GitHub</a>
   </nav>
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle aria-label="Open navigation"><span></span><span></span></button>
 </header>
-<div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden><a href="../docs.html">Docs</a><a href="https://github.com/warden-deck/warden">GitHub</a></div>
+<div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden><a href="../docs.html">Docs</a><a href="https://github.com/warden-cv/warden">GitHub</a></div>
 <main id="main-content" tabindex="-1"><div class="docs-layout shell"><button class="docs-menu-toggle" type="button" aria-expanded="false" aria-controls="docs-mobile-nav" data-docs-menu-toggle aria-label="Open documentation menu"><span></span><span></span></button>
                                                                      <aside class="docs-nav">
                                                                        <p>Warden docs</p>
@@ -57,7 +57,7 @@
 }</code></pre></section><section><h2>Redaction and retention</h2><p>Central redaction removes password, token, secret, credential, authorization, recovery-code, TOTP, API-key and session values before file or SQLite output. Details are capped at 4 KiB, query strings are excluded from targets and the database retains at most 100,000 events. Earlier <code>audit.log</code> records import idempotently as legacy evidence.</p><div class="callout warning"><strong>Attributable does not mean tamper-proof.</strong><p>An attacker or operator with write access to Warden's configuration directory can alter SQLite and file logs. Forward events to a separately administered system when immutable retention is required.</p></div></section><section><h2>Browser sessions</h2><p>Security lists the current account's sessions with client address, user agent and expiry. Users can revoke individual sessions; administrators can revoke every session belonging to an account. Session state is normalized into SQLite while the compatibility projection preserves existing backup behavior.</p></section><section><h2>Deletion boundary</h2><div class="callout"><strong>Workspace files are external data.</strong><p>Removing an identity or Warden account revokes its application access and state. It does not delete repositories, home directories or workspace files.</p></div></section></article></div></main>
 <footer class="site-footer">
   <div><strong>Warden</strong><span>Linux server control without pretending the terminal is harmless.</span></div>
-  <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-deck/warden">Source</a></div>
+  <div><a href="../docs.html">Documentation</a><a href="https://github.com/warden-cv/warden">Source</a></div>
 </footer>
 <script src="/assets/js/script.js"></script>
 </body>
