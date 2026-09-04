@@ -20,7 +20,7 @@ Value: 203.0.113.10</code></pre><p>When the hostname should point at another hos
 Name: warden
 Value: apps.company.com</code></pre><p>DNS only maps the hostname. It does not select the application port, provide HTTPS, or secure the service — Caddy or nginx performs hostname routing and TLS termination. Private deployments do not require public DNS: split-horizon DNS, internal DNS and VPN-only hostnames are valid and often preferable.</p></section>
 <section><h2>3. Install the Warden binary</h2><p>Place the binary at a stable absolute path:</p><pre><code>mkdir -p /opt/warden
-install -m 0755 warden /opt/warden/warden</code></pre><p>or use the official installer, which installs to <code>~/.local/bin</code> by default: <code>curl -fsSL https://warden-deck.github.io/install.sh | sh</code>. A <code>Downloads</code> directory is disposable and will break the unit; the recorded unit contains an absolute executable path, so moving or deleting it breaks the service until you reinstall.</p></section>
+install -m 0755 warden /opt/warden/warden</code></pre><p>or use the official installer, which installs to <code>~/.local/bin</code> by default: <code>curl -fsSL https://warden.cv/install.sh | sh</code>. A <code>Downloads</code> directory is disposable and will break the unit; the recorded unit contains an absolute executable path, so moving or deleting it breaks the service until you reinstall.</p></section>
 <section><h2>4. Install the service unit</h2><p>Keep the listener on loopback and point the service at durable configuration, file root and configuration directory:</p><pre><code>warden service install \
   --config /var/lib/warden \
   --host 127.0.0.1 --port 7332 \

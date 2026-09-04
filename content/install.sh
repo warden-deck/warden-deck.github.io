@@ -1,6 +1,6 @@
 #!/bin/sh
 set -eu
-repo="warden-app/warden"
+repo="warden-cv/warden"
 mode="user"
 usage(){ cat <<'EOF'
 Warden installer
@@ -23,7 +23,7 @@ while [ "$#" -gt 0 ]; do
 done
 if [ "$mode" = system ]; then
   [ -z "${WARDEN_INSTALL_DIR:-}" ] || { echo "Warden installer: WARDEN_INSTALL_DIR cannot be combined with --system" >&2; exit 2; }
-  [ "$(id -u)" -eq 0 ] || { echo "Warden installer: --system installs to /usr/local/bin and requires root." >&2; echo "Run: curl -fsSL https://warden-deck.github.io/install.sh | sudo sh -s -- --system" >&2; exit 1; }
+  [ "$(id -u)" -eq 0 ] || { echo "Warden installer: --system installs to /usr/local/bin and requires root." >&2; echo "Run: curl -fsSL https://warden.cv/install.sh | sudo sh -s -- --system" >&2; exit 1; }
   install_dir="/usr/local/bin"
 else
   if [ "$(id -u)" -eq 0 ] && [ -z "${WARDEN_INSTALL_DIR:-}" ]; then

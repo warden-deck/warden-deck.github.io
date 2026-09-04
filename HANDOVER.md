@@ -287,3 +287,11 @@ Then read feature documentation only when the task requires it, for example:
 - integration with other application stacks.
 
 Prefer documented Nift behaviour and the existing project structure over guessing based on another website generator or framework.
+# Release-script deployment
+
+The editable public scripts are `content/install.sh`, `content/download.sh`,
+and `content/update.sh`. Build with Nift and commit the generated `public/`
+repository before the website source/gitlink commit. Before a Warden release,
+deploy and fetch all three from `https://warden.cv`, compare them byte-for-byte
+with generated output, run shell syntax and fixture tests, then authorize the
+application tag. Changed scripts must never lag behind the release they install.

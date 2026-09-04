@@ -19,6 +19,7 @@
   "reqs": [
     "public/assets/images/warden-terminal.png",
     "public/docs.html",
+    "public/docs/installing.html",
     "public/docs/security.html",
     "public/index.html"
   ]

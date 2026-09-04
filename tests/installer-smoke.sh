@@ -3,6 +3,10 @@ set -eu
 
 root="$(mktemp -d)"
 trap 'rm -rf "$root"' EXIT INT TERM
+sh -n content/install.sh content/download.sh content/update.sh
+cmp content/install.sh public/install.sh
+cmp content/download.sh public/download.sh
+cmp content/update.sh public/update.sh
 mkdir -p "$root/release" "$root/install"
 printf '#!/bin/sh\necho warden-test\n' > "$root/warden"
 chmod 0755 "$root/warden"
